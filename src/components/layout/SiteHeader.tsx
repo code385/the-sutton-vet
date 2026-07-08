@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import type { ResolvedSiteSettings } from "@/sanity/lib/siteSettings";
 
 type SiteHeaderProps = {
@@ -11,6 +12,15 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ siteSettings }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <header className={`site-header${menuOpen ? " is-menu-open" : ""}`}>
@@ -19,7 +29,9 @@ export function SiteHeader({ siteSettings }: SiteHeaderProps) {
           <div className="topbar-legal-links" aria-label="Policy links">
             {siteSettings.legalLinks.map((item, index) => (
               <span key={item.label} className="topbar-legal-item">
-                <Link href={item.href}>{item.label}</Link>
+                <Link href={item.href} onClick={closeMenu}>
+                  {item.label}
+                </Link>
                 {index < siteSettings.legalLinks.length - 1 ? <span className="topbar-separator">|</span> : null}
               </span>
             ))}
@@ -44,13 +56,13 @@ export function SiteHeader({ siteSettings }: SiteHeaderProps) {
 
       <div className="shell navbar">
         <div className="navbar-main-row">
-          <Link className="brand" href="/" aria-label="The Sutton Vet home">
+          <Link className="brand" href="/" aria-label="The Sutton Vet home" onClick={closeMenu}>
             <Image src="/sutton-vet-logo.svg" alt="The Sutton Vet logo" width={248} height={160} priority />
           </Link>
 
           <nav className="nav nav-desktop" aria-label="Primary">
             {siteSettings.mainNav.map((item) => (
-              <Link key={item.label} href={item.href}>
+              <Link key={item.label} href={item.href} onClick={closeMenu}>
                 {item.label}
               </Link>
             ))}
@@ -93,7 +105,7 @@ export function SiteHeader({ siteSettings }: SiteHeaderProps) {
         <div id="mobile-site-menu" className={`mobile-menu${menuOpen ? " is-open" : ""}`}>
           <nav className="mobile-menu-nav" aria-label="Mobile primary">
             {siteSettings.mainNav.map((item) => (
-              <Link key={item.label} href={item.href}>
+              <Link key={item.label} href={item.href} onClick={closeMenu}>
                 {item.label}
               </Link>
             ))}

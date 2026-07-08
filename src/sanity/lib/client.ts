@@ -6,7 +6,7 @@ export const sanityClient = createClient({
   projectId: sanityProjectId,
   dataset: sanityDataset,
   apiVersion: sanityApiVersion,
-  useCdn: true,
+  useCdn: false,
 });
 
 export async function safeSanityFetch<T>(query: string, params?: Record<string, unknown>, fallback?: T) {

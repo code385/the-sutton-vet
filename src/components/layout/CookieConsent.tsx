@@ -65,7 +65,10 @@ export function CookieConsent() {
   return (
     <>
       <button className="cookie-fab" type="button" onClick={() => setIsOpen(true)} aria-label="Manage cookie settings">
-        Cookie Settings
+        <span className="cookie-fab-icon" aria-hidden="true">
+          ⚙
+        </span>
+        <span className="sr-only">Manage cookie settings</span>
       </button>
 
       {isOpen ? <div className="cookie-backdrop" aria-hidden="true" onClick={() => (canDismiss ? setIsOpen(false) : undefined)} /> : null}
