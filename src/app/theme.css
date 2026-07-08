@@ -1,0 +1,23 @@
+:root {
+  --font-body: var(--font-brand), sans-serif;
+  --font-heading: var(--font-brand), sans-serif;
+
+  --bg: #faf8f4;
+  --bg-soft: #f2ede7;
+  --surface: rgba(255, 255, 255, 0.96);
+  --surface-strong: #ffffff;
+  --navy: #24344a;
+  --plum: #55206f;
+  --indigo: #1d255c;
+  --teal: #356b86;
+  --gold: #c8953f;
+  --ink: #17212d;
+  --muted: #5b6272;
+  --plum-soft: rgba(85, 32, 111, 0.08);
+  --navy-soft: rgba(36, 52, 74, 0.06);
+  --gold-soft: rgba(200, 149, 63, 0.14);
+  --line: rgba(36, 52, 74, 0.1);
+  --shadow: 0 18px 42px rgba(22, 33, 45, 0.06);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+}
