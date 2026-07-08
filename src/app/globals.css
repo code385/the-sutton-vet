@@ -5254,6 +5254,20 @@ img {
     padding: 1.45rem;
   }
 
+  .advice-minimal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .advice-simple-card {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .advice-simple-thumb {
+    min-height: 220px;
+    aspect-ratio: 16 / 10;
+  }
+
   .why-choose-copy {
     max-width: 42rem;
   }
@@ -5739,6 +5753,31 @@ img {
 
   .home-hero-content {
     padding-top: 4.6rem;
+  }
+
+  .advice-section-home {
+    padding: 1rem;
+    border-radius: 24px;
+  }
+
+  .advice-section-actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .advice-simple-card {
+    padding: 0.9rem;
+    border-radius: 22px;
+  }
+
+  .advice-simple-thumb {
+    min-height: 180px;
+    border-radius: 16px;
+  }
+
+  .advice-simple-card h3 {
+    max-width: none;
+    font-size: 1.18rem;
   }
 
   .home-hero-links {
