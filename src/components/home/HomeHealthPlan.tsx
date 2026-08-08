@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { Reveal } from "@/components/shared/Reveal";
 import { healthPlanTiers, planBenefits } from "@/lib/site";
+import { visualAssets } from "@/lib/visualAssets";
 
-const healthPlanVideoUrl = "/hero-demo.mp4";
-const healthPlanPosterUrl = "/hero-poster.jpg";
+const healthPlanPosterUrl = visualAssets.goldenDogCare;
 
 type HomeHealthPlanProps = {
   eyebrow?: string;
@@ -51,7 +51,7 @@ export function HomeHealthPlan({
             <p className="eyebrow">{eyebrow || "Health Plan"}</p>
             <h2>{title || "Spread the cost of preventative care without making the page feel sales-led."}</h2>
             <p>{description || "The homepage teaser should explain practical value first: annual boosters, parasite treatment, routine health checks, and clearer monthly budgeting for cat and dog owners."}</p>
-            <p>{secondaryText || "This section builds trust before asking for a deeper commitment, while still giving visitors a direct route into the dedicated Health Plan page and later the hardcoded Lupa sign-up workflow."}</p>
+            <p>{secondaryText || "This section builds trust before asking for a deeper commitment, while still giving visitors a direct route into the dedicated Health Plan page and later the approved PMS / online portal workflow."}</p>
 
             <div className="home-health-plan-links">
               <Link className="button button-primary" href={primaryCtaHref || "/health-plan"}>
@@ -92,18 +92,7 @@ export function HomeHealthPlan({
               </div>
             </div>
 
-            <div className="health-plan-video-frame">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                poster={posterUrl || healthPlanPosterUrl}
-                aria-hidden="true"
-              >
-                <source src={videoUrl || healthPlanVideoUrl} type="video/mp4" />
-              </video>
+            <div className="health-plan-video-frame health-plan-image-frame" style={{ backgroundImage: `url(${posterUrl || healthPlanPosterUrl})` }} aria-hidden="true">
               <div className="health-plan-video-overlay" />
             </div>
           </Link>
@@ -112,3 +101,4 @@ export function HomeHealthPlan({
     </section>
   );
 }
+

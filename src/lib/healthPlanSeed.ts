@@ -1,3 +1,6 @@
+import { siteConfig } from "./site";
+import { visualAssets } from "./visualAssets";
+
 export type HealthPlanTierSeed = {
   species: string;
   iconKey: string;
@@ -27,29 +30,29 @@ export type HealthPlanFaqSeed = {
 
 export const healthPlanPageSeed = {
   eyebrow: "The Sutton Vet Health Plan",
-  title: "Preventative care that feels easier to plan for.",
+  title: "Preventative care with a gentler monthly rhythm.",
   description:
-    "A clear monthly plan for dogs and cats, built around routine preventative care rather than reactive surprises.",
+    "A clear monthly plan for dogs and cats, designed to make routine preventative care easier to budget for and easier to stay on top of.",
   heroImageUrl:
-    "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1800&q=80",
+    visualAssets.gingerSpanielHero,
   heroPrimaryCtaLabel: "Book Online",
-  heroPrimaryCtaHref: "/contact#book",
+  heroPrimaryCtaHref: siteConfig.ctas.healthPlan,
   heroSecondaryCtaLabel: "Ask a Question",
-  heroSecondaryCtaHref: "/faq",
+  heroSecondaryCtaHref: "/contact",
 
   introEyebrow: "Proactive Routine Care",
-  introTitle: "Keeping your pet healthier for longer",
+  introTitle: "Helping routine care feel more manageable",
   introDescription:
-    "The Sutton Vet Health Plan helps spread the cost of routine preventative care across the year. It is designed for owners who want clearer monthly budgeting for boosters, parasite protection, routine health checks, and practical ongoing support.",
+    "The Sutton Vet Health Plan helps spread the cost of routine preventative care across the year. It is designed for owners who want clearer monthly budgeting for boosters, parasite protection, routine health checks, and practical ongoing support. This launch version can be refined further as final plan details are confirmed.",
 
   featureEyebrow: "For Dogs & Cats",
-  featureTitle: "Looking after your pet's health and wellbeing",
+  featureTitle: "Built for everyday health, not just unexpected moments",
   featureDescription:
-    "Book online, then manage preventative care with a calmer, more predictable route into boosters, parasite treatment, and routine checks.",
+    "The aim is simple: keep core preventative care visible, consistent, and easier to manage through the year, with fewer missed treatments and fewer avoidable surprises.",
   featureImageUrl:
-    "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?auto=format&fit=crop&w=1800&q=80",
+    visualAssets.gingerCatHero,
   featureCtaLabel: "Book Online",
-  featureCtaHref: "/contact#book",
+  featureCtaHref: siteConfig.ctas.healthPlan,
 
   planTiers: [
     {
@@ -59,12 +62,12 @@ export const healthPlanPageSeed = {
         "Built for routine dog care with weight-based pricing and year-round preventative support.",
       includedBenefits: [
         "Annual booster",
-        "12 months flea, tick, and worming treatment",
-        "Regular health checks",
-        "Microchip support",
-        "Core clinical discounts",
+        "Prescription flea, tick, and worming treatment",
+        "Routine nurse-led checks where appropriate",
+        "Helpful reminders through the year",
+        "Selected practice savings",
       ],
-      pricingStructure: "Tiered by weight class: Small, Medium, Large, Giant",
+      pricingStructure: "Tiered by weight class",
     },
     {
       species: "Cats",
@@ -73,63 +76,64 @@ export const healthPlanPageSeed = {
         "A simpler flat-fee plan for ongoing preventative feline care and practical budgeting.",
       includedBenefits: [
         "Annual booster",
-        "12 months flea, tick, and worming control",
-        "Routine health checks",
-        "Clinical discounts",
+        "Prescription flea and worming control",
+        "Routine nurse-led checks where appropriate",
+        "Helpful reminders through the year",
+        "Selected practice savings",
       ],
       pricingStructure: "Flat monthly fee",
     },
   ] satisfies HealthPlanTierSeed[],
 
   benefitsEyebrow: "What's Included",
-  benefitsTitle: "Core preventative support, surfaced clearly.",
+  benefitsTitle: "The essentials, explained simply.",
   benefitsDescription:
-    "The page should explain practical benefits quickly, without drifting into generic sales copy.",
+    "Owners should be able to understand the day-to-day value of the plan quickly, without having to work through heavy sales language.",
   benefitCards: [
     {
       title: "Annual boosters",
-      description: "Routine vaccination cover stays visible from the start.",
+      description: "Routine vaccination cover stays visible from the start, with a proper health check built into the conversation.",
       iconKey: "syringe",
     },
     {
       title: "Parasite protection",
-      description: "Year-round flea, tick, and worming support for the relevant species.",
+      description: "Prescription-strength parasite support helps owners stay consistent through the year.",
       iconKey: "shield",
     },
     {
       title: "Routine checks",
-      description: "Regular monitoring supports continuity rather than last-minute catch-up care.",
+      description: "Routine monitoring supports continuity instead of last-minute catch-up care.",
       iconKey: "stethoscope",
     },
     {
-      title: "Microchip support",
-      description: "Microchip cover or support remains part of the preventative care story.",
+      title: "Helpful reminders",
+      description: "The plan supports a steadier care rhythm, so it is easier to know what is due and when.",
       iconKey: "chip",
     },
     {
-      title: "Core discounts",
-      description: "Useful clinical savings can be explained without making the page feel cluttered.",
+      title: "Selected savings",
+      description: "Useful savings can sit alongside preventative cover without making the plan feel cluttered or confusing.",
       iconKey: "badge",
     },
   ] satisfies HealthPlanBenefitCardSeed[],
 
   pricingEyebrow: "Pricing Structure",
-  pricingTitle: "Simple plan logic for each species.",
+  pricingTitle: "Monthly pricing that stays easy to follow.",
   pricingDescription:
-    "The landing page can explain the structure now, while exact monthly figures stay editable through the CMS.",
+    "The page structure is ready for the final launch figures. Until those details are confirmed, the logic below keeps the offer easy to understand.",
   pricingCards: [
     {
       title: "Dogs",
       iconKey: "dog",
-      priceSummary: "Tiered monthly pricing",
-      supportingText: "Choose the correct dog band by weight class.",
+      priceSummary: "Weight-based monthly plans",
+      supportingText: "Dogs join the plan according to their expected adult weight.",
       lines: ["Small", "Medium", "Large", "Giant"],
     },
     {
       title: "Cats",
       iconKey: "cat",
       priceSummary: "Flat monthly fee",
-      supportingText: "A simpler single-fee structure for feline preventative care.",
+      supportingText: "Cats stay on one simpler monthly structure.",
       lines: ["One monthly plan", "Routine preventative support included"],
     },
   ] satisfies HealthPlanPricingCardSeed[],
@@ -145,23 +149,25 @@ export const healthPlanPageSeed = {
     {
       question: "How are treatments collected through the year?",
       answer:
-        "Preventative products and routine items are collected in line with the plan schedule recommended by the practice. This keeps treatment cadence practical rather than leaving owners to guess what is due next.",
+        "Preventative products and routine items are supplied in line with the plan schedule recommended by the practice. Final delivery or collection details can be adjusted once the launch version of the plan is fully confirmed.",
     },
     {
       question: "What happens if I need to cancel?",
       answer:
-        "Cancellation rules, notice periods, and any related plan terms should be reviewed before sign-up. The final live sign-up journey can surface those details directly alongside the Lupa workflow.",
+        "Cancellation rules, notice periods, and plan terms should always be reviewed before sign-up. Those final details can be surfaced more explicitly once the live plan workflow is in place.",
     },
   ] satisfies HealthPlanFaqSeed[],
 
   ctaEyebrow: "Join The Plan",
-  ctaTitle: "Ready to set up routine care more clearly?",
+  ctaTitle: "Ready to make routine care feel more settled?",
   ctaText:
-    "Use the dedicated sign-up route when you are ready, or review the FAQ first if you want to understand how the plan works before joining.",
+    "Use the sign-up route when the final launch details are in place, or contact the team if you want to understand how the plan is expected to work.",
   ctaImageUrl:
-    "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1800&q=80",
+    visualAssets.goldenDogWarm,
   ctaPrimaryLabel: "Book Online",
-  ctaPrimaryHref: "/contact#book",
-  ctaSecondaryLabel: "Read FAQ",
-  ctaSecondaryHref: "/faq",
+  ctaPrimaryHref: siteConfig.ctas.healthPlan,
+  ctaSecondaryLabel: "Ask a Question",
+  ctaSecondaryHref: "/contact",
 };
+
+

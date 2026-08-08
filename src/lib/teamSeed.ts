@@ -1,3 +1,5 @@
+import { visualAssets } from "./visualAssets";
+
 export type TeamMemberRecord = {
   id: string;
   name: string;
@@ -16,7 +18,7 @@ export const teamPageSeed = {
   heroDescription:
     "Clinicians, nurses, and client care support working together.",
   heroImageUrl:
-    "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=1800&q=80",
+    visualAssets.gingerSpanielHero,
   introEyebrow: "Our Team",
   introTitle: "People who make care feel personal.",
   introDescription:
@@ -32,7 +34,7 @@ export const fallbackTeamMembers: TeamMemberRecord[] = [
     qualifications: "BVetMed MRCVS",
     shortBio: "Founder-led clinical care with a calm, continuity-first style.",
     bio: "Amelia leads the clinical direction of the practice with a strong focus on continuity, transparent advice, and calmer decision-making for owners. Her approach is grounded in long-term patient relationships, evidence-based care, and making consultations feel clear rather than rushed.",
-    imageUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: visualAssets.gingerCatHero,
     displayOrder: 1,
   },
   {
@@ -43,7 +45,7 @@ export const fallbackTeamMembers: TeamMemberRecord[] = [
     qualifications: "BVSc MRCVS",
     shortBio: "General practice vet with a practical, reassuring communication style.",
     bio: "Oliver enjoys building clarity around diagnostics, treatment planning, and first-visit conversations. He has a particular interest in internal medicine and helping owners feel confident about next steps before treatment decisions are made.",
-    imageUrl: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: visualAssets.goldenDogWarm,
     displayOrder: 2,
   },
   {
@@ -54,7 +56,7 @@ export const fallbackTeamMembers: TeamMemberRecord[] = [
     qualifications: "RVN",
     shortBio: "Nurse-led preventative care and calmer in-practice support.",
     bio: "Sophia supports preventative care, inpatient comfort, and practical owner guidance across routine appointments. She is especially focused on keeping the client journey smooth, whether that means follow-up support, nurse clinics, or day-to-day patient reassurance.",
-    imageUrl: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: visualAssets.gingerCatCare,
     displayOrder: 3,
   },
   {
@@ -65,7 +67,7 @@ export const fallbackTeamMembers: TeamMemberRecord[] = [
     qualifications: "RVN",
     shortBio: "Warm clinical support with an eye for gentle handling and continuity.",
     bio: "Ella brings a calm, approachable presence to both patients and owners. Her work spans routine checks, preventative support, and making sure the practice experience feels thoughtful and well-organised from admission through discharge.",
-    imageUrl: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: visualAssets.goldenDogCare,
     displayOrder: 4,
   },
   {
@@ -76,7 +78,7 @@ export const fallbackTeamMembers: TeamMemberRecord[] = [
     qualifications: "Client Care",
     shortBio: "First-contact support that keeps registration and booking straightforward.",
     bio: "Lucy helps new and existing clients navigate appointments, registration, and practical next steps with clarity. Her role is to reduce friction around the administrative side of care so the whole journey feels calmer from the first enquiry.",
-    imageUrl: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: visualAssets.warmPetOwner,
     displayOrder: 5,
   },
   {
@@ -87,7 +89,7 @@ export const fallbackTeamMembers: TeamMemberRecord[] = [
     qualifications: "Reception",
     shortBio: "Friendly operational support with practical guidance for owners.",
     bio: "Max supports the front-of-house experience by helping owners with bookings, updates, and visit logistics. He focuses on making the practice feel organised, approachable, and easy to navigate, especially for first-time clients.",
-    imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+    imageUrl: visualAssets.warmClinicDog,
     displayOrder: 6,
   },
 ];

@@ -6,7 +6,6 @@ type HomeServicesProps = {
   title?: string;
   description?: string;
   imageUrl?: string;
-  videoUrl?: string;
   mediaKicker?: string;
   mediaCaption?: string;
   mediaButtonLabel?: string;
@@ -19,7 +18,6 @@ export function HomeServices({
   title,
   description,
   imageUrl,
-  videoUrl,
   mediaKicker,
   mediaCaption,
   mediaButtonLabel,
@@ -37,7 +35,6 @@ export function HomeServices({
               className="section-media-image"
               style={{ backgroundImage: `url(${imageUrl || homeMedia.servicesImage})` }}
             />
-            <video className="section-media-video" src={videoUrl || homeMedia.servicesVideo} autoPlay muted loop playsInline />
             <div className="section-media-overlay" />
             <div className="section-media-caption">
               <span>{mediaKicker || "CMS-driven media"}</span>

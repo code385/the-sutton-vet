@@ -1,6 +1,7 @@
-import { Manrope } from "next/font/google";
+export const bodyFont = {
+  variable: "",
+};
 
-export const brandFont = Manrope({
-  subsets: ["latin"],
-  variable: "--font-brand",
-});
+export const headingFont = {
+  variable: "",
+};

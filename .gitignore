@@ -1,4 +1,4 @@
-.next
+﻿.next
 build
 node_modules
 .env
@@ -12,3 +12,6 @@ yarn-error.log*
 pnpm-debug.log*
 
 .vercel
+.sanity/
+dev-server.log
+

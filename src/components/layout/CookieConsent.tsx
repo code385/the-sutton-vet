@@ -22,9 +22,10 @@ export function CookieConsent() {
     if (existing) {
       setPreferences(existing);
       setHasSavedChoice(true);
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
     }
-
-    setIsOpen(true);
 
     function handleOpenRequest() {
       setIsOpen(true);
@@ -66,7 +67,7 @@ export function CookieConsent() {
     <>
       <button className="cookie-fab" type="button" onClick={() => setIsOpen(true)} aria-label="Manage cookie settings">
         <span className="cookie-fab-icon" aria-hidden="true">
-          ⚙
+          ?
         </span>
         <span className="sr-only">Manage cookie settings</span>
       </button>

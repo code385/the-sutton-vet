@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { homeHeroStats, siteConfig } from "@/lib/site";
+import { visualAssets } from "@/lib/visualAssets";
 
 type HomeHeroProps = {
   eyebrow?: string;
@@ -21,10 +21,7 @@ type HomeHeroProps = {
   bookHref?: string;
 };
 
-const fallbackHeroImage =
-  "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80";
-
-const fallbackHeroVideo = "/hero-demo.mp4";
+const fallbackHeroImage = visualAssets.gingerSpanielHero;
 
 export function HomeHero({
   eyebrow,
@@ -42,61 +39,19 @@ export function HomeHero({
   registerHref,
   bookHref,
 }: HomeHeroProps) {
-  const [showVideo, setShowVideo] = useState(false);
-  const [currentVideoSrc, setCurrentVideoSrc] = useState(videoUrl || fallbackHeroVideo);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const heroLinks = links?.filter((item) => item.label && item.href) || [];
   const heroStats = stats?.filter(Boolean).length ? stats.filter(Boolean) : homeHeroStats;
 
-  useEffect(() => {
-    setCurrentVideoSrc(videoUrl || fallbackHeroVideo);
-  }, [videoUrl]);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setShowVideo(true);
-    }, 2000);
-
-    return () => window.clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!showVideo || !videoRef.current) {
-      return;
-    }
-
-    void videoRef.current.play().catch(() => {
-      if (currentVideoSrc !== fallbackHeroVideo) {
-        setCurrentVideoSrc(fallbackHeroVideo);
-      }
-    });
-  }, [showVideo, currentVideoSrc]);
 
   return (
     <section className="home-hero full-bleed-section">
       <div className="home-hero-shell">
         <div className="home-hero-media">
           <div
-            className={`home-hero-image-layer${showVideo ? " is-hidden" : ""}`}
+            className="home-hero-image-layer"
             style={{ backgroundImage: `url(${imageUrl || fallbackHeroImage})` }}
           />
-          <video
-            ref={videoRef}
-            className={`home-hero-video${showVideo ? " is-visible" : ""}`}
-            src={currentVideoSrc}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster={imageUrl || fallbackHeroImage}
-            aria-hidden="true"
-            onError={() => {
-              if (currentVideoSrc !== fallbackHeroVideo) {
-                setCurrentVideoSrc(fallbackHeroVideo);
-              }
-            }}
-          />
+
           <div className="home-hero-overlay" />
         </div>
 
@@ -136,7 +91,7 @@ export function HomeHero({
               ? heroLinks
               : [
                   { label: "Services", href: "/services" },
-                  { label: "First Visit", href: "/first-visit" },
+                  { label: "Pricing", href: "/fees" },
                   { label: "Health Plan", href: "/health-plan" },
                 ]
             ).map((item) => (

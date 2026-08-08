@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SiteChrome } from "@/components/layout/SiteChrome";
-import { brandFont } from "@/lib/brand";
+import { bodyFont, headingFont } from "@/lib/brand";
 import { getEmergencySettingsDocument, resolveEmergencyKeywords } from "@/sanity/lib/emergency";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 import "./theme.css";
@@ -8,7 +8,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "The Sutton Vet",
-  description: "Independent veterinary care in Sutton with a premium, calm, and conversion-focused digital experience.",
+  description: "Independent veterinary care in Sutton with a mindful, gentle, and clearly structured digital experience.",
 };
 
 export default async function RootLayout({
@@ -59,7 +59,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={brandFont.variable}>
+      <body className={`${bodyFont.variable} ${headingFont.variable}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}

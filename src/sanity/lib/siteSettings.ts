@@ -1,4 +1,4 @@
-import { groq } from "next-sanity";
+﻿import { groq } from "next-sanity";
 
 import { siteConfig } from "@/lib/site";
 
@@ -178,6 +178,29 @@ function buildWhatsappHref(number: string, message: string) {
   return `https://wa.me/${cleanedNumber}?text=${encodeURIComponent(message)}`;
 }
 
+function resolvePmsUrl(value: string | undefined, fallback: string) {
+  if (!value || value === "/contact#book" || value === "/contact#register") {
+    return fallback;
+  }
+
+  return value;
+}
+
+
+const canonicalContactDetails = {
+  phone: "07440278373",
+  email: "info@thesuttonvet.co.uk",
+};
+const canonicalSocialLinks: Record<string, string> = {
+  facebook: "https://www.facebook.com/profile.php?id=61587599521550",
+  instagram: "https://www.instagram.com/thesuttonvet/",
+  tiktok: "https://www.tiktok.com/@the.sutton.vet",
+};
+
+function resolveSocialHref(item: LinkItem) {
+  const key = `${item.label || item.icon || ""}`.toLowerCase().replace(/\s+/g, "");
+  return canonicalSocialLinks[key] || item.href || "/";
+}
 function fallbackChatSettings(): ResolvedSiteSettings["chatSettings"] {
   return {
     eyebrow: "Chat Help",
@@ -192,16 +215,16 @@ function fallbackChatSettings(): ResolvedSiteSettings["chatSettings"] {
       { label: "Register & book", query: "How do I register or book?" },
     ],
     inputPlaceholder: "Opening hours, parking, fees, health plan...",
-    hoursReply: "Mon-Fri 8:30am to 7:00pm, Sat 8:30am to 1:00pm, Sun closed. Outside these hours, use the emergency line.",
+    hoursReply: "Mon-Fri 09:00am to 6:00pm, Sat 9:00am to 12.00pm, Sun closed. Outside these hours, use the emergency line.",
     locationReply: "The Sutton Vet is at 4 Spinning Wheel Way, Sutton, SM6 7DS. For parking or arrival guidance, call the team before your visit.",
     feesReply: "Basic consultation, vaccination, microchip, and neutering ranges are on the Fees page. For exact costs, please call the practice.",
     planReply: "The Health Plan is a monthly preventative-care plan for dogs and cats. It covers routine support and is different from insurance.",
-    bookingReply: "Use the Lupa Pets route on the site for registration or booking. New clients should register before the first visit where possible.",
+    bookingReply: "Use the approved PMS / online portal route on the site for registration or booking. New clients should register before the first visit where possible.",
     fallbackReply: "This chat covers approved admin topics only. For anything urgent or outside those topics, please call the practice directly.",
     emergencyLabel: "Call now",
     emergencyReply: "If this may be urgent, call the emergency line now. This chat does not provide clinical advice.",
     emergencyButtonLabel: "Call Emergency Line",
-    registerButtonLabel: "Register/Book via Lupa Pets",
+    registerButtonLabel: "Register/Book via Online Portal",
     whatsappButtonLabel: "Talk to our team on WhatsApp",
   };
 }
@@ -219,9 +242,9 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
     tagline: document?.tagline || siteConfig.tagline,
     footerTagline: document?.footerTagline || "Independent veterinary care in Sutton.",
     topbarNote: document?.topbarNote || siteConfig.topbarNote,
-    phone: document?.phone || siteConfig.phone,
-    emergencyPhone: document?.emergencyPhone || siteConfig.emergencyPhone,
-    email: document?.email || siteConfig.email,
+    phone: canonicalContactDetails.phone,
+    emergencyPhone: canonicalContactDetails.phone,
+    email: canonicalContactDetails.email,
     address: document?.address || siteConfig.address,
     openingHours:
       document?.openingHours?.filter((item) => item?.day && item?.hours).length
@@ -232,12 +255,12 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
               hours: item.hours || "",
             }))
         : [
-        { day: "Monday", hours: "8:30am - 7:00pm" },
-        { day: "Tuesday", hours: "8:30am - 7:00pm" },
-        { day: "Wednesday", hours: "8:30am - 7:00pm" },
-        { day: "Thursday", hours: "8:30am - 7:00pm" },
-        { day: "Friday", hours: "8:30am - 7:00pm" },
-        { day: "Saturday", hours: "8:30am - 1:00pm" },
+        { day: "Monday", hours: "09:00am - 6:00pm" },
+        { day: "Tuesday", hours: "09:00am - 6:00pm" },
+        { day: "Wednesday", hours: "09:00am - 6:00pm" },
+        { day: "Thursday", hours: "09:00am - 6:00pm" },
+        { day: "Friday", hours: "09:00am - 6:00pm" },
+        { day: "Saturday", hours: "9:00am - 12.00pm" },
         { day: "Sunday", hours: "Closed" },
       ],
     socialLinks:
@@ -246,12 +269,12 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
             .filter((item) => item?.label && item?.href)
             .map((item) => ({
               label: item.label || "",
-              href: item.href || "/",
+              href: resolveSocialHref(item),
               icon: item.icon || item.label || "",
             }))
         : siteConfig.socials.map((item) => ({
             label: item.label,
-            href: item.href,
+            href: resolveSocialHref(item),
             icon: item.label,
           })),
     mainNav:
@@ -307,11 +330,11 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
       registerLabel: document?.headerCtas?.registerLabel || "Register Now",
     },
     ctas: {
-      call: buildTelHref(document?.phone || siteConfig.phone),
-      emergency: buildTelHref(document?.emergencyPhone || siteConfig.emergencyPhone),
-      book: document?.lupaBookingUrl || siteConfig.ctas.book,
-      register: document?.lupaRegistrationUrl || siteConfig.ctas.register,
-      healthPlan: document?.healthPlanUrl || siteConfig.ctas.healthPlan,
+      call: buildTelHref(canonicalContactDetails.phone),
+      emergency: buildTelHref(canonicalContactDetails.phone),
+      book: resolvePmsUrl(document?.lupaBookingUrl, siteConfig.ctas.book),
+      register: resolvePmsUrl(document?.lupaRegistrationUrl, siteConfig.ctas.register),
+      healthPlan: resolvePmsUrl(document?.healthPlanUrl, siteConfig.ctas.healthPlan),
       whatsapp: buildWhatsappHref(document?.whatsappNumber || "923063892101", whatsappMessage),
     },
     chatSettings: {
@@ -343,3 +366,10 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
     },
   };
 }
+
+
+
+
+
+
+

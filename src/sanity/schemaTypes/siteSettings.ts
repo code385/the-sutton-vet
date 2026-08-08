@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from "sanity";
+﻿import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const siteSettings = defineType({
   name: "siteSettings",
@@ -36,8 +36,8 @@ export const siteSettings = defineType({
     }),
     defineField({ name: "whatsappNumber", title: "WhatsApp Number", type: "string" }),
     defineField({ name: "whatsappPrefillMessage", title: "WhatsApp Prefill Message", type: "text", rows: 2 }),
-    defineField({ name: "lupaBookingUrl", title: "Lupa Booking URL", type: "url" }),
-    defineField({ name: "lupaRegistrationUrl", title: "Lupa Registration URL", type: "url" }),
+    defineField({ name: "lupaBookingUrl", title: "PMS Booking URL", type: "url" }),
+    defineField({ name: "lupaRegistrationUrl", title: "PMS Registration URL", type: "url" }),
     defineField({ name: "healthPlanUrl", title: "Health Plan URL", type: "url" }),
     defineField({ name: "googleBusinessProfileUrl", title: "Google Business Profile URL", type: "url" }),
     defineField({ name: "googleMapEmbedUrl", title: "Google Map Embed URL", type: "url" }),
@@ -179,3 +179,4 @@ export const siteSettings = defineType({
     },
   },
 });
+

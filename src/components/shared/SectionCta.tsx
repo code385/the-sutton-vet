@@ -29,6 +29,10 @@ export async function SectionCta({
           <p className="eyebrow">{eyebrow || "Next Step"}</p>
           <h2>{title}</h2>
           <p>{text}</p>
+          <div className="section-cta-note" aria-hidden="true">
+            <span>Prefer to talk first?</span>
+            <p>Contact the team and we will point you towards the calmest next step.</p>
+          </div>
           <div className="cta-actions">
             <a className="button button-primary" href={primaryHref || siteSettings.ctas.register}>
               {primaryLabel || "Register Now"}

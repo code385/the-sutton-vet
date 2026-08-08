@@ -1,36 +1,41 @@
+﻿import { visualAssets } from "./visualAssets";
+
+const pmsBookingUrl = process.env.NEXT_PUBLIC_PMS_BOOKING_URL || "/pms-integration";
+const pmsRegistrationUrl = process.env.NEXT_PUBLIC_PMS_REGISTRATION_URL || "/pms-integration";
+const pmsHealthPlanUrl = process.env.NEXT_PUBLIC_PMS_HEALTH_PLAN_URL || pmsBookingUrl;
+
 export const siteConfig = {
   name: "The Sutton Vet",
   shortName: "Sutton Vet",
-  tagline: "Independent veterinary care in Sutton with calm clinical standards and a genuinely personal approach.",
-  phone: "0208 000 0000",
-  emergencyPhone: "0208 000 1111",
-  email: "hello@thesuttonvet.co.uk",
+  tagline: "PASSIONATE ABOUT ANIMALS AND OUR COMMUNITY",
+  phone: "07440278373",
+  emergencyPhone: "07440278373",
+  email: "info@thesuttonvet.co.uk",
   whatsappLabel: "WhatsApp Our Team",
-  address: "4 Spinning Wheel Way, Sutton, SM6 7DS",
-  topbarNote: "Independent veterinary practice for Sutton, Hackbridge, and nearby neighbourhoods",
-  googleProfile: "https://share.google/ppRZeLwh2IbsYgR74",
+  address: "4 Spinning Wheel Way, Hackbridge, SM6 7DS",
+  topbarNote: "Coming Soon Early Autumn 2026 to The New Mill Quarters Development near Hackbridge Rail Station.",
+  googleProfile: "https://share.google/tGtrjzs7yPvqXlLfE",
   openingHours: [
-    "Mon-Fri: 8:30am - 7:00pm",
-    "Sat: 8:30am - 1:00pm",
-    "Out-of-hours: emergency support available",
+    "Mon-Fri: 09:00am - 6:00pm",
+    "Sat: 9:00am - 12.00pm",
+    "Sun: Closed",
   ],
   socials: [
-    { label: "Facebook", href: "https://www.facebook.com/" },
-    { label: "Instagram", href: "https://www.instagram.com/" },
-    { label: "TikTok", href: "https://www.tiktok.com/" },
-    { label: "YouTube", href: "https://www.youtube.com/" },
+    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61587599521550" },
+    { label: "Instagram", href: "https://www.instagram.com/thesuttonvet/" },
+    { label: "TikTok", href: "https://www.tiktok.com/@the.sutton.vet" },
+    { label: "Google", href: "https://share.google/tGtrjzs7yPvqXlLfE" },
   ],
   mainNav: [
+    { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
+    { label: "Pricing", href: "/fees" },
     { label: "Health Plan", href: "/health-plan" },
-    { label: "Fees", href: "/fees" },
-    { label: "Meet the Team", href: "/meet-the-team" },
-    { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/contact" },
+    { label: "Terms", href: "/terms" },
   ],
   secondaryNav: [
-    { label: "First Visit", href: "/first-visit" },
-    { label: "FAQ", href: "/faq" },
+    { label: "Services & Pricing", href: "/fees" },
+    { label: "Find Us", href: "/contact#find-us" },
   ],
   legalLinks: [
     { label: "Privacy Policy", href: "/privacy-policy" },
@@ -39,64 +44,63 @@ export const siteConfig = {
     { label: "Terms of Business", href: "/terms" },
   ],
   ctas: {
-    register: "/contact#register",
-    book: "/contact#book",
-    healthPlan: "/health-plan",
-    emergency: "tel:02080001111",
-    call: "tel:02080000000",
-    whatsapp: "https://wa.me/923063892101?text=Hi%20The%20Sutton%20Vet%2C%20I%20have%20a%20question%20about%20registering%20my%20pet.",
+    register: pmsRegistrationUrl,
+    book: pmsBookingUrl,
+    healthPlan: pmsHealthPlanUrl,
+    emergency: "tel:07440278373",
+    call: "tel:07440278373",
+    whatsapp: "https://wa.me/447440278373?text=Hi%20The%20Sutton%20Vet%2C%20I%20have%20a%20question%20about%20registering%20my%20pet.",
   },
   compliance: {
-    registeredCompany: "Registered company: Vet ER Ltd, Company No. 16807385, registered in England and Wales.",
+    registeredCompany: "The Sutton Vet is the trading name of Vet ER Ltd.",
     tradingName: "Trading name: The Sutton Vet.",
     vatNumber: "VAT Registration Number: 520 9633 01.",
-    registeredOffice: "Registered office address: to be confirmed and inserted in full before go-live.",
-    practiceAddress: "Practice / trading address: 4 Spinning Wheel Way, SM6 7DS.",
-    premisesNumber: "Premises Registration Number (RCVS/VMD): to be confirmed and inserted once issued.",
+    registeredOffice: "Registered office address: to be confirmed before go-live.",
+    practiceAddress: "Practice / trading address: 4 Spinning Wheel Way, Hackbridge, SM6 7DS.",
+    premisesNumber: "Premises Registration Number (RCVS/VMD): to be confirmed before go-live.",
   },
 };
 
 export const homeHeroStats = [
-  "Hackbridge station convenience",
-  "Parking guidance surfaced early",
-  "Register or book from every page",
+  "Independent and family-owned",
+  "Transparent services and pricing",
+  "Gentle, advanced local care",
 ];
 
 export const homeHighlights = [
   {
     title: "Independent by design",
-    description: "Locally led decisions and a calmer experience than larger chains often deliver.",
+    description: "A smaller, family-owned practice with warmer communication and a more personal feel.",
   },
   {
-    title: "Continuity of care",
-    description: "A more personal clinical relationship with clearer communication.",
+    title: "Clear and fair options",
+    description: "Treatment routes explained carefully, from best-care options to more practical next steps.",
   },
   {
-    title: "Transparent from the start",
-    description: "Fees, first-visit guidance, and urgent care routes surfaced early.",
+    title: "Modern but calm",
+    description: "Advanced care presented in a grounded, reassuring way rather than a noisy corporate style.",
   },
   {
-    title: "Modern and practical",
-    description: "Modern equipment and mobile-friendly routes built around real usage.",
+    title: "Built around real journeys",
+    description: "Services, pricing, parking, and health-plan information are surfaced where owners actually need them.",
   },
 ];
 
 export const homeMedia = {
   whyChooseImage:
-    "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=1400&q=80",
-  servicesVideo:
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    visualAssets.gingerSpanielHero,
+  servicesVideo: "",
   servicesImage:
-    "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=1400&q=80",
+    visualAssets.gingerCatHero,
   trustImage:
-    "https://images.unsplash.com/photo-1581888227599-779811939961?auto=format&fit=crop&w=1400&q=80",
-  trustVideo: "/hero-demo.mp4",
+    visualAssets.goldenDogWarm,
+  trustVideo: "",
   adviceFeaturedImage:
-    "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80",
+    visualAssets.gingerCatCare,
   adviceSecondaryImage:
-    "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1200&q=80",
+    visualAssets.goldenDogCare,
   ctaImage:
-    "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1200&q=80",
+    visualAssets.warmPetOwner,
 };
 
 export const trustIntro = {
@@ -141,7 +145,7 @@ export const founderStory = {
   highlights: ["Founder-led care", "Independent ownership", "Long-term patient relationships"],
   quote: "Independent care should feel calmer, clearer, and more personal from the very first visit.",
   image:
-    "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80",
+    visualAssets.warmClinicDog,
 };
 
 export const serviceGroups = [
@@ -264,77 +268,77 @@ export const socialPreviewCards = [
     title: "Clinic calm",
     caption: "Short visual updates from routine care and behind-the-scenes preparation.",
     image:
-      "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.softVetCare,
   },
   {
     platform: "TikTok",
     title: "First visit tips",
     caption: "Quick guidance clips for registrations, practical prep, and arrival reassurance.",
     image:
-      "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.friendlyDogPortrait,
   },
   {
     platform: "Instagram",
     title: "Meet the team",
     caption: "Gentle introductions to the people behind the practice before opening day.",
     image:
-      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.gingerSpanielHero,
   },
   {
     platform: "TikTok",
     title: "Preventative care",
     caption: "Short explainers on boosters, parasite cover, and routine health planning.",
     image:
-      "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.gingerCatHero,
   },
   {
     platform: "Instagram",
     title: "Local practice",
     caption: "Visual posts focused on Sutton, Hackbridge, and the feel of an independent clinic.",
     image:
-      "https://images.unsplash.com/photo-1581888227599-779811939961?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.goldenDogWarm,
   },
   {
     platform: "TikTok",
     title: "Booking help",
     caption: "Simple clips answering what to do next when owners are unsure which route to take.",
     image:
-      "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.gingerCatCare,
   },
   {
     platform: "Instagram",
     title: "Patient moments",
     caption: "Warm, owner-friendly moments that keep the brand human without feeling noisy.",
     image:
-      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.goldenDogCare,
   },
   {
     platform: "TikTok",
     title: "Urgent guidance",
     caption: "Fast reminders about when to call promptly and how out-of-hours support works.",
     image:
-      "https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.warmPetOwner,
   },
   {
     platform: "Instagram",
     title: "Practice details",
     caption: "Parking notes, route guidance, and launch updates in a lighter visual format.",
     image:
-      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.warmClinicDog,
   },
   {
     platform: "TikTok",
     title: "Health plan clips",
     caption: "Short, repeatable content around routine care budgeting and preventative support.",
     image:
-      "https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1200&q=80",
+      visualAssets.softVetCare,
   },
 ];
 
 export const faqPreview = [
   {
     question: "How do I register with The Sutton Vet?",
-    answer: "Registration will route to the Lupa Pets workflow, with supporting guidance kept on-site.",
+    answer: "Registration will route to the approved PMS / online portal workflow, with supporting guidance kept on-site.",
   },
   {
     question: "What should I bring to my first appointment?",
@@ -384,7 +388,7 @@ export const privacySections = [
     title: "What information may be collected",
     body: [
       "The website may process contact details submitted through enquiries, technical data required for security and accessibility, and usage data where the visitor has explicitly accepted analytics cookies.",
-      "If a visitor follows a link to Lupa Pets, WhatsApp, or another third-party service, that interaction may then be governed by the privacy terms of that third party as well as this website.",
+      "If a visitor follows a link to the PMS / online portal, WhatsApp, or another third-party service, that interaction may then be governed by the privacy terms of that third party as well as this website.",
     ],
   },
   {
@@ -542,3 +546,6 @@ export const termsSections = [
     ],
   },
 ];
+
+
+

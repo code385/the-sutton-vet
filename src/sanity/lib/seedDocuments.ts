@@ -1,4 +1,3 @@
-import { seededBlogPosts } from "@/lib/blogSeed";
 import { healthPlanPageSeed } from "@/lib/healthPlanSeed";
 import { feeCategorySeeds, pricingPageSeed } from "@/lib/pricingSeed";
 import {
@@ -6,9 +5,9 @@ import {
   blogPreview,
   cookieInventory,
   cookieSections,
-  faqPreview,
   founderStory,
   healthPlanTiers,
+  faqPreview,
   homeHighlights,
   homeHeroStats,
   homeMedia,
@@ -94,11 +93,11 @@ const homePageSeedDocument: SanitySeedDocument = {
   healthPlanDescription:
     "The homepage teaser should explain the plan simply, then let owners choose whether to go deeper into the dedicated Health Plan journey.",
   healthPlanSecondaryText:
-    "This section builds trust before asking for a deeper commitment, while still giving visitors a direct route into the dedicated Health Plan page and later the hardcoded Lupa sign-up workflow.",
+    "This section builds trust before asking for a deeper commitment, while still giving visitors a direct route into the dedicated Health Plan page and later the approved PMS / online portal workflow.",
   healthPlanPrimaryCtaLabel: "Explore Health Plan",
   healthPlanPrimaryCtaHref: "/health-plan",
   healthPlanSecondaryCtaLabel: "Read Common Questions",
-  healthPlanSecondaryCtaHref: "/faq",
+  healthPlanSecondaryCtaHref: "/contact",
   healthPlanVideoUrl: "https://videos.pexels.com/video-files/854132/854132-hd_1920_1080_25fps.mp4",
   healthPlanPosterUrl: "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1400&q=80",
   healthPlanCardEyebrow: "Plan snapshot",
@@ -136,7 +135,7 @@ const homePageSeedDocument: SanitySeedDocument = {
   adviceTitle: "Latest advice",
   adviceIntroText: "Two clear recent articles are enough on the homepage. The fuller editorial browse belongs on the blog page.",
   adviceCtaLabel: "View blog",
-  adviceCtaHref: "/blog",
+  adviceCtaHref: "/contact",
   advicePills: ["Latest articles", "Practical pet advice", "Read more flow"],
   adviceFeaturedImageUrl: homeMedia.adviceFeaturedImage,
   adviceSecondaryImageUrl: homeMedia.adviceSecondaryImage,
@@ -147,7 +146,7 @@ const homePageSeedDocument: SanitySeedDocument = {
     excerpt: item.excerpt,
     meta: item.meta,
     cta: item.cta,
-    href: "/blog",
+    href: "/contact",
   })),
   socialEyebrow: "Social preview",
   socialTitle: "Social updates",
@@ -182,12 +181,12 @@ const siteSettingsSeedDocument: SanitySeedDocument = {
   email: siteConfig.email,
   address: siteConfig.address,
   openingHours: [
-    { day: "Monday", hours: "8:30am - 7:00pm" },
-    { day: "Tuesday", hours: "8:30am - 7:00pm" },
-    { day: "Wednesday", hours: "8:30am - 7:00pm" },
-    { day: "Thursday", hours: "8:30am - 7:00pm" },
-    { day: "Friday", hours: "8:30am - 7:00pm" },
-    { day: "Saturday", hours: "8:30am - 1:00pm" },
+    { day: "Monday", hours: "09:00am - 6:00pm" },
+    { day: "Tuesday", hours: "09:00am - 6:00pm" },
+    { day: "Wednesday", hours: "09:00am - 6:00pm" },
+    { day: "Thursday", hours: "09:00am - 6:00pm" },
+    { day: "Friday", hours: "09:00am - 6:00pm" },
+    { day: "Saturday", hours: "9:00am - 12.00pm" },
     { day: "Sunday", hours: "Closed" },
   ],
   whatsappNumber: "923063892101",
@@ -245,16 +244,16 @@ const siteSettingsSeedDocument: SanitySeedDocument = {
       { label: "Register & book", query: "How do I register or book?" },
     ],
     inputPlaceholder: "Opening hours, parking, fees, health plan...",
-    hoursReply: "Opening hours are Monday to Friday 8:30am to 7:00pm, Saturday 8:30am to 1:00pm, and Sunday closed.",
+    hoursReply: "Opening hours are Monday to Friday 09:00am to 6:00pm, Saturday 9:00am to 12.00pm, and Sunday closed.",
     locationReply: "The Sutton Vet is at 4 Spinning Wheel Way, Sutton, SM6 7DS. For parking or arrival guidance, call the team before your visit.",
     feesReply: "Basic consultation, vaccination, microchip, and neutering ranges are on the Fees page. For exact costs, please call the practice.",
     planReply: "The Health Plan is a monthly preventative-care plan for dogs and cats. It covers routine support and is different from insurance.",
-    bookingReply: "Use the Lupa Pets route on the site for registration or booking. New clients should register before the first visit where possible.",
+    bookingReply: "Use the approved PMS / online portal route on the site for registration or booking. New clients should register before the first visit where possible.",
     fallbackReply: "This chat covers approved admin topics only. For anything urgent or outside those topics, please call the practice directly.",
     emergencyLabel: "Call now",
     emergencyReply: "If this may be urgent, call the emergency line now. This chat does not provide clinical advice.",
     emergencyButtonLabel: "Call Emergency Line",
-    registerButtonLabel: "Register/Book via Lupa Pets",
+    registerButtonLabel: "Register/Book via Online Portal",
     whatsappButtonLabel: "Talk to our team on WhatsApp",
   },
 };
@@ -385,12 +384,12 @@ const firstVisitPageSeedDocument: SanitySeedDocument = {
   title: "A calmer first visit starts with clearer preparation.",
   description: "Simple guidance for registration, what to bring, and what to expect during the first consultation.",
   steps: [
-    "Register through the Lupa Pets flow before the appointment where possible.",
+    "Register through the online portal flow before the appointment where possible.",
     "Bring previous records, medication details, and any insurance information.",
     "Expect a calm first consultation with practical next-step guidance.",
   ],
   ctaTitle: "Ready to register first?",
-  ctaText: "A simple route into Lupa starts here.",
+  ctaText: "A simple route into the online portal starts here.",
   ctaPrimaryLabel: "Register Now",
   ctaPrimaryHref: siteConfig.ctas.register,
   ctaSecondaryLabel: "Book Online",
@@ -443,7 +442,7 @@ const blogPageSeedDocument: SanitySeedDocument = {
   feedbackMoreResponse: "Thanks. This helps highlight where future advice needs more practical detail.",
   feedbackContactResponse: "Thanks. If the issue feels urgent or specific to your pet, direct contact is the safer next step.",
   browseMoreLabel: "Browse more advice",
-  browseMoreHref: "/blog",
+  browseMoreHref: "/contact",
   askDirectLabel: "Ask the team directly",
   askDirectHref: "/contact",
   ctaTitle: "Need guidance sooner?",
@@ -531,30 +530,46 @@ export const feeCategorySeedDocuments: SanitySeedDocument[] = feeCategorySeeds.m
   ...category,
 }));
 
-export const blogSeedDocuments: SanitySeedDocument[] = seededBlogPosts.map((post) => ({
-  ...post,
-}));
+export const staleCmsDocumentTypes = ["blogPage", "blogPost", "faqPage", "faq", "firstVisitPage"];
+
+export const staleCmsDocumentIds = [
+  "blogPage",
+  "firstVisitPage",
+  "faqPage",
+  "faq-1",
+  "faq-2",
+  "faq-3",
+  "faq-4",
+  "blog-first-visit-guide",
+  "blog-preventative-care-plans",
+  "blog-when-to-call-urgently",
+  "blog-puppy-kitten-checks",
+  "blog-early-diagnosis-matters",
+  "blog-registering-before-visit",
+  "blog-routine-health-checks",
+  "blog-local-first-visit-planning",
+];
 
 export const allSeedDocuments: SanitySeedDocument[] = [
   siteSettingsSeedDocument,
   emergencySettingsSeedDocument,
   homePageSeedDocument,
   contactPageSeedDocument,
-  faqPageSeedDocument,
-  ...faqSeedDocuments,
-  firstVisitPageSeedDocument,
   teamPageSeedDocument,
   ...teamMemberSeedDocuments,
-  blogPageSeedDocument,
   ...legalPageSeedDocuments,
   servicesPageSeedDocument,
   ...serviceSeedDocuments,
   healthPlanPageSeedDocument,
   pricingPageSeedDocument,
   ...feeCategorySeedDocuments,
-  ...blogSeedDocuments,
 ];
 
 export function getSeedDocumentsByType(type: string) {
   return allSeedDocuments.filter((document) => document._type === type);
 }
+
+
+
+
+

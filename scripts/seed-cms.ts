@@ -1,10 +1,11 @@
 import { createClient } from "next-sanity";
 import { getCliClient } from "sanity/cli";
 
-import { allSeedDocuments } from "../src/sanity/lib/seedDocuments";
+import { allSeedDocuments, staleCmsDocumentIds } from "../src/sanity/lib/seedDocuments";
 
 type MinimalClient = {
   createOrReplace: (document: Record<string, unknown>) => Promise<unknown>;
+  delete: (id: string) => Promise<unknown>;
 };
 
 function resolveClient(): MinimalClient {
@@ -33,7 +34,12 @@ async function run() {
     console.log(`Seeded: ${String(document._type)} :: ${String(document._id)}`);
   }
 
-  console.log(`Completed CMS seed for ${allSeedDocuments.length} documents.`);
+  for (const documentId of staleCmsDocumentIds) {
+    await client.delete(documentId);
+    console.log(`Removed stale CMS document: ${documentId}`);
+  }
+
+  console.log(`Completed CMS seed for ${allSeedDocuments.length} documents and removed ${staleCmsDocumentIds.length} stale documents.`);
 }
 
 run().catch((error) => {

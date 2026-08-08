@@ -1,3 +1,5 @@
+import { visualAssets } from "./visualAssets";
+
 export type SeededBlogPost = {
   _id: string;
   _type: "blogPost";
@@ -51,7 +53,7 @@ export const seededBlogPosts: SeededBlogPost[] = [
     category: "New Clients",
     excerpt: "Registration, consultation flow, and what to bring before your first appointment.",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1400&q=80",
+      visualAssets.gingerSpanielHero,
     publishedAt: "2026-07-01T09:00:00.000Z",
     content: [
       {
@@ -82,7 +84,7 @@ export const seededBlogPosts: SeededBlogPost[] = [
     category: "Health Plan",
     excerpt: "How a monthly plan can support routine care costs without replacing insurance.",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1400&q=80",
+      visualAssets.gingerCatHero,
     publishedAt: "2026-07-03T09:00:00.000Z",
     content: [
       {
@@ -113,7 +115,7 @@ export const seededBlogPosts: SeededBlogPost[] = [
     category: "Emergency",
     excerpt: "Urgent contact triggers, in-hours calls, and out-of-hours direction.",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1581888227599-779811939961?auto=format&fit=crop&w=1400&q=80",
+      visualAssets.goldenDogWarm,
     publishedAt: "2026-07-05T09:00:00.000Z",
     content: [
       {
@@ -144,7 +146,7 @@ export const seededBlogPosts: SeededBlogPost[] = [
     category: "Routine Care",
     excerpt: "A quick overview of what these early appointments usually cover.",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=1400&q=80",
+      visualAssets.gingerCatCare,
     publishedAt: "2026-06-28T09:00:00.000Z",
     content: [
       {
@@ -175,7 +177,7 @@ export const seededBlogPosts: SeededBlogPost[] = [
     category: "Diagnostics",
     excerpt: "Small changes spotted early can make treatment planning clearer and calmer.",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1400&q=80",
+      visualAssets.goldenDogCare,
     publishedAt: "2026-06-24T09:00:00.000Z",
     content: [
       {
@@ -206,7 +208,7 @@ export const seededBlogPosts: SeededBlogPost[] = [
     category: "Registration",
     excerpt: "A simple checklist for records, medication notes, and smoother booking steps.",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=1400&q=80",
+      visualAssets.warmPetOwner,
     publishedAt: "2026-06-20T09:00:00.000Z",
     content: [
       {
@@ -237,7 +239,7 @@ export const seededBlogPosts: SeededBlogPost[] = [
     category: "Routine Care",
     excerpt: "Preventative appointments often catch smaller issues before they become disruptive.",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1511044568932-338cba0ad803?auto=format&fit=crop&w=1400&q=80",
+      visualAssets.warmClinicDog,
     publishedAt: "2026-06-17T09:00:00.000Z",
     content: [
       {
@@ -268,7 +270,7 @@ export const seededBlogPosts: SeededBlogPost[] = [
     category: "Local Guide",
     excerpt: "A local-first guide to timing, arrival, and practical reassurance before the appointment.",
     coverImageUrl:
-      "https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=1400&q=80",
+      visualAssets.softVetCare,
     publishedAt: "2026-06-12T09:00:00.000Z",
     content: [
       {

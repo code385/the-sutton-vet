@@ -1,366 +1,168 @@
-import { Reveal } from "@/components/shared/Reveal";
-import { SectionCta } from "@/components/shared/SectionCta";
-import { getContactPageDocument } from "@/sanity/lib/contentPages";
+﻿import { Reveal } from "@/components/shared/Reveal";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 
-type QuickLink = {
-  title: string;
-  value: string;
-  href: string;
-  meta: string;
-  icon: string;
-};
+const overviewPoints = [
+  "Independent veterinary care in Sutton.",
+  "A family-owned practice with a warmer, more personal approach.",
+  "Objective and fair options explained with kindness.",
+];
 
-function ContactGlyph({ name }: { name: string }) {
-  switch (name) {
-    case "phone":
-      return (
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M22 15h9l3 12-6 4c3 6 8 11 14 14l4-6 12 3v9c0 3-2 5-5 5C30 56 8 34 8 11c0-3 2-5 5-5h9Z" />
-        </svg>
-      );
-    case "pin":
-      return (
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M32 56s15-14 15-28c0-8-7-15-15-15s-15 7-15 15c0 14 15 28 15 28Z" />
-          <circle cx="32" cy="28" r="6" />
-        </svg>
-      );
-    case "mail":
-      return (
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <rect x="10" y="16" width="44" height="32" rx="6" />
-          <path d="m14 22 18 13 18-13" />
-        </svg>
-      );
-    default:
-      return (
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <circle cx="17" cy="32" r="5" />
-          <circle cx="47" cy="18" r="5" />
-          <circle cx="47" cy="46" r="5" />
-          <path d="M22 30 42 20M22 34l20 10" />
-        </svg>
-      );
-  }
-}
+const parkingNotes = [
+  "Ample parking and step-free access.",
+  "Free parking at Lidl's across the road (90 minutes).",
+  "Parking available at Hackbridge Rail Station.",
+];
+
+const clinicHours = [
+  { day: "Monday - Friday", hours: "09:00am - 6:00pm" },
+  { day: "Saturday", hours: "9:00am - 12.00pm" },
+];
+
+const contactDetails = [
+  { label: "Telephone", value: "07440278373", href: "tel:07440278373" },
+  { label: "Email", value: "info@thesuttonvet.co.uk", href: "mailto:info@thesuttonvet.co.uk" },
+  { label: "Online Booking", value: "24/7 online portal available via our website." },
+];
 
 export default async function ContactPage() {
-  const [contactPageDocument, siteSettingsDocument] = await Promise.all([
-    getContactPageDocument(),
-    getSiteSettingsDocument(),
-  ]);
+  const siteSettingsDocument = await getSiteSettingsDocument();
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
-
-  const defaultQuickLinks: QuickLink[] = [
-    {
-      title: "Call us",
-      value: siteSettings.phone,
-      href: siteSettings.ctas.call,
-      meta: "Fastest route for appointments and practical questions",
-      icon: "phone",
-    },
-    {
-      title: "Visit us",
-      value: siteSettings.address,
-      href: siteSettings.hasMapUrl,
-      meta: "Directions, local travel guidance, and nearby access",
-      icon: "pin",
-    },
-    {
-      title: "Email us",
-      value: siteSettings.email,
-      href: `mailto:${siteSettings.email}`,
-      meta: "Useful for non-urgent admin and document requests",
-      icon: "mail",
-    },
-    {
-      title: "Connect with us",
-      value: "Instagram & Facebook",
-      href:
-        siteSettings.socialLinks.find((item) => item.label === "Instagram")?.href ||
-        siteSettings.socialLinks[0]?.href ||
-        "/",
-      meta: "Follow updates and opening momentum as the practice grows",
-      icon: "share",
-    },
-  ];
-
-  const quickLinks = contactPageDocument?.quickLinks?.filter((item) => item.title && item.value && item.href).length
-    ? contactPageDocument.quickLinks
-        .filter((item) => item.title && item.value && item.href)
-        .map((item) => ({
-          title: item.title || "",
-          value: item.value || "",
-          href: item.href || "/",
-          meta: item.meta || "",
-          icon: item.icon || "share",
-        }))
-    : defaultQuickLinks;
-
-  const socialCards = contactPageDocument?.socialCards?.filter((item) => item.title && item.href).length
-    ? contactPageDocument.socialCards
-        .filter((item) => item.title && item.href)
-        .map((item) => ({
-          title: item.title || "",
-          description: item.description || "",
-          ctaLabel: item.ctaLabel || "Open",
-          href: item.href || "/",
-          icon: item.icon || "share",
-        }))
-    : [
-      {
-        title: "Facebook",
-        description: "Updates, launch momentum, and local practice news.",
-        ctaLabel: "Join us",
-        href: siteSettings.socialLinks.find((item) => item.label === "Facebook")?.href || "/",
-        icon: "facebook",
-      },
-      {
-        title: "Instagram",
-        description: "Follow practice visuals, opening updates, and behind-the-scenes content.",
-        ctaLabel: "Follow us",
-        href: siteSettings.socialLinks.find((item) => item.label === "Instagram")?.href || "/",
-        icon: "instagram",
-      },
-    ];
-
-  const openingSchedule = siteSettings.openingHours;
-  const openMetaLines = contactPageDocument?.openMetaLines?.length
-    ? contactPageDocument.openMetaLines
-    : [`Phone: ${siteSettings.phone}`, `Address: ${siteSettings.address}`, `Email: ${siteSettings.email}`];
-  const openCtas =
-    contactPageDocument?.openCtas?.filter((item) => item.label && item.href).length
-      ? contactPageDocument.openCtas.filter((item) => item.label && item.href)
-      : [
-      { label: "Book Online", href: siteSettings.ctas.book, variant: "primary" },
-      { label: "Register Now", href: siteSettings.ctas.register, variant: "muted" },
-    ];
-  const mapLabelTitle = contactPageDocument?.locationMapLabelTitle || "The Sutton Vet";
-  const mapLabelText = contactPageDocument?.locationMapLabelText || siteSettings.address;
-  const mapEmbedUrl = contactPageDocument?.locationMapEmbedUrl || siteSettings.googleMapEmbedUrl;
 
   return (
     <>
-      <section
-        className="contact-hero full-bleed-section"
-        style={{
-          backgroundImage: `linear-gradient(90deg, rgba(18, 28, 42, 0.8), rgba(18, 28, 42, 0.34)), url(${contactPageDocument?.heroImageUrl || "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1800&q=80"})`,
-        }}
-      >
-        <div className="shell contact-hero-shell">
-          <Reveal variant="left">
-            <div className="contact-hero-copy">
-              <p className="eyebrow">{contactPageDocument?.heroEyebrow || "Contact & Emergency Care"}</p>
-              <h1>{contactPageDocument?.heroTitle || "Simple contact, clear urgent routing."}</h1>
-              <p>
-                {contactPageDocument?.heroDescription ||
-                  "For bookings, registration, location guidance, and out-of-hours support, this page should make the next step obvious within seconds."}
-              </p>
-              <div className="cta-actions" id="book">
-                <a
-                  className="button button-primary"
-                  href={contactPageDocument?.heroPrimaryCtaHref || siteSettings.ctas.book}
-                >
-                  {contactPageDocument?.heroPrimaryCtaLabel || "Book Online"}
-                </a>
-                <a
-                  className="button button-muted"
-                  href={contactPageDocument?.heroSecondaryCtaHref || siteSettings.ctas.register}
-                  id="register"
-                >
-                  {contactPageDocument?.heroSecondaryCtaLabel || "Register Now"}
-                </a>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="contact-quick-links section-surface">
-        <div className="shell contact-link-grid">
-          {quickLinks.map((item, index) => (
-            <Reveal key={item.title} variant="up" delayMs={index * 45}>
-              <a className="contact-link-card" href={item.href}>
-                <span className="contact-link-icon">
-                  <ContactGlyph name={item.icon} />
-                </span>
-                <p className="eyebrow">{item.title}</p>
-                <h2>{item.value}</h2>
-                <p>{item.meta}</p>
-              </a>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="shell two-column-panels contact-action-panels">
+      <section className="shell contact-page-v2-hero">
         <Reveal variant="left">
-          <article className="panel contact-open-panel">
-            <p className="eyebrow">{contactPageDocument?.openEyebrow || "Open Practice Hours"}</p>
-            <h2>{contactPageDocument?.openTitle || "Book, register, or ask a practical question."}</h2>
+          <div className="contact-page-v2-copy">
+            <p className="eyebrow">About</p>
+            <h1>Independent veterinary care in Sutton, designed to feel calm, clear, and personal.</h1>
             <p>
-              {contactPageDocument?.openDescription ||
-                "During practice hours, the quickest route is to call, book online, or use the registration flow. Keep first-visit questions and local access details surfaced early rather than hiding them deeper in the site."}
+              The Sutton Vet is being shaped as a smaller independent practice where care feels more considered, practical information is easier to find, and each visit can be planned with more confidence.
             </p>
-            <div className="contact-meta-stack">
-              {openMetaLines.map((line) => (
-                <p key={line}>{line}</p>
+          </div>
+        </Reveal>
+
+        <Reveal variant="up" delayMs={40}>
+          <div className="contact-page-v2-summary">
+            <p className="eyebrow">At A Glance</p>
+            <ul>
+              {overviewPoints.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="shell contact-page-v2-grid">
+        <Reveal variant="left">
+          <div className="contact-page-v2-panel" id="opening-times">
+            <p className="eyebrow">Clinic Hours</p>
+            <h2>Visit times kept simple.</h2>
+            <div className="contact-page-v2-hours">
+              {clinicHours.map((item) => (
+                <div key={item.day}>
+                  <span>{item.day}</span>
+                  <strong>{item.hours}</strong>
+                </div>
               ))}
             </div>
-            <div className="cta-actions">
-              {openCtas.map((item) => (
-                <a
-                  key={`${item.label}-${item.href}`}
-                  className={`button ${item.variant === "muted" ? "button-muted" : "button-primary"}`}
-                  href={item.href || "/"}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </article>
+            <p>Appointments can still be requested through the website at any time using the online booking portal.</p>
+          </div>
         </Reveal>
 
         <Reveal variant="right">
-          <article className="panel panel-emergency contact-emergency-panel">
-            <p className="eyebrow">{contactPageDocument?.emergencyEyebrow || "Out-of-Hours Emergency Care"}</p>
-            <h2>{contactPageDocument?.emergencyTitle || "Urgent care should feel immediate and unmistakable."}</h2>
-            <p>
-              {contactPageDocument?.emergencyDescription ||
-                "If the practice is closed and your pet needs urgent help, call the emergency line straight away. Mobile users should not need to hunt for the correct route."}
-            </p>
-            <div className="contact-emergency-list">
-              {(contactPageDocument?.emergencyPoints?.length
-                ? contactPageDocument.emergencyPoints
-                : [
-                    "Use the emergency number outside normal practice hours",
-                    "In-hours urgent cases should still call the main practice number first",
-                    "Emergency routing remains prominent on mobile and sticky navigation paths",
-                  ]).map((point) => (
-                <div key={point} className="list-row">
-                  <span className="list-dot" />
-                  <p>{point}</p>
-                </div>
+          <div className="contact-page-v2-panel contact-page-v2-panel-soft" id="parking-access">
+            <p className="eyebrow">Parking & Access</p>
+            <h2>Arrival guidance for a calmer first visit.</h2>
+            <div className="contact-page-v2-notes">
+              {parkingNotes.map((item) => (
+                <p key={item}>{item}</p>
               ))}
             </div>
-            <a className="button button-emergency" href={siteSettings.ctas.emergency}>
-              {contactPageDocument?.emergencyButtonLabel || "Call Emergency Line"}
-            </a>
-          </article>
+          </div>
         </Reveal>
       </section>
 
-      <section className="contact-hours section-surface">
-        <div className="shell">
-          <Reveal variant="up">
-            <div className="section-heading section-heading-center contact-section-heading">
-              <p className="eyebrow">{contactPageDocument?.hoursEyebrow || "Opening Hours"}</p>
-              <h2>{contactPageDocument?.hoursTitle || "When we are open"}</h2>
-            </div>
-          </Reveal>
 
-          <div className="contact-hours-grid">
-            {openingSchedule.map((item, index) => (
-              <Reveal key={item.day} variant="up" delayMs={index * 25}>
-                <article className="contact-hours-row">
-                  <span>{item.day}</span>
-                  <strong>{item.hours}</strong>
-                </article>
-              </Reveal>
+      <section className="shell contact-page-v2-community">
+        <Reveal variant="left">
+          <div className="contact-page-v2-community-copy">
+            <p className="eyebrow">Community</p>
+            <h2>Passionate about animals and our community.</h2>
+            <p>
+              We are more than a veterinary surgery. The Sutton Vet is being built as a local practice that supports pet education, local animal welfare, and neighbourhood connection as the clinic grows.
+            </p>
+          </div>
+        </Reveal>
+        <Reveal variant="right" delayMs={40}>
+          <div className="contact-page-v2-social-links">
+            {siteSettings.socialLinks.map((item) => (
+              <a key={item.label} href={item.href} target="_blank" rel="noreferrer">
+                {item.label}
+              </a>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      <section className="shell contact-location-section">
+      <section className="shell contact-page-v2-details">
         <Reveal variant="left">
-          <article className="contact-location-copy">
-            <p className="eyebrow">{contactPageDocument?.locationEyebrow || "Find Us"}</p>
-            <h2>{contactPageDocument?.locationTitle || "How to find us"}</h2>
-            <p>
-              {contactPageDocument?.locationDescription ||
-                `The Sutton Vet is based at ${siteSettings.address}. The contact journey should reassure new clients with a clear map, straightforward access guidance, and practical next steps before the visit.`}
-            </p>
-            <div className="contact-location-points">
-              {(contactPageDocument?.locationPoints?.length
-                ? contactPageDocument.locationPoints
-                : [
-                    "Hackbridge and Sutton coverage surfaced clearly for local reassurance",
-                    "Directions and map access available without extra clicks",
-                    "Call first if you need help with parking or arrival guidance",
-                  ]).map((point) => (
-                <div key={point} className="list-row">
-                  <span className="list-dot" />
-                  <p>{point}</p>
+          <div className="contact-page-v2-panel">
+            <p className="eyebrow">Contact Details</p>
+            <h2>Everything important, in one place.</h2>
+            <div className="contact-page-v2-detail-list">
+              {contactDetails.map((item) => (
+                <div key={item.label}>
+                  <span>{item.label}</span>
+                  {item.href ? (
+                    <a href={item.href}>{item.value}</a>
+                  ) : (
+                    <strong>{item.value}</strong>
+                  )}
                 </div>
               ))}
-            </div>
-            <a className="button button-primary" href={contactPageDocument?.locationButtonHref || siteSettings.hasMapUrl}>
-              {contactPageDocument?.locationButtonLabel || "Get Directions"}
-            </a>
-          </article>
-        </Reveal>
-
-        <Reveal variant="mask">
-          <div className="contact-map-frame">
-            {mapEmbedUrl ? (
-              <iframe
-                src={mapEmbedUrl}
-                title="The Sutton Vet map"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            ) : (
-              <div className="contact-map-visual" aria-label="Location preview map">
-                <div className="trust-map-grid" />
-                <div className="trust-map-route trust-map-route-a" />
-                <div className="trust-map-route trust-map-route-b" />
-                <div className="trust-map-pin trust-map-pin-primary">
-                  <span />
-                </div>
-                <div className="trust-map-pin trust-map-pin-secondary">
-                  <span />
-                </div>
-              </div>
-            )}
-            <div className="contact-map-overlay-copy">
-              <p className="eyebrow">Always Visible</p>
-              <h3>{mapLabelTitle}</h3>
-              <p>{mapLabelText}</p>
             </div>
           </div>
         </Reveal>
       </section>
 
-      <section className="contact-social-section full-bleed-section">
-        <div className="shell contact-social-grid">
-          {socialCards.map((card, index) => (
-            <Reveal key={card.title} variant={index % 2 === 0 ? "left" : "right"}>
-              <a className="contact-social-card" href={card.href}>
-                <div className="contact-social-icon">
-                  <span>{card.icon === "facebook" ? "f" : card.icon === "instagram" ? "◎" : "↗"}</span>
-                </div>
-                <div className="contact-social-copy">
-                  <h2>{card.title}</h2>
-                  <p>{card.description}</p>
-                  <span className="text-link">{card.ctaLabel}</span>
-                </div>
+      <section className="shell contact-page-v2-location" id="find-us">
+        <Reveal variant="left">
+          <div className="contact-page-v2-location-copy">
+            <p className="eyebrow">Find Us</p>
+            <h2>4 Spinning Wheel Way, Hackbridge, SM6 7DS</h2>
+            <p>
+              Located near Hackbridge Rail Station, with free nearby parking options and step-free access to help visits feel easier from the moment you arrive.
+            </p>
+            <div className="contact-page-v2-actions">
+              <a className="button button-primary" href={siteSettings.hasMapUrl}>
+                Get Directions
               </a>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+              <a className="button button-muted" href={siteSettings.googleBusinessProfileUrl} target="_blank" rel="noreferrer">
+                Google Profile
+              </a>
+              <a className="button button-muted" href="tel:07440278373">
+                Call 07440278373
+              </a>
+            </div>
+          </div>
+        </Reveal>
 
-      <SectionCta
-        eyebrow={contactPageDocument?.ctaEyebrow || "Next Step"}
-        title={contactPageDocument?.ctaTitle || "Need help before booking?"}
-        text={contactPageDocument?.ctaText || "Call, WhatsApp, or use the online booking route if you want help choosing the right next step."}
-        primaryLabel={contactPageDocument?.ctaPrimaryLabel}
-        primaryHref={contactPageDocument?.ctaPrimaryHref}
-        secondaryLabel={contactPageDocument?.ctaSecondaryLabel}
-        secondaryHref={contactPageDocument?.ctaSecondaryHref}
-      />
+        <Reveal variant="up" delayMs={50}>
+          <div className="contact-page-v2-map">
+            <iframe
+              src={siteSettings.googleMapEmbedUrl}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              title={`${siteSettings.practiceName} map`}
+            />
+          </div>
+        </Reveal>
+      </section>
     </>
   );
 }
+
+
+

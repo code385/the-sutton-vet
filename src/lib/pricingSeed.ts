@@ -1,3 +1,6 @@
+﻿import { siteConfig } from "./site";
+import { visualAssets } from "./visualAssets";
+
 export type PricingCalculatorEntrySeed = {
   species: "Dog" | "Cat";
   weightBand?: string;
@@ -24,32 +27,32 @@ export const pricingPageSeed = {
   _id: "pricingPage",
   _type: "pricingPage",
   eyebrow: "Fees & Pricing",
-  title: "Prices",
+  title: "Services and pricing",
   description:
-    "Clear guidance on common fees, practical next steps, and how preventative care can make routine costs easier to plan for.",
+    "A clearer pricing page for the services owners ask about most, with actual figures where possible and transparent guidance where an estimate is the more responsible route.",
   heroImageUrl:
-    "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1800&q=80",
+    visualAssets.gingerSpanielHero,
 
   promiseEyebrow: "Price Promise",
-  promiseTitle: "Clear fees, calmer decisions.",
+  promiseTitle: "Clear fees, kinder conversations.",
   promiseDescription:
-    "As an independent practice, The Sutton Vet should explain costs plainly and early. Routine fees can be surfaced here, while more tailored treatment estimates remain part of a proper clinical conversation rather than a vague surprise later.",
+    "The Sutton Vet should feel open and straightforward about cost. Routine prices are shown clearly, while treatment that depends on clinical findings is discussed properly after an examination rather than guessed at online.",
   promiseSecondary:
-    "This page is designed to answer the most common cost questions first: consultations, vaccinations, microchipping, neutering, and the value of the Health Plan.",
+    "The focus here is on the categories owners ask about first: consultations, vaccinations, neutering, dentistry, diagnostics, and the value of the Health Plan.",
 
   healthPlanEyebrow: "Routine Care Savings",
   healthPlanTitle: "Pet Health Plan",
   healthPlanDescription:
-    "If you want more predictable monthly budgeting for boosters, parasite treatment, and routine support, the Health Plan page explains the structure in more detail.",
+    "If you would rather spread the cost of routine preventative care, the Health Plan page sets out the monthly structure and likely savings more simply.",
   healthPlanImageUrl:
-    "https://images.unsplash.com/photo-1548681528-6a5c45b66b42?auto=format&fit=crop&w=1600&q=80",
+    visualAssets.gingerCatHero,
   healthPlanCtaLabel: "View Health Plan",
   healthPlanCtaHref: "/health-plan",
 
   calculatorEyebrow: "Savings Calculator",
-  calculatorTitle: "Compare plan savings.",
+  calculatorTitle: "Compare plan value.",
   calculatorDescription:
-    "Select species and weight band to compare estimated annual pay-as-you-go preventative costs with the monthly Health Plan route.",
+    "Use this guide to compare estimated pay-as-you-go preventative spend with the monthly Health Plan route. Final health plan details can still be refined as the launch offer is confirmed.",
   calculatorEntries: [
     {
       species: "Dog",
@@ -90,11 +93,11 @@ export const pricingPageSeed = {
   ctaEyebrow: "Next Step",
   ctaTitle: "Need help choosing the right route?",
   ctaText:
-    "If you are unsure whether you need a consultation, preventative care, or a more tailored estimate, contact the team and we will point you in the right direction.",
+    "If you are unsure whether you need a routine appointment, a procedure estimate, or a referral conversation, the team can guide you to the most sensible next step.",
   ctaImageUrl:
-    "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80",
+    visualAssets.goldenDogWarm,
   ctaPrimaryLabel: "Book Online",
-  ctaPrimaryHref: "/contact#book",
+  ctaPrimaryHref: siteConfig.ctas.book,
   ctaSecondaryLabel: "Contact Us",
   ctaSecondaryHref: "/contact",
 };
@@ -103,15 +106,15 @@ export const feeCategorySeeds: FeeCategorySeed[] = [
   {
     _id: "fee-category-consultations",
     _type: "feeCategory",
-    title: "Consultation Fees",
+    title: "Consultation fees",
     eyebrow: "Everyday Appointments",
-    description: "Common first-step fees for routine consultations and day-to-day clinical support.",
+    description: "Common first-step fees for routine consultations, follow-ups, and practical day-to-day clinical support.",
     sortOrder: 1,
     items: [
-      { label: "Routine consultation", price: "£75.00", note: "Standard in-practice appointment" },
-      { label: "Recheck consultation", price: "£65.00", note: "Follow-up appointment where appropriate" },
-      { label: "Written prescription", price: "£20.00", note: "Issued to a pharmacy of your choosing" },
-      { label: "Animal Health Certificate", price: "From £210.00", note: "Travel documentation guidance available" },
+      { label: "Routine consultation", price: "\u00a375.00", note: "Standard in-practice appointment" },
+      { label: "Recheck consultation", price: "\u00a365.00", note: "Follow-up appointment where appropriate" },
+      { label: "Written prescription", price: "\u00a320.00", note: "Issued to a pharmacy of your choosing" },
+      { label: "Animal Health Certificate", price: "From \u00a3210.00", note: "Travel documentation guidance available" },
     ],
   },
   {
@@ -119,41 +122,44 @@ export const feeCategorySeeds: FeeCategorySeed[] = [
     _type: "feeCategory",
     title: "Vaccinations",
     eyebrow: "Preventative Care",
-    description: "Vaccination fees can stay clearly visible while tailored advice is still given case by case.",
+    description: "Straightforward pricing for routine preventative appointments, supported by a proper health check and practical advice.",
     sortOrder: 2,
     items: [
-      { label: "Dog or puppy vaccination course", price: "£130.00" },
-      { label: "Cat or kitten vaccination course", price: "£130.00" },
-      { label: "Annual booster and health check", price: "£90.00" },
-      { label: "Kennel cough add-on", price: "£35.00", note: "When added at the time of annual boosters" },
+      { label: "Dog or puppy vaccination course", price: "\u00a3130.00" },
+      { label: "Cat or kitten vaccination course", price: "\u00a3130.00" },
+      { label: "Annual booster and health check", price: "\u00a390.00" },
+      { label: "Kennel cough add-on", price: "\u00a335.00", note: "When added at the time of annual boosters" },
     ],
   },
   {
     _id: "fee-category-microchip-neutering",
     _type: "feeCategory",
-    title: "Microchipping & Neutering",
+    title: "Microchipping & neutering",
     eyebrow: "Core Procedures",
-    description: "Useful baseline pricing for core procedures that owners frequently ask about before registering.",
+    description: "Useful baseline pricing for core procedures that owners frequently ask about before registering or booking.",
     sortOrder: 3,
     items: [
-      { label: "Microchipping cats and dogs", price: "£35.00" },
-      { label: "Cat neutering", price: "From £175.00" },
-      { label: "Dog neutering", price: "From £250.00" },
-      { label: "Keyhole laparoscopic spay", price: "From £840.00", note: "Female dogs" },
+      { label: "Microchipping cats and dogs", price: "\u00a335.00" },
+      { label: "Cat neutering", price: "From \u00a3175.00" },
+      { label: "Dog neutering", price: "From \u00a3250.00" },
+      { label: "Keyhole laparoscopic spay", price: "From \u00a3840.00", note: "Female dogs" },
     ],
   },
   {
     _id: "fee-category-dental-surgery",
     _type: "feeCategory",
-    title: "Dental & Procedure Guide",
-    eyebrow: "Further Treatment",
-    description: "Surgical and dental treatment is discussed with proper clinical context before anything proceeds.",
+    title: "Dentistry, diagnostics & further treatment",
+    eyebrow: "Advanced GP Care",
+    description: "Some treatments can be priced clearly, while others are more responsibly confirmed once your pet has been assessed.",
     sortOrder: 4,
     items: [
-      { label: "Cat dental treatment", price: "From £350.00", note: "Including x-rays" },
-      { label: "Dog dental treatment", price: "From £400.00" },
+      { label: "Cat dental treatment", price: "From \u00a3350.00", note: "Including x-rays" },
+      { label: "Dog dental treatment", price: "From \u00a3400.00" },
       { label: "Pet surgery and procedures", price: "Estimate required", note: "Tailored after consultation and clinical review" },
-      { label: "Out-of-hours emergency appointment", price: "Emergency rates apply", note: "Guidance confirmed when routing care" },
+      { label: "Imaging and advanced diagnostics", price: "Estimate required", note: "Quoted according to the investigation needed" },
     ],
   },
 ];
+
+
+
