@@ -16452,3 +16452,240 @@ iframe {
     height: 2.55rem !important;
   }
 }
+
+/* Mobile breathing-room pass: prevent edge-touching cards/text and reduce empty vertical space. */
+@media (max-width: 820px) {
+  .shell {
+    width: min(100% - 1.75rem, var(--shell)) !important;
+  }
+
+  .sv-home-hero-shell,
+  .home-hero-content,
+  .service-detail-hero-shell,
+  .pricing-v3-hero-shell,
+  .hp-v2-hero-shell,
+  .about-page-hero,
+  .team-studio-hero-shell,
+  .contact-page-v2-hero {
+    padding-left: max(0.15rem, env(safe-area-inset-left)) !important;
+    padding-right: max(0.15rem, env(safe-area-inset-right)) !important;
+  }
+
+  .sv-home-hero-copy-minimal {
+    width: 100% !important;
+    max-width: 31rem !important;
+    padding-inline: 0.15rem !important;
+  }
+
+  .sv-home-hero-copy-minimal .cta-actions,
+  .hero-actions {
+    gap: 0.72rem !important;
+  }
+
+  .sv-home-hero-copy-minimal .cta-actions .button,
+  .hero-actions .button {
+    max-width: 100% !important;
+  }
+
+  .sv-home-intro-v3,
+  .sv-home-expert-v3,
+  .sv-home-why-v4,
+  .sv-home-location-v1,
+  .about-page-intro,
+  .about-page-story,
+  .about-page-difference,
+  .about-page-visit,
+  .team-page-intro,
+  .team-page-values,
+  .team-studio-intro,
+  .team-studio-roster,
+  .team-studio-promise-shell,
+  .service-detail-content,
+  .service-detail-related,
+  .pricing-v3-sections,
+  .hp-v2-included-shell,
+  .hp-v2-pricing,
+  .hp-v2-plan-options,
+  .hp-v2-faq-shell,
+  .contact-page-v2-grid,
+  .contact-page-v2-community,
+  .contact-page-v2-details,
+  .contact-page-v2-location {
+    width: min(100% - 1.75rem, var(--shell)) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .sv-home-intro-v3,
+  .sv-home-expert-v3,
+  .sv-home-why-v4,
+  .sv-home-location-v1 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .sv-home-intro-panel,
+  .sv-home-intro-copy,
+  .sv-home-expert-heading,
+  .sv-home-why-v4-intro,
+  .sv-home-location-copy,
+  .service-detail-hero-copy,
+  .service-detail-main,
+  .service-detail-side-block,
+  .pricing-v3-panel,
+  .hp-v2-plan-card,
+  .hp-v2-puppy-note,
+  .team-page-member-copy,
+  .team-studio-role-row,
+  .team-studio-value,
+  .contact-page-v2-card,
+  .contact-page-v2-details-card {
+    padding-left: clamp(1rem, 4.5vw, 1.35rem) !important;
+    padding-right: clamp(1rem, 4.5vw, 1.35rem) !important;
+  }
+
+  .sv-home-expert-card,
+  .services-page-card,
+  .service-card-v3,
+  .service-detail-related-card,
+  .pricing-v3-spotlight,
+  .hp-v2-price-item,
+  .hp-v2-benefit,
+  .team-page-member,
+  .team-studio-role-row,
+  .team-studio-value {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 100% !important;
+  }
+
+  .sv-home-expert-card-media,
+  .service-card-v3-media,
+  .services-page-card-media,
+  .service-detail-related-media,
+  .sv-home-why-video-frame,
+  .sv-home-location-map,
+  .hp-v2-care-photo,
+  .team-page-hero-media,
+  .team-studio-portrait-board {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .sv-home-expert-grid,
+  .services-page-grid,
+  .service-detail-related-grid,
+  .team-page-directory,
+  .hp-v2-plan-grid,
+  .hp-v2-price-rail,
+  .hp-v2-benefit-grid {
+    gap: 1.05rem !important;
+  }
+
+  .about-page-values article,
+  .about-page-visit-list div,
+  .team-page-value-row,
+  .team-studio-role-row,
+  .pricing-v3-ledger-row,
+  .hp-v2-faq-item summary,
+  .hp-v2-faq-item p,
+  .contact-page-v2-hours div,
+  .sv-home-location-hours div {
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+
+  .team-page-values,
+  .team-studio-promise-shell,
+  .about-page-story-band,
+  .hp-v2-final,
+  .pricing-v3-sections,
+  .service-detail-related {
+    padding-top: clamp(2rem, 8vw, 3rem) !important;
+    padding-bottom: clamp(2rem, 8vw, 3rem) !important;
+  }
+
+  .team-page-value-row,
+  .team-studio-role-row {
+    gap: 0.7rem !important;
+  }
+
+  .team-page-value-row strong,
+  .team-studio-role-main h3,
+  .about-page-values h3,
+  .sv-home-why-v4-item h3 {
+    overflow-wrap: anywhere;
+  }
+
+  .sv-mobile-menu {
+    width: min(100% - 1rem, var(--shell)) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .shell,
+  .sv-home-intro-v3,
+  .sv-home-expert-v3,
+  .sv-home-why-v4,
+  .sv-home-location-v1,
+  .about-page-intro,
+  .about-page-story,
+  .about-page-difference,
+  .about-page-visit,
+  .team-page-intro,
+  .team-page-values,
+  .team-studio-intro,
+  .team-studio-roster,
+  .team-studio-promise-shell,
+  .service-detail-content,
+  .service-detail-related,
+  .pricing-v3-sections,
+  .hp-v2-included-shell,
+  .hp-v2-pricing,
+  .hp-v2-plan-options,
+  .hp-v2-faq-shell,
+  .contact-page-v2-grid,
+  .contact-page-v2-community,
+  .contact-page-v2-details,
+  .contact-page-v2-location {
+    width: min(100% - 1.45rem, var(--shell)) !important;
+  }
+
+  .sv-home-hero {
+    min-height: 540px !important;
+  }
+
+  .sv-home-hero-shell {
+    min-height: 540px !important;
+    padding-top: 3.1rem !important;
+    padding-bottom: 1.4rem !important;
+  }
+
+  .sv-home-expert-card-media,
+  .service-card-v3-media {
+    min-height: 238px !important;
+  }
+
+  .sv-home-intro-panel,
+  .sv-home-intro-copy,
+  .sv-home-expert-heading,
+  .sv-home-why-v4-intro,
+  .sv-home-location-copy,
+  .service-detail-hero-copy,
+  .service-detail-main,
+  .service-detail-side-block,
+  .pricing-v3-panel,
+  .hp-v2-plan-card,
+  .hp-v2-puppy-note,
+  .team-page-member-copy,
+  .team-studio-role-row,
+  .team-studio-value {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .sv-home-expert-cta-link {
+    padding-left: 1rem !important;
+    padding-right: 0.35rem !important;
+  }
+}
