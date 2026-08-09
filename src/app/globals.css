@@ -16172,3 +16172,283 @@ iframe {
     padding-inline: 1rem !important;
   }
 }
+
+/* Strict final mobile layout pass: homepage, menu, cards, and wide panels. */
+@media (max-width: 820px) {
+  body {
+    position: relative;
+    width: 100%;
+  }
+
+  .shell,
+  .sv-header-main,
+  .sv-header-main-clean,
+  .sv-mobile-menu,
+  .sv-home-intro-v3,
+  .sv-home-expert-v3,
+  .sv-home-why-v4,
+  .sv-home-location-v1,
+  .sv-home-expert-reveal,
+  .reveal,
+  .reveal > * {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .sv-mobile-menu {
+    width: 100% !important;
+    margin-inline: auto !important;
+    padding-inline: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  .sv-mobile-menu.is-open {
+    max-height: calc(100dvh - 86px) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+
+  .sv-mobile-menu-inner-simple {
+    width: 100% !important;
+    padding: 0.2rem 0 0.9rem !important;
+  }
+
+  .sv-mobile-group-link-simple,
+  .sv-mobile-group-trigger,
+  .sv-mobile-submenu-simple a,
+  .sv-mobile-actions-simple .button {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sv-mobile-actions-simple {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+  }
+
+  .sv-home-intro-v3 {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.1rem !important;
+    padding: 2rem 0 2.2rem !important;
+    margin: 0 auto !important;
+    overflow: hidden !important;
+  }
+
+  .sv-home-intro-panel,
+  .sv-home-intro-copy {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sv-home-intro-panel {
+    padding: 1.05rem 0.95rem !important;
+    border-radius: 18px !important;
+  }
+
+  .sv-home-intro-panel h2 {
+    max-width: 100% !important;
+    font-size: clamp(1.72rem, 8.2vw, 2.34rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.028em !important;
+    word-spacing: 0.03em !important;
+    overflow-wrap: normal !important;
+  }
+
+  .sv-home-intro-line {
+    display: inline !important;
+  }
+
+  .sv-home-intro-copy {
+    padding: 0 0.95rem !important;
+  }
+
+  .sv-home-intro-copy p,
+  .sv-home-intro-note p {
+    max-width: 100% !important;
+    font-size: 0.96rem !important;
+    line-height: 1.72 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .sv-home-expert-reveal {
+    margin-top: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .sv-home-expert-reveal.reveal-mask {
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .sv-home-expert-v3 {
+    width: min(100% - 1rem, var(--shell)) !important;
+    margin-inline: auto !important;
+    padding: 2.25rem 0 1rem !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .sv-home-expert-heading {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+    padding-inline: 0 !important;
+  }
+
+  .sv-home-expert-heading h2 {
+    max-width: 100% !important;
+    font-size: clamp(1.48rem, 7vw, 2rem) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.026em !important;
+  }
+
+  .sv-home-expert-heading p:not(.eyebrow) {
+    max-width: 100% !important;
+    font-size: 0.96rem !important;
+    line-height: 1.68 !important;
+  }
+
+  .sv-home-expert-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.95rem !important;
+    width: 100% !important;
+    padding-top: 1rem !important;
+    overflow: visible !important;
+  }
+
+  .sv-home-expert-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 12px !important;
+  }
+
+  .sv-home-expert-card-media {
+    min-height: 230px !important;
+    border-radius: 12px !important;
+    transform: none !important;
+  }
+
+  .sv-home-expert-card-overlay {
+    padding: 1rem !important;
+  }
+
+  .sv-home-expert-card-copy h3 {
+    max-width: 14ch !important;
+    font-size: 1.26rem !important;
+  }
+
+  .sv-home-expert-card-button {
+    min-width: 0 !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    padding-inline: 0.9rem !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .sv-home-expert-cta {
+    width: 100% !important;
+    padding-top: 1rem !important;
+  }
+
+  .sv-home-expert-cta-link {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sv-home-why-v4 {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.3rem !important;
+    padding: 2.4rem 0 1rem !important;
+    overflow: hidden !important;
+  }
+
+  .sv-home-why-v4-intro,
+  .sv-home-why-v4-list {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sv-home-why-v4-intro h2 {
+    max-width: 100% !important;
+    font-size: clamp(1.55rem, 7vw, 2rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  .sv-home-why-line {
+    display: inline !important;
+  }
+
+  .sv-home-why-video-frame {
+    width: 100% !important;
+    min-height: 13rem !important;
+  }
+
+  .sv-home-why-v4-cta,
+  .sv-home-why-v4-cta .button {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sv-home-why-v4-item {
+    grid-template-columns: 3.2rem minmax(0, 1fr) !important;
+    gap: 0.85rem !important;
+    align-items: center !important;
+  }
+
+  .sv-home-why-v4-item h3 {
+    max-width: 100% !important;
+    font-size: 0.98rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .sv-home-location-v1 {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding-top: 2.3rem !important;
+  }
+
+  .sv-home-location-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .sv-home-location-actions .button {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .sv-home-intro-panel h2 {
+    font-size: clamp(1.55rem, 7.8vw, 2rem) !important;
+  }
+
+  .sv-home-expert-card-media {
+    min-height: 218px !important;
+  }
+
+  .sv-home-why-video-frame {
+    min-height: 11.5rem !important;
+  }
+
+  .sv-home-why-v4-item {
+    grid-template-columns: 2.8rem minmax(0, 1fr) !important;
+  }
+
+  .sv-home-why-v4-item span {
+    width: 2.55rem !important;
+    height: 2.55rem !important;
+  }
+}
