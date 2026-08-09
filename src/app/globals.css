@@ -16809,3 +16809,272 @@ iframe {
     padding-right: 0.95rem !important;
   }
 }
+
+/* Universal mobile gutter system: all pages must keep content away from viewport edges. */
+@media (max-width: 900px) {
+  :root {
+    --sv-mobile-gutter: clamp(1.05rem, 4.8vw, 1.45rem);
+  }
+
+  html,
+  body,
+  #__next,
+  .page-shell,
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: clip !important;
+  }
+
+  .full-bleed-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .shell {
+    width: 100% !important;
+    max-width: var(--shell) !important;
+    padding-left: var(--sv-mobile-gutter) !important;
+    padding-right: var(--sv-mobile-gutter) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .sv-header-main-clean,
+  .sv-mobile-menu,
+  .sv-mobile-menu-inner-simple,
+  .sv-home-hero-shell,
+  .sv-home-intro-v3,
+  .sv-home-expert-v3,
+  .sv-home-why-v4,
+  .sv-home-location-v1,
+  .services-page-hero,
+  .services-page-section,
+  .services-page-grid,
+  .service-detail-hero-shell,
+  .service-detail-content,
+  .service-detail-related,
+  .pricing-v3-hero-shell,
+  .pricing-v3-intro,
+  .pricing-v3-route-map,
+  .pricing-v3-sections,
+  .pricing-v3-health-band,
+  .hp-v2-hero-shell,
+  .hp-v2-peace,
+  .hp-v2-included-shell,
+  .hp-v2-pricing,
+  .hp-v2-plan-options,
+  .hp-v2-faq-shell,
+  .hp-v2-final-panel,
+  .about-page-hero,
+  .about-page-intro,
+  .about-page-story,
+  .about-page-difference,
+  .about-page-visit,
+  .about-page-map,
+  .team-page-hero-shell,
+  .team-page-intro,
+  .team-page-directory,
+  .team-page-values,
+  .team-studio-hero-shell,
+  .team-studio-intro,
+  .team-studio-roster,
+  .team-studio-promise-shell,
+  .contact-page-v2-hero,
+  .contact-page-v2-grid,
+  .contact-page-v2-community,
+  .contact-page-v2-details,
+  .contact-page-v2-location,
+  .sv-footer-top-v2,
+  .sv-footer-bottom-v2 {
+    width: 100% !important;
+    max-width: var(--shell) !important;
+    padding-left: var(--sv-mobile-gutter) !important;
+    padding-right: var(--sv-mobile-gutter) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .sv-header-main-clean {
+    display: grid !important;
+    grid-template-columns: minmax(9.8rem, 1fr) auto !important;
+    align-items: center !important;
+  }
+
+  .sv-header-brand-clean {
+    padding-left: 0 !important;
+    width: clamp(10rem, 44vw, 12.25rem) !important;
+    min-width: 0 !important;
+  }
+
+  .sv-menu-toggle {
+    justify-self: end !important;
+    margin-right: 0 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .sv-mobile-menu {
+    padding-top: 0 !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .sv-mobile-menu-inner-simple {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .sv-mobile-group-link-simple,
+  .sv-mobile-group-trigger,
+  .sv-mobile-submenu-simple a {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .sv-mobile-submenu-simple {
+    padding-left: 1rem !important;
+    padding-right: 0 !important;
+  }
+
+  .sv-mobile-actions-simple {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .sv-home-hero-copy-minimal,
+  .pricing-v3-hero-copy,
+  .hp-v2-hero-copy,
+  .services-page-hero-copy,
+  .service-detail-hero-copy,
+  .about-page-hero-copy,
+  .team-page-hero-copy,
+  .team-studio-hero-copy,
+  .contact-page-v2-hero-copy,
+  .pms-copy {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .pricing-v3-hero-copy h1,
+  .hp-v2-hero-copy h1,
+  .services-page-hero-copy h1,
+  .service-detail-hero-copy h1,
+  .about-page-hero-copy h1,
+  .team-page-hero-copy h1,
+  .team-studio-hero-copy h1,
+  .contact-page-v2-hero-copy h1,
+  .sv-home-intro-panel h2,
+  .sv-home-expert-heading h2 {
+    max-width: 100% !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+
+  .pricing-v3-hero-copy p,
+  .hp-v2-hero-copy p,
+  .services-page-hero-copy p,
+  .service-detail-hero-copy p,
+  .about-page-hero-copy p,
+  .team-page-hero-copy p,
+  .team-studio-hero-copy p,
+  .contact-page-v2-hero-copy p {
+    max-width: 100% !important;
+    overflow-wrap: normal !important;
+  }
+
+  .sv-home-expert-grid,
+  .services-page-grid,
+  .service-detail-related-grid,
+  .pricing-v3-panel-prices,
+  .pricing-v3-spotlights,
+  .pricing-v3-ledger,
+  .hp-v2-price-rail,
+  .hp-v2-benefit-grid,
+  .hp-v2-plan-grid,
+  .team-page-directory,
+  .team-studio-role-list,
+  .team-studio-values {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .sv-home-expert-card,
+  .service-card-v3,
+  .services-page-card,
+  .service-detail-related-card,
+  .pricing-v3-panel,
+  .pricing-v3-spotlight,
+  .hp-v2-price-item,
+  .hp-v2-benefit,
+  .hp-v2-plan-card,
+  .team-page-member,
+  .team-studio-role-row,
+  .team-studio-value,
+  .section-cta.section-cta-premium {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .section-cta.section-cta-premium {
+    padding-left: var(--sv-mobile-gutter) !important;
+    padding-right: var(--sv-mobile-gutter) !important;
+  }
+
+  .sv-home-expert-card-media,
+  .service-card-v3-media,
+  .services-page-card-media,
+  .service-detail-related-media,
+  .pricing-v3-pet-card,
+  .hp-v2-care-photo,
+  .sv-home-location-map,
+  .about-page-hero-media,
+  .team-page-hero-media,
+  .team-studio-portrait-board {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .button,
+  a.button,
+  button.button,
+  .sv-home-expert-card-button,
+  .sv-home-expert-cta-link,
+  .pricing-v3-panel-toggle,
+  .sv-mobile-actions-simple .button {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 430px) {
+  :root {
+    --sv-mobile-gutter: 1.05rem;
+  }
+
+  .pricing-v3-hero-copy h1,
+  .services-page-hero-copy h1 {
+    font-size: clamp(2.15rem, 10.5vw, 3rem) !important;
+    line-height: 1.02 !important;
+  }
+
+  .hp-v2-hero-copy h1 {
+    font-size: clamp(2rem, 10vw, 2.85rem) !important;
+    line-height: 1.04 !important;
+  }
+}
