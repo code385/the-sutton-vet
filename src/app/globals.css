@@ -17078,3 +17078,138 @@ iframe {
     line-height: 1.04 !important;
   }
 }
+
+/* Final mobile typography repair: readable headings, no joined words, calmer scale. */
+@media (max-width: 900px) {
+  :root {
+    --sv-mobile-heading-track: -0.012em;
+    --sv-mobile-word-spacing: 0.035em;
+  }
+
+  .sv-home-intro-panel h2,
+  .pricing-v3-hero-copy h1,
+  .hp-v2-hero-copy h1,
+  .services-page-hero-copy h1,
+  .service-detail-hero-copy h1,
+  .about-page-hero-copy h1,
+  .team-page-hero-copy h1,
+  .team-studio-hero-copy h1,
+  .contact-page-v2-hero-copy h1,
+  .pms-copy h1,
+  .section-cta.section-cta-premium h2 {
+    letter-spacing: var(--sv-mobile-heading-track) !important;
+    word-spacing: var(--sv-mobile-word-spacing) !important;
+    line-height: 1.08 !important;
+    max-width: 100% !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+  }
+
+  .sv-home-intro-panel h2 {
+    font-size: clamp(2rem, 7.6vw, 3.15rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  .sv-home-intro-line {
+    display: block !important;
+  }
+
+  .sv-home-intro-line + .sv-home-intro-line {
+    margin-top: 0.06em !important;
+  }
+
+  .sv-home-intro-line span,
+  .sv-home-intro-soft,
+  .sv-home-intro-emphasis {
+    display: inline !important;
+    letter-spacing: inherit !important;
+    word-spacing: inherit !important;
+  }
+
+  .pricing-v3-hero-copy h1,
+  .services-page-hero-copy h1 {
+    font-size: clamp(2.25rem, 8.6vw, 3.75rem) !important;
+  }
+
+  .hp-v2-hero-copy h1,
+  .service-detail-hero-copy h1,
+  .about-page-hero-copy h1,
+  .team-page-hero-copy h1,
+  .team-studio-hero-copy h1,
+  .contact-page-v2-hero-copy h1 {
+    font-size: clamp(2.05rem, 8vw, 3.35rem) !important;
+  }
+
+  .sv-home-expert-heading h2,
+  .sv-home-why-v4-intro h2,
+  .sv-home-location-copy h2,
+  .pricing-v3-intro-copy h2,
+  .pricing-v3-health-band h2,
+  .hp-v2-section-heading h2,
+  .hp-v2-peace-copy h2,
+  .hp-v2-final-panel h2,
+  .about-page-intro-heading h2,
+  .about-page-story-copy h2,
+  .about-page-difference-copy h2,
+  .about-page-visit-copy h2,
+  .team-page-intro-heading h2,
+  .team-page-values-copy h2,
+  .team-studio-intro-copy h2,
+  .team-studio-roster-heading h2,
+  .team-studio-promise-copy h2,
+  .service-detail-related-heading h2 {
+    font-size: clamp(1.5rem, 6.2vw, 2.2rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.01em !important;
+    word-spacing: 0.03em !important;
+    max-width: 100% !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+  }
+
+  .sv-home-intro-copy p,
+  .pricing-v3-hero-copy p,
+  .hp-v2-hero-copy p,
+  .services-page-hero-copy p,
+  .service-detail-hero-copy p,
+  .about-page-hero-copy p,
+  .team-page-hero-copy p,
+  .team-studio-hero-copy p,
+  .contact-page-v2-hero-copy p,
+  .section-cta.section-cta-premium p {
+    font-size: clamp(0.98rem, 4vw, 1.08rem) !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0.002em !important;
+    word-spacing: 0.02em !important;
+  }
+
+  .eyebrow {
+    letter-spacing: 0.14em !important;
+    word-spacing: 0.08em !important;
+    line-height: 1.35 !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .sv-home-intro-panel h2 {
+    font-size: clamp(1.82rem, 7.9vw, 2.65rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  .pricing-v3-hero-copy h1,
+  .services-page-hero-copy h1 {
+    font-size: clamp(2rem, 8.9vw, 3rem) !important;
+    line-height: 1.06 !important;
+  }
+
+  .hp-v2-hero-copy h1,
+  .service-detail-hero-copy h1,
+  .about-page-hero-copy h1,
+  .team-page-hero-copy h1,
+  .team-studio-hero-copy h1,
+  .contact-page-v2-hero-copy h1 {
+    font-size: clamp(1.9rem, 8.2vw, 2.75rem) !important;
+    line-height: 1.08 !important;
+  }
+}

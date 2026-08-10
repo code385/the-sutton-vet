@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 import { Reveal } from "@/components/shared/Reveal";
 import { seededServices } from "@/lib/servicesSeed";
@@ -87,7 +87,7 @@ export default async function Home() {
         <Reveal variant="left">
           <div className="sv-home-intro-panel">
             <p className="eyebrow">Independent Care</p>
-            <h2><span className="sv-home-intro-line"><span className="sv-home-intro-soft">A calmer structure</span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">for </span><span className="sv-home-intro-emphasis">everyday appointments</span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">referral pathways</span><span className="sv-home-intro-soft"> and </span><span className="sv-home-intro-emphasis">practical</span></span><span className="sv-home-intro-line"><span className="sv-home-intro-emphasis">next steps.</span></span></h2>
+            <h2><span className="sv-home-intro-line"><span className="sv-home-intro-soft">A calmer structure </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">for </span><span className="sv-home-intro-emphasis">everyday appointments </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">referral pathways</span><span className="sv-home-intro-soft"> and </span><span className="sv-home-intro-emphasis">practical </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-emphasis">next steps.</span></span></h2>
             <Link className="sv-home-inline-link" href="/services">
               See our veterinary services
             </Link>
