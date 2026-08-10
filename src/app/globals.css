@@ -17213,3 +17213,25 @@ iframe {
     line-height: 1.08 !important;
   }
 }
+
+/* Service detail breathing room: keep copy away from bordered panels on every service page. */
+.service-detail-main,
+.service-detail-side-block {
+  padding: clamp(1.25rem, 2.6vw, 2rem) !important;
+}
+
+.service-detail-summary,
+.service-detail-body {
+  max-width: 72ch;
+}
+
+.service-detail-body p:last-child {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 780px) {
+  .service-detail-main,
+  .service-detail-side-block {
+    padding: clamp(1rem, 5vw, 1.35rem) !important;
+  }
+}
