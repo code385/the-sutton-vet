@@ -17509,3 +17509,28 @@ body,
   background: transparent !important;
   background-image: none !important;
 }
+
+/* Client single-colour footer and cookie settings icon */
+.sv-footer-expanded,
+.sv-footer-expanded .shell,
+.sv-footer-top-v2,
+.sv-footer-bottom-v2 {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+.sv-footer-socials-v2 a {
+  background: #7b3f92 !important;
+  background-image: none !important;
+}
+
+.cookie-fab-icon {
+  font-size: 0;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.cookie-fab-icon::before {
+  content: "\2699";
+  font-size: 1.15rem;
+}

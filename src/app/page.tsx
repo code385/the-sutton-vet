@@ -7,6 +7,7 @@ import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteS
 
 const homeCards = [
   "service-gp-consultations",
+  "service-daytime-urgent-care",
   "service-dental-care",
   "service-vaccinations",
   "service-neutering-keyhole",

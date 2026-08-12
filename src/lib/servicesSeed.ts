@@ -1,4 +1,4 @@
-﻿import { siteConfig } from "./site";
+import { siteConfig } from "./site";
 import { visualAssets } from "./visualAssets";
 
 export type SeededService = {
@@ -23,7 +23,7 @@ export const servicesPageSeed = {
   eyebrow: "GP & Referral Care",
   title: "Thoughtful veterinary care, organised around what owners need most.",
   description:
-    "The Sutton Vet should feel warm, clinically confident, and easy to navigate. This page brings together everyday GP support, preventative care, and selected referral services in a format that is simple to scan without feeling impersonal.",
+    "The Sutton Vet should feel warm, clinically confident, and easy to navigate. This page brings together everyday GP support, daytime urgent care, preventative care, and selected referral services in a format that is simple to scan without feeling impersonal.",
   introNote: "Each service block below can be edited from Sanity, including title, copy, image, and CTA.",
   primaryCtaLabel: "Book Online",
   primaryCtaHref: siteConfig.ctas.book,
@@ -70,6 +70,40 @@ export const seededServices: SeededService[] = [
           {
             _type: "span",
             text: "Where further tests or treatment are needed, the next step is explained in gentle, plain language so owners can make decisions with confidence.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    _id: "service-daytime-urgent-care",
+    _type: "service",
+    sortOrder: 2,
+    eyebrow: "Urgent Care",
+    title: "Daytime urgent care",
+    slug: { current: "daytime-urgent-care" },
+    shortDescription: "Same-day daytime support for urgent concerns during clinic hours, with clear triage and next-step guidance.",
+    lead: "When something feels urgent during the day, owners need calm, practical help without feeling rushed or unsure where to turn.",
+    imageUrl: visualAssets.vetDoctorWithPet,
+    alt: "Veterinary doctor supporting a dog and cat during a daytime urgent care visit",
+    ctaLabel: "Call about urgent care",
+    ctaHref: siteConfig.ctas.call,
+    content: [
+      {
+        _type: "block",
+        children: [
+          {
+            _type: "span",
+            text: "Daytime urgent care is for concerns that cannot comfortably wait for a routine appointment, such as sudden illness, pain, wounds, vomiting, eye problems, breathing worries, or a pet that seems rapidly unwell.",
+          },
+        ],
+      },
+      {
+        _type: "block",
+        children: [
+          {
+            _type: "span",
+            text: "This is an in-hours service during clinic opening times. The team will help assess urgency, explain the safest next step, and direct out-of-hours emergencies to the appropriate provider when the clinic is closed.",
           },
         ],
       },
@@ -389,7 +423,8 @@ export const seededServices: SeededService[] = [
         ],
       },
     ],
-  },  {
+  },
+  {
     _id: "service-referral-soft-tissue",
     _type: "service",
     sortOrder: 11,

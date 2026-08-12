@@ -1,6 +1,6 @@
 export const visualAssets = {
   gingerSpanielHero:
-    "https://images.unsplash.com/photo-1766777020518-91646e4a2067?auto=format&fit=crop&w=1800&q=82",
+    "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=1800&q=82",
   gingerCatHero:
     "https://images.unsplash.com/photo-1596854372745-0906a0593bca?auto=format&fit=crop&w=1800&q=82",
   gingerCatPortrait:
