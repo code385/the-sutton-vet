@@ -17382,3 +17382,31 @@ h3,
 .service-card-v3-copy strong {
   color: rgba(255, 255, 255, 0.92) !important;
 }
+
+/* Remove remaining pricing gradients: all price badges and pricing controls use solid colours only. */
+.pricing-v3-ledger-row em,
+.pricing-v3-ledger-row strong,
+.pricing-v3-spotlight strong,
+.pricing-v3-panel-toggle i,
+.pricing-v3-route-map a:hover,
+.pricing-v3-route-map a:focus-visible,
+.pricing-v3-mini-link,
+.pricing-toggle-button.is-active {
+  color: var(--client-purple) !important;
+  background: var(--client-gold) !important;
+  background-image: none !important;
+  border-color: var(--client-gold) !important;
+}
+
+.pricing-v3-ledger-row em.is-muted {
+  color: rgba(92, 31, 114, 0.58) !important;
+  background: rgba(189, 139, 45, 0.18) !important;
+  background-image: none !important;
+}
+
+.pricing-v3-panel.is-open .pricing-v3-panel-toggle i,
+.pricing-v3-panel-toggle:hover i {
+  color: var(--client-purple) !important;
+  background: var(--client-gold) !important;
+  background-image: none !important;
+}
