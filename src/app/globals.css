@@ -17424,3 +17424,88 @@ h3,
   border-color: transparent !important;
   box-shadow: none !important;
 }
+
+/* Final white/off-white surface cleanup: remove remaining creamy panels and gradients from content surfaces. */
+:root {
+  --client-offwhite: #fafafa;
+}
+
+body,
+.page-shell,
+.shell,
+.full-bleed-section,
+.sv-home-intro-section,
+.sv-home-expert-section,
+.sv-home-why-v4,
+.sv-home-location-section,
+.about-page-hero,
+.about-page-intro,
+.about-page-story,
+.about-page-difference,
+.about-page-visit,
+.services-page-hero,
+.pricing-v3-hero,
+.pricing-v3-intro,
+.pricing-v3-sections,
+.pricing-v3-health-band,
+.hp-v2-hero,
+.hp-v2-included,
+.hp-v2-pricing,
+.hp-v2-plan-options,
+.hp-v2-faq,
+.hp-v2-final,
+.contact-page-v2-hero,
+.contact-page-v2-details,
+.team-page-hero,
+.team-studio-hero,
+.service-detail-hero,
+.service-detail-content,
+.service-detail-related,
+.section-cta.section-cta-premium {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+.site-header,
+.mobile-menu,
+.sv-nav-dropdown,
+.sv-nav-dropdown-feature,
+.sv-nav-dropdown-list,
+.service-detail-main,
+.service-detail-side-block,
+.pricing-v3-panel,
+.pricing-v3-panel-body,
+.pricing-v3-spotlight,
+.pricing-v3-ledger-row,
+.pricing-v3-health-band,
+.pricing-v3-float-ticket,
+.hp-v2-hero-card,
+.hp-v2-price-ticket,
+.hp-v2-delivery-note,
+.hp-v2-benefit,
+.hp-v2-price-item,
+.hp-v2-plan-card,
+.hp-v2-puppy-note,
+.hp-v2-faq-item,
+.hp-v2-faq-item p,
+.about-page-card,
+.about-page-values,
+.about-page-map-card,
+.contact-page-v2-details-card,
+.team-studio-role-main,
+.team-studio-promise,
+.cookie-panel,
+.cookie-category,
+.consent-embed-panel {
+  background: var(--client-offwhite) !important;
+  background-image: none !important;
+}
+
+.hp-v2-benefit-grid,
+.hp-v2-price-rail,
+.hp-v2-plan-grid,
+.pricing-v3-route-map,
+.service-detail-related-grid {
+  background: transparent !important;
+  background-image: none !important;
+}
