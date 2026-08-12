@@ -17368,3 +17368,17 @@ h3,
 .site-footer a {
   color: var(--client-purple) !important;
 }
+
+/* Restore image-card overlay titles: keep text above buttons white over photography. */
+.sv-home-expert-card-copy h3,
+.service-card-v3-copy h3,
+.service-detail-related-card h3 {
+  color: #ffffff !important;
+  text-shadow: 0 2px 12px rgba(18, 24, 34, 0.42) !important;
+}
+
+.sv-home-expert-card-copy span:not(.sv-home-expert-card-button),
+.service-card-v3-copy span:not(.sv-home-expert-card-button),
+.service-card-v3-copy strong {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
