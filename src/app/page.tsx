@@ -55,7 +55,7 @@ export default async function Home() {
       <section className="sv-home-hero full-bleed-section">
         <div
           className="sv-home-hero-image"
-          style={{ backgroundImage: `url(${visualAssets.gingerSpanielHero})` }}
+          style={{ backgroundImage: `url(${visualAssets.homeHeroClient})` }}
           aria-hidden="true"
         />
         <div className="sv-home-hero-overlay" />

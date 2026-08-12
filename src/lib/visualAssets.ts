@@ -1,4 +1,5 @@
 export const visualAssets = {
+  homeHeroClient: "/health-plan-routine-care.png",
   gingerSpanielHero:
     "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=1800&q=82",
   gingerCatHero:

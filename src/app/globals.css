@@ -17602,3 +17602,21 @@ body,
     background-position: 62% center !important;
   }
 }
+
+/* Client recommended hero image crop */
+.sv-home-hero-image {
+  background-position: center center !important;
+  filter: saturate(1.02) contrast(0.96) brightness(0.76) !important;
+}
+
+.sv-home-hero-overlay {
+  background:
+    linear-gradient(90deg, rgba(26, 33, 45, 0.82) 0%, rgba(26, 33, 45, 0.56) 44%, rgba(26, 33, 45, 0.28) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(26, 33, 45, 0.18)) !important;
+}
+
+@media (max-width: 720px) {
+  .sv-home-hero-image {
+    background-position: 58% center !important;
+  }
+}
