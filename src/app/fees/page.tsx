@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 import { PricingMobileAccordion } from "@/components/pricing/PricingMobileAccordion";
 import { SectionCta } from "@/components/shared/SectionCta";
@@ -208,7 +208,7 @@ export default async function FeesPage() {
         <Reveal variant="up">
           <div className="pricing-v3-intro-copy">
             <p className="eyebrow">How to read this page</p>
-            <h2>Start with the service, then compare standard and online/minimum prices.</h2>
+            <h2>Start with the service, then compare standard and online guide prices.</h2>
           </div>
         </Reveal>
         <Reveal variant="up" delayMs={80}>
