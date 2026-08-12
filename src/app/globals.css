@@ -17416,3 +17416,11 @@ h3,
   color: var(--client-purple) !important;
   text-shadow: none !important;
 }
+/* Pricing spotlight prices stay text-only: no gold block behind the amount. */
+.pricing-v3-spotlight strong {
+  color: var(--client-purple) !important;
+  background: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
