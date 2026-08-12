@@ -17410,3 +17410,9 @@ h3,
   background: var(--client-gold) !important;
   background-image: none !important;
 }
+
+/* Service detail related card names stay purple because they sit below the image. */
+.service-detail-related-card h3 {
+  color: var(--client-purple) !important;
+  text-shadow: none !important;
+}
