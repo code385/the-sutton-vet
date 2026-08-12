@@ -17534,3 +17534,71 @@ body,
   content: "\2699";
   font-size: 1.15rem;
 }
+
+/* Homepage hero cover repair after clean-white pass */
+.sv-home-hero.full-bleed-section,
+.sv-home-hero,
+.sv-home-hero .shell,
+.sv-home-hero-shell,
+.sv-home-hero-shell > *,
+.sv-home-hero .reveal,
+.sv-home-hero .reveal > * {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+.sv-home-hero {
+  position: relative !important;
+  min-height: clamp(34rem, 72vh, 44rem) !important;
+  overflow: hidden !important;
+  isolation: isolate;
+}
+
+.sv-home-hero-image {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-size: cover !important;
+  background-position: center 42% !important;
+  background-repeat: no-repeat !important;
+  filter: saturate(1.05) contrast(0.98) brightness(0.82) !important;
+  transform: scale(1.01) !important;
+}
+
+.sv-home-hero-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  background: linear-gradient(90deg, rgba(26, 33, 45, 0.78) 0%, rgba(26, 33, 45, 0.48) 46%, rgba(26, 33, 45, 0.18) 100%) !important;
+}
+
+.sv-home-hero-shell {
+  position: relative !important;
+  z-index: 2 !important;
+  min-height: clamp(34rem, 72vh, 44rem) !important;
+  display: grid !important;
+  align-items: center !important;
+  padding-block: clamp(4rem, 9vw, 7rem) !important;
+}
+
+.sv-home-hero-copy-minimal {
+  max-width: min(48rem, 92vw) !important;
+}
+
+.sv-home-hero-copy-minimal .eyebrow,
+.sv-home-hero-copy-minimal p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+@media (max-width: 720px) {
+  .sv-home-hero,
+  .sv-home-hero-shell {
+    min-height: 31rem !important;
+  }
+
+  .sv-home-hero-image {
+    background-position: 62% center !important;
+  }
+}
