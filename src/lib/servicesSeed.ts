@@ -50,7 +50,7 @@ export const seededServices: SeededService[] = [
     shortDescription: "First appointments, follow-ups, second opinions, and clear day-to-day clinical guidance.",
     lead: "Appointments should feel unhurried, kind, and clinically clear from the first conversation onward.",
     imageUrl:
-      visualAssets.gingerSpanielHero,
+      visualAssets.warmGpConsult,
     alt: "Veterinarian examining a dog during a consultation",
     ctaLabel: "Book a consultation",
     ctaHref: siteConfig.ctas.book,
