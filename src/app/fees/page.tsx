@@ -93,7 +93,7 @@ const priceSections = [
     title: "Dog neutering and keyhole spays",
     eyebrow: "Routine Procedures",
     description:
-      "Dog neutering prices include post-operative pain medication, checks, and a buster collar. Laparoscopic spay pricing is shown as a minimum online guide.",
+      "Dog neutering prices include post-operative pain medication, checks, and a buster collar. Laparoscopic spay pricing is shown as an online booking price where available.",
     rows: [
       { service: "Dog castrate under 10kg", standard: "\u00a3237", online: "\u00a3210" },
       { service: "Dog castrate 10-20kg", standard: "\u00a3259", online: "\u00a3231" },
@@ -208,12 +208,12 @@ export default async function FeesPage() {
         <Reveal variant="up">
           <div className="pricing-v3-intro-copy">
             <p className="eyebrow">How to read this page</p>
-            <h2>Start with the service, then compare standard and online guide prices.</h2>
+            <h2>Start with the service, then compare standard and online booking prices.</h2>
           </div>
         </Reveal>
         <Reveal variant="up" delayMs={80}>
           <p>
-            These prices are a practical launch guide for The Sutton Vet. Final costs may vary where clinical assessment, patient size, medication, or additional tests affect the treatment plan.
+            These prices are a practical launch guide for The Sutton Vet. Final costs may vary where clinical assessment, patient size, medication, or additional tests affect the treatment plan. Instalment payments via Klarna can be offered where eligible once the Lupa Pay setup is confirmed.
           </p>
         </Reveal>
       </section>
@@ -252,4 +252,3 @@ export default async function FeesPage() {
     </>
   );
 }
-

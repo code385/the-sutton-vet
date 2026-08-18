@@ -67,7 +67,7 @@ export function PricingMobileAccordion({ sections, bookHref }: PricingMobileAcco
                       <div key={`${section.id}-spot-${row.service}`} className="pricing-v3-spotlight">
                         <span>{row.service}</span>
                         <strong>{row.online !== "-" ? row.online : row.standard}</strong>
-                        <small>{row.online !== "-" ? "online guide" : "standard"}</small>
+                        <small>{row.online !== "-" ? "online booking price" : "standard"}</small>
                       </div>
                     ))}
                   </div>
@@ -76,7 +76,7 @@ export function PricingMobileAccordion({ sections, bookHref }: PricingMobileAcco
                     <div className="pricing-v3-ledger-row pricing-v3-ledger-head" role="row">
                       <span role="columnheader">Service</span>
                       <span role="columnheader">Standard</span>
-                      <span role="columnheader">Online guide</span>
+                      <span role="columnheader">online booking price</span>
                     </div>
                     {section.rows.map((row) => (
                       <div key={`${section.id}-${row.service}`} className="pricing-v3-ledger-row" role="row">

@@ -25,6 +25,7 @@ import {
 } from "@/lib/site";
 import { fallbackTeamMembers, teamPageSeed } from "@/lib/teamSeed";
 import { seededServices, servicesPageSeed } from "@/lib/servicesSeed";
+import { visualAssets } from "@/lib/visualAssets";
 
 type SanitySeedDocument = Record<string, unknown>;
 
@@ -36,7 +37,7 @@ const homePageSeedDocument: SanitySeedDocument = {
   heroDescription:
     "Founder-led veterinary care with a more personal experience, clear next steps, and a smoother route into registration, booking, and urgent support.",
   heroPracticalNote: "Near Hackbridge station, with practical parking guidance surfaced early for first visits.",
-  heroImageUrl: homeMedia.whyChooseImage,
+  heroImageUrl: visualAssets.homeHeroClient,
   heroVideoUrl: "https://videos.pexels.com/video-files/6230151/6230151-hd_1920_1080_25fps.mp4",
   heroPrimaryCtaLabel: "Register Now",
   heroPrimaryCtaHref: siteConfig.ctas.register,

@@ -1,8 +1,8 @@
-﻿import { visualAssets } from "./visualAssets";
+import { visualAssets } from "./visualAssets";
 
-const pmsBookingUrl = process.env.NEXT_PUBLIC_PMS_BOOKING_URL || "/pms-integration";
-const pmsRegistrationUrl = process.env.NEXT_PUBLIC_PMS_REGISTRATION_URL || "/pms-integration";
-const pmsHealthPlanUrl = process.env.NEXT_PUBLIC_PMS_HEALTH_PLAN_URL || pmsBookingUrl;
+const pmsBookingUrl = process.env.NEXT_PUBLIC_LUPA_BOOKING_URL || process.env.NEXT_PUBLIC_PMS_BOOKING_URL || "/pms-integration?flow=book";
+const pmsRegistrationUrl = process.env.NEXT_PUBLIC_LUPA_REGISTRATION_URL || process.env.NEXT_PUBLIC_PMS_REGISTRATION_URL || "/pms-integration?flow=register";
+const pmsHealthPlanUrl = process.env.NEXT_PUBLIC_LUPA_HEALTHPLAN_URL || process.env.NEXT_PUBLIC_PMS_HEALTH_PLAN_URL || "/health-plan";
 
 export const siteConfig = {
   name: "The Sutton Vet",
@@ -546,6 +546,3 @@ export const termsSections = [
     ],
   },
 ];
-
-
-

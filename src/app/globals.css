@@ -17620,3 +17620,23 @@ body,
     background-position: 58% center !important;
   }
 }
+
+.pms-config-note {
+  margin-top: 1.4rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(198, 146, 42, 0.35);
+  background: #fff;
+}
+
+.pms-config-note strong {
+  display: block;
+  color: var(--plum);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.pms-config-note p {
+  margin: 0.35rem 0 0;
+  color: var(--slate);
+  line-height: 1.6;
+}
