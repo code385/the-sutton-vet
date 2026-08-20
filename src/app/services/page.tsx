@@ -35,11 +35,11 @@ export default async function ServicesPage() {
       const slug = service.slug?.current || "";
       const title = service.title || "";
       const eyebrow = service.eyebrow || "";
-      const isAdvanced = ["soft-tissue", "orthopaedic", "endoscopy"].some((term) => slug.includes(term));
+      const isSpecialist = ["soft-tissue", "orthopaedic", "endoscopy"].some((term) => slug.includes(term));
 
       return {
         id: service._id,
-        eyebrow: isAdvanced ? "Advanced care" : "Clinical service",
+        eyebrow: isSpecialist ? "Service offered" : "Clinical service",
         title,
         shortDescription: service.shortDescription,
         lead: service.lead,
@@ -48,12 +48,12 @@ export default async function ServicesPage() {
         alt: service.alt || title,
         ctaHref: slug ? `/services/${slug}` : siteSettings.ctas.book,
         ctaLabel: "View details",
-        isAdvanced,
+        isSpecialist,
       };
     })
     .sort((a, b) => {
-      if (a.isAdvanced === b.isAdvanced) return 0;
-      return a.isAdvanced ? 1 : -1;
+      if (a.isSpecialist === b.isSpecialist) return 0;
+      return a.isSpecialist ? 1 : -1;
     });
 
   return (
@@ -64,9 +64,9 @@ export default async function ServicesPage() {
             <div className="shell services-page-banner-shell">
               <div className="services-page-hero-copy-v2">
                 <p className="eyebrow">Our Services</p>
-                <h1>Services with clear next steps.</h1>
+                <h1>Care we offer.</h1>
                 <p className="services-page-banner-copy">
-                  Browse care areas first, then open the detail page when you need more.
+                  A simple guide to appointments, diagnostics, procedures, and daytime urgent care.
                 </p>
                 <div className="services-page-banner-actions">
                   <a className="button button-primary" href={primaryCtaHref}>
@@ -95,9 +95,9 @@ export default async function ServicesPage() {
         <Reveal variant="up">
           <div className="services-master-heading">
             <p className="eyebrow">Service Directory</p>
-            <h2>Choose a care area, then scan what is included.</h2>
+            <h2>Full service list, without clutter.</h2>
             <p>
-              A simpler directory for the services supplied. Prices can be added later, or quoted where assessment affects the final cost.
+              Services are grouped clearly. Prices can be added later or quoted where needed.
             </p>
           </div>
         </Reveal>
@@ -141,9 +141,9 @@ export default async function ServicesPage() {
           <div className="services-page-intro-card">
             <div className="services-page-intro-copy">
               <p className="eyebrow">How to use this page</p>
-              <h2>Start simple. Ask when a quote is needed.</h2>
+              <h2>Start with the service you need.</h2>
               <p>
-                Specialist procedures are listed clearly. Procedure costs can be confirmed after assessment.
+                Each service is kept short, clear, and easy to scan.
               </p>
             </div>
 
@@ -153,8 +153,8 @@ export default async function ServicesPage() {
                 <p>Groups first, detail pages second.</p>
               </article>
               <article>
-                <strong>Specialist care</strong>
-                <p>Soft tissue, orthopaedic, and endoscopy options stay clear.</p>
+                <strong>Services offered</strong>
+                <p>Soft tissue, orthopaedics, and endoscopy are listed clearly.</p>
               </article>
               <article>
                 <strong>Quote where needed</strong>
@@ -169,9 +169,9 @@ export default async function ServicesPage() {
         <Reveal variant="up">
           <div className="services-group-heading">
             <p className="eyebrow">Care We Offer</p>
-            <h2>Services listed simply, with detail pages when you need more.</h2>
+            <h2>Browse care areas, then open what you need.</h2>
             <p>
-              Browse the main service areas first. Prices can be added later, or the team can provide a quote where the cost depends on the patient and clinical findings.
+              Short cards first. Detail pages second.
             </p>
           </div>
         </Reveal>
@@ -180,7 +180,7 @@ export default async function ServicesPage() {
         <div className="services-card-grid services-card-grid-image-led services-card-grid-collapsible">
           {serviceCards.map((service, index) => (
             <Reveal key={service.id} variant="up" delayMs={Math.min(index, visibleServiceCount - 1) * 35} className={index >= visibleServiceCount ? "service-card-extra" : undefined}>
-              <a className={`service-card-v3${service.isAdvanced ? " service-card-v3-referral" : ""}`} href={service.ctaHref} aria-label={`${service.title} details`}>
+              <a className={`service-card-v3${service.isSpecialist ? " service-card-v3-specialist" : ""}`} href={service.ctaHref} aria-label={`${service.title} details`}>
                 <div className="service-card-v3-media" style={{ backgroundImage: `url(${service.imageUrl})` }} aria-hidden="true">
                   <div className="service-card-v3-overlay">
                     <div className="service-card-v3-copy">

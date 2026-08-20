@@ -30,7 +30,7 @@ const whyChoosePoints = [
   },
   {
     number: "3",
-    title: "In-house surgical and advanced services",
+    title: "In-house surgery and diagnostics",
   },
   {
     number: "4",
@@ -71,7 +71,7 @@ export default async function Home() {
                   vet care in <span className="sv-hero-word-white">Sutton.</span>
                 </span>
               </h1>
-              <p>Convenient, affordable, advanced care with a gentle and more personal approach.</p>
+              <p>Kind, practical care with a calm personal approach.</p>
               <div className="cta-actions">
                 <a className="button button-primary" href={siteSettings.ctas.register}>
                   Register Now
@@ -89,7 +89,7 @@ export default async function Home() {
         <Reveal variant="left">
           <div className="sv-home-intro-panel">
             <p className="eyebrow">Independent Care</p>
-            <h2><span className="sv-home-intro-line"><span className="sv-home-intro-soft">A calmer structure </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">for </span><span className="sv-home-intro-emphasis">everyday appointments </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">care pathways</span><span className="sv-home-intro-soft"> and </span><span className="sv-home-intro-emphasis">practical </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-emphasis">next steps.</span></span></h2>
+            <h2>Calm care, clear services, and practical next steps.</h2>
             <Link className="sv-home-inline-link" href="/services">
               See our veterinary services
             </Link>
@@ -99,14 +99,14 @@ export default async function Home() {
         <Reveal variant="up" delayMs={40}>
           <div className="sv-home-intro-copy">
             <p>
-              The Sutton Vet is being shaped as an independent practice with a gentle voice, clear guidance, and modern clinical standards. The aim is to make each part of the website feel easier to understand, from first appointments to advanced services.
+              The Sutton Vet is an independent practice built around calm guidance, modern clinical standards, and clear information.
             </p>
             <p>
-              Everyday GP care sits alongside selected advanced clinical work in soft tissue surgery, orthopaedic surgery, and endoscopy, while pricing and visit information are presented more openly so owners can make decisions with confidence.
+              From appointments to surgery, diagnostics, endoscopy, and daytime urgent care, services are listed clearly.
             </p>
             <div className="sv-home-intro-note">
-              <span>Available by discussion</span>
-              <p>Soft tissue surgery, orthopaedic surgery, and endoscopy are available after case discussion.</p>
+              <span>Services available</span>
+              <p>Soft tissue surgery, orthopaedic surgery, and endoscopy are included.</p>
             </div>
           </div>
         </Reveal>
@@ -116,9 +116,9 @@ export default async function Home() {
         <Reveal variant="left">
           <div className="sv-home-expert-heading">
             <p className="eyebrow">Care Overview</p>
-            <h2>A clearer view of everyday care, diagnostics, procedures, home visits, and advanced support.</h2>
+            <h2>Care, diagnostics, procedures, home visits, and daytime urgent support.</h2>
             <p>
-              A simple overview of the main clinical services, presented with a calmer structure and a more refined visual rhythm.
+              A simple overview of the care available at The Sutton Vet.
             </p>
           </div>
         </Reveal>

@@ -64,7 +64,7 @@ export const siteConfig = {
 export const homeHeroStats = [
   "Independent and family-owned",
   "Transparent services and pricing",
-  "Gentle, advanced local care",
+  "Gentle local care",
 ];
 
 export const homeHighlights = [
@@ -78,7 +78,7 @@ export const homeHighlights = [
   },
   {
     title: "Modern but calm",
-    description: "Advanced care presented in a grounded, reassuring way rather than a noisy corporate style.",
+    description: "Care presented in a grounded, reassuring way rather than a noisy corporate style.",
   },
   {
     title: "Built around real journeys",

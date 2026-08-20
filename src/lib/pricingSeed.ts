@@ -149,14 +149,14 @@ export const feeCategorySeeds: FeeCategorySeed[] = [
     _id: "fee-category-dental-surgery",
     _type: "feeCategory",
     title: "Dentistry, diagnostics & further treatment",
-    eyebrow: "Advanced GP Care",
+    eyebrow: "GP Care",
     description: "Some treatments can be priced clearly, while others are more responsibly confirmed once your pet has been assessed.",
     sortOrder: 4,
     items: [
       { label: "Cat dental treatment", price: "From \u00a3350.00", note: "Including x-rays" },
       { label: "Dog dental treatment", price: "From \u00a3400.00" },
       { label: "Pet surgery and procedures", price: "Estimate required", note: "Tailored after consultation and clinical review" },
-      { label: "Imaging and advanced diagnostics", price: "Estimate required", note: "Quoted according to the investigation needed" },
+      { label: "Imaging and diagnostics", price: "Estimate required", note: "Quoted according to the investigation needed" },
     ],
   },
 ];

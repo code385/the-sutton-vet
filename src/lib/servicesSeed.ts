@@ -20,10 +20,10 @@ export type SeededService = {
 export const servicesPageSeed = {
   _id: "servicesPage",
   _type: "servicesPage",
-  eyebrow: "GP & Advanced Care",
+  eyebrow: "GP & Services",
   title: "Thoughtful veterinary care, organised around what owners need most.",
   description:
-    "The Sutton Vet should feel warm, clinically confident, and easy to navigate. This page brings together everyday GP support, daytime urgent care, preventative care, and selected advanced services in a format that is simple to scan without feeling impersonal.",
+    "Appointments, daytime urgent care, preventative care, procedures, diagnostics, surgery, and endoscopy are listed in one simple guide.",
   introNote: "Each service block below can be edited from Sanity, including title, copy, image, and CTA.",
   primaryCtaLabel: "Book Online",
   primaryCtaHref: siteConfig.ctas.book,
@@ -32,7 +32,7 @@ export const servicesPageSeed = {
   closingEyebrow: "Next Step",
   closingTitle: "Need help choosing the right appointment?",
   closingText:
-    "Tell us what is happening and we will guide you towards the right appointment, procedure discussion, or care route.",
+    "Tell us what is happening and we will guide you to the right appointment or estimate.",
   closingPrimaryLabel: "Book Online",
   closingPrimaryHref: siteConfig.ctas.book,
   closingSecondaryLabel: "Contact Us",
@@ -348,7 +348,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "Where your pet would benefit from care outside our current scope, we will guide you honestly toward the right care pathway.",
+            text: "If another provider is more suitable, we will guide you honestly.",
           },
         ],
       },
@@ -428,11 +428,11 @@ export const seededServices: SeededService[] = [
     _id: "service-service-soft-tissue",
     _type: "service",
     sortOrder: 11,
-    eyebrow: "Advanced Care",
+    eyebrow: "Service",
     title: "Soft tissue surgery",
     slug: { current: "soft-tissue-surgery" },
-    shortDescription: "Soft tissue surgery for cases that need a more advanced procedural pathway.",
-    lead: "Advanced care messaging needs to feel clinically capable while being very clear about scope and route of access.",
+    shortDescription: "Soft tissue surgery for suitable cases.",
+    lead: "Soft tissue surgery is explained clearly before treatment is planned.",
     imageUrl:
       visualAssets.gingerSpanielHero,
     alt: "Veterinary surgeon preparing for a procedure",
@@ -444,7 +444,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "Selected soft tissue procedures are available after case discussion. This allows us to support appropriate cases while keeping the website honest about how that care is accessed.",
+            text: "Selected soft tissue procedures are available for suitable cases.",
           },
         ],
       },
@@ -453,7 +453,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "For owners and local practices alike, the emphasis should be on clarity, suitability, and a well-managed pathway into treatment.",
+            text: "The focus is clear planning, suitability, and careful aftercare.",
           },
         ],
       },
@@ -463,11 +463,11 @@ export const seededServices: SeededService[] = [
     _id: "service-service-orthopaedic",
     _type: "service",
     sortOrder: 12,
-    eyebrow: "Advanced Care",
+    eyebrow: "Service",
     title: "Orthopaedic surgery",
     slug: { current: "orthopaedic-surgery" },
-    shortDescription: "Orthopaedic surgery for selected cases requiring specialist procedural care.",
-    lead: "Orthopaedic service copy should feel expert and measured, without promising services beyond the current offering.",
+    shortDescription: "Orthopaedic surgery for suitable cases.",
+    lead: "Orthopaedic surgery is assessed carefully before treatment is planned.",
     imageUrl:
       visualAssets.gingerCatHero,
     alt: "Dog being supported by veterinary staff during orthopaedic care",
@@ -479,7 +479,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "Orthopaedic procedures are offered after case discussion, with assessment and planning shaped around the individual case rather than one-size-fits-all promises.",
+            text: "Orthopaedic procedures are planned around the individual patient.",
           },
         ],
       },
@@ -488,7 +488,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "The site should make clear that advanced clinical work is available, while avoiding mention of services such as neuro surgery or other areas that are not currently offered.",
+            text: "The service list stays clear about what is available now.",
           },
         ],
       },
@@ -498,11 +498,11 @@ export const seededServices: SeededService[] = [
     _id: "service-service-endoscopy",
     _type: "service",
     sortOrder: 13,
-    eyebrow: "Advanced Care",
+    eyebrow: "Service",
     title: "Endoscopy",
     slug: { current: "endoscopy" },
-    shortDescription: "Endoscopy for cases that benefit from a minimally invasive diagnostic or procedural approach.",
-    lead: "Endoscopy is one of the differentiating advanced services the client specifically wants surfaced in a professional way.",
+    shortDescription: "Endoscopy for suitable diagnostic or procedural cases.",
+    lead: "Endoscopy is listed clearly as part of the current service offer.",
     imageUrl:
       visualAssets.goldenDogWarm,
     alt: "Veterinary team working in a clean clinical environment",
@@ -514,7 +514,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "Endoscopy is available for suitable cases and should be presented as part of a careful, modern clinical offering rather than as a broad catch-all service.",
+            text: "Endoscopy is available for suitable cases.",
           },
         ],
       },
@@ -523,7 +523,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "This keeps Sutton Vet distinctive while still remaining truthful about what is available now and what may be introduced later.",
+            text: "The team can explain suitability before booking.",
           },
         ],
       },
@@ -698,7 +698,7 @@ export const masterServiceGroups = [
   },
   {
     title: "Soft tissue procedures",
-    description: "Selected soft tissue procedures, with advanced pathways where appropriate.",
+    description: "Selected soft tissue procedures, where appropriate.",
     items: ["Total ear canal ablation", "Anal sacculectomy", "Forequarter amputation", "Perineal hernia repair", "Soft tissue mass removal", "Complex mass removal with flap", "Thyroidectomy", "Perineal urethrostomy", "Mammary strip surgery", "Tieback surgery", "Exploratory coeliotomy", "Screw tail surgery", "Salivary mucoele surgery", "BOAS surgery", "Diaphragmatic rupture or hernia repair", "Enterectomy", "Entropion surgery", "Cherry eye surgery", "Gall bladder removal", "Inguinal hernia repair", "Liver lobectomy", "Nephrectomy", "Ovarian remnant surgery", "Scrotal urethrostomy", "Sialoadenectomy", "Bloat and GDV surgery", "Foreign body removal", "Splenectomy", "Gastrotomy", "Enterotomy"],
   },
   {

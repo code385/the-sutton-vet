@@ -5958,7 +5958,7 @@ img {
   box-shadow: var(--shadow);
 }
 
-.service-card-v2-referral {
+.service-card-v2-specialist {
   background: linear-gradient(180deg, rgba(248, 246, 251, 0.98), rgba(241, 237, 247, 0.96));
 }
 
@@ -9973,7 +9973,7 @@ span {
   width: 3rem;
   height: 3rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #b86d55, #7b3f92);
+  background: #b8872d;
   color: #ffffff;
   text-decoration: none;
   box-shadow: 0 14px 26px rgba(61, 74, 92, 0.12);
@@ -10127,7 +10127,7 @@ span {
 }
 
 .sv-home-expert-card:hover .sv-home-expert-card-button {
-  background-image: linear-gradient(90deg, #b86d55, #7b3f92, #b86d55);
+  background: #b8872d;
   background-size: 200% 100%;
   background-position: 100% 50%;
   border-color: rgba(255, 255, 255, 0.22);
@@ -10383,7 +10383,7 @@ span {
   width: 2.9rem;
   height: 2.9rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #b86d55, #7b3f92);
+  background: #b8872d;
   color: #ffffff;
   font-style: normal;
   font-size: 1.15rem;
@@ -10678,7 +10678,7 @@ span {
 }
 
 .sv-home-why-brand {
-  color: #7b3f92;
+  color: #4b145f;
 }
 
 .sv-home-why-video-frame {
@@ -11652,7 +11652,7 @@ span {
   top: 4.25rem;
   width: 3.6rem;
   height: 2px;
-  background: linear-gradient(90deg, #b86d55, rgba(123, 63, 146, 0));
+  background: #b8872d;
 }
 
 .about-page-intro-heading,
@@ -11734,7 +11734,7 @@ span {
   top: 1.55rem;
   width: 2px;
   height: 2.2rem;
-  background: linear-gradient(180deg, #b86d55, #7b3f92);
+  background: #b8872d;
   opacity: 0;
   transform: scaleY(0.4);
   transform-origin: top;
@@ -12017,14 +12017,14 @@ span {
 }
 
 .service-card-v3:hover .service-card-v3-copy strong {
-  background-image: linear-gradient(90deg, #b86d55, #7b3f92, #b86d55);
+  background: #b8872d;
   background-size: 200% 100%;
   background-position: 100% 50%;
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-.service-card-v3-referral .service-card-v3-copy span {
+.service-card-v3-specialist .service-card-v3-copy span {
   color: #f4d8a4;
 }
 
@@ -13197,7 +13197,7 @@ span {
 
 .pricing-v2-row em {
   color: #fff;
-  background: linear-gradient(135deg, #8b5e50, var(--plum));
+  background: #b8872d;
 }
 
 
@@ -13465,7 +13465,7 @@ span {
 
 .pricing-v3-route-map a:hover {
   color: #fff;
-  background: linear-gradient(135deg, #8b5e50, var(--plum));
+  background: #b8872d;
   transform: translateY(-2px);
 }
 
@@ -13622,7 +13622,7 @@ span {
 
 .pricing-v3-ledger-row em {
   color: #fff;
-  background: linear-gradient(135deg, #8b5e50, var(--plum));
+  background: #b8872d;
 }
 
 .pricing-v3-ledger-row em.is-muted {
@@ -15783,7 +15783,7 @@ a.button.button-muted[href*="#contact"]:hover {
     place-items: center;
     border: 1px solid rgba(126, 53, 139, 0.22);
     border-radius: 999px;
-    background: linear-gradient(135deg, #8b5e50, var(--plum));
+    background: #b8872d;
     color: #fff;
     font-style: normal;
     font-size: 1.35rem;
@@ -17520,7 +17520,7 @@ body,
 }
 
 .sv-footer-socials-v2 a {
-  background: #7b3f92 !important;
+  background: #4b145f !important;
   background-image: none !important;
 }
 
@@ -18910,4 +18910,561 @@ h3,
 
 .sv-home-intro-note span {
   color: var(--client-gold) !important;
+}
+
+/* Strict Vet ER-style colour lock: no multitone buttons, purple-led headings, matte gold accents. */
+:root {
+  --plum: #4b145f;
+  --client-purple: #4b145f;
+  --gold: #b8872d;
+  --client-gold: #b8872d;
+  --ink: #1f2c3d;
+  --muted: #5f6b7b;
+  --page: #ffffff;
+  --cream: #fafafa;
+  --sand: #f7f7f7;
+}
+
+html,
+body,
+.site-main,
+.full-bleed-section,
+section,
+.site-footer,
+.site-footer-inner,
+.footer-bottom,
+.sv-header-shell,
+.sv-mobile-panel,
+.sv-nav-dropdown,
+.sv-nav-dropdown-feature,
+.services-page-banner,
+.services-master-list,
+.services-page-intro,
+.services-group,
+.services-page-intro-card,
+.services-master-flow-group,
+.service-detail-page,
+.service-detail-body,
+.service-detail-next,
+.about-hero,
+.about-section,
+.contact-hero,
+.contact-section,
+.team-hero,
+.team-section,
+.health-plan-hero,
+.health-plan-section,
+.health-plan-card,
+.health-plan-benefit,
+.pricing-v3-hero,
+.pricing-v3-intro,
+.pricing-v3-sections,
+.pricing-v3-panel,
+.pricing-v3-panel-body,
+.pricing-v3-health-band,
+.pricing-v3-route-map,
+.pricing-v3-spotlight,
+.pricing-v3-ledger-row,
+.pricing-v3-float-ticket,
+.hp-v2-hero,
+.hp-v2-section,
+.hp-v2-card,
+.cookie-panel,
+.chat-panel {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+:is(.services-page-hero, .services-master-list, .services-page-intro, .services-group, .about-page, .team-page, .contact-page, .health-plan-page, .pricing-v3-page, .service-detail-page) :is(h1, h2),
+.sv-nav-dropdown-copy h3,
+.sv-nav-dropdown-link strong,
+.site-footer h3,
+.site-footer strong,
+.pricing-v3-card-head h2,
+.pricing-v3-panel-intro h2,
+.hp-v2-section-heading h2,
+.hp-v2-hero-copy h1,
+.service-detail-main h2,
+.service-detail-related h2,
+.section-cta h2 {
+  color: var(--client-purple) !important;
+}
+
+:is(p, li, span),
+.services-master-heading p,
+.services-master-flow-group p,
+.services-page-banner-copy,
+.services-page-intro-copy p,
+.services-group-heading p,
+.pricing-v3-hero-copy p,
+.pricing-v3-intro p,
+.pricing-v3-panel-intro p,
+.health-plan-hero-copy p,
+.hp-v2-hero-copy p,
+.about-section p,
+.contact-section p,
+.service-detail-copy p,
+.site-footer p,
+.site-footer a {
+  color: var(--muted) !important;
+}
+
+.eyebrow,
+.services-page-hero-index span,
+.services-master-flow-title span,
+.pricing-v3-route-map span,
+.pricing-v3-panel-intro .eyebrow,
+.service-detail-eyebrow,
+.hp-v2-section-heading .eyebrow,
+.footer-column h3,
+.sv-mobile-link,
+.sv-mobile-sub-link,
+.sv-header-link,
+.sv-header-dropdown-link strong,
+.services-master-flow-links a,
+.price-card-v3 small,
+.pricing-v3-spotlight small,
+.pricing-v3-ledger-head,
+.health-plan-benefit svg,
+.health-plan-feature svg {
+  color: var(--client-purple) !important;
+}
+
+.hero-title,
+.hero-title span,
+.sv-home-hero-title,
+.sv-home-hero-title span,
+.sv-home-hero-copy-minimal .eyebrow,
+.sv-home-hero-copy-minimal p,
+.home-hero-content .eyebrow,
+.home-hero-content h1,
+.home-hero-content p,
+.service-card-v3-copy span,
+.service-card-v3-copy h3,
+.sv-home-expert-card h3,
+.sv-home-expert-card span,
+.section-cta-premium .eyebrow,
+.section-cta-premium h2,
+.section-cta-premium p {
+  color: #ffffff !important;
+}
+
+.sv-home-intro-emphasis,
+.hero-title .hero-title-gold,
+.sv-home-hero-title .hero-title-gold,
+.home-why-brand,
+.services-page-intro-card strong,
+.services-master-flow-links a::after,
+.health-plan-price strong,
+.pricing-v3-float-ticket strong,
+.pricing-v3-spotlight strong,
+.pricing-v3-ledger-row strong,
+.pricing-v3-ledger-row em,
+.price-card-v3 strong,
+.pricing-mobile-price,
+.pricing-mobile-table strong {
+  color: var(--client-gold) !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.button,
+.button-primary,
+.button-muted,
+.sv-header-actions-clean .button,
+.sv-mobile-actions-simple .button,
+.cookie-action-button,
+.cookie-fab,
+.chat-launcher,
+.chat-form .button,
+.chat-static-actions .button,
+.chat-emergency-button,
+.services-see-more b,
+.service-card-v3-copy strong,
+.sv-home-expert-card-button,
+.pricing-v3-actions .button,
+.pricing-v3-health-band .button,
+.pricing-v3-mini-link,
+.pricing-v3-panel-toggle i,
+.footer-newsletter button {
+  background: var(--client-gold) !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: var(--client-gold) !important;
+  box-shadow: none !important;
+}
+
+.button:hover,
+.button-primary:hover,
+.button-muted:hover,
+.sv-header-actions-clean .button:hover,
+.sv-mobile-actions-simple .button:hover,
+.cookie-action-button:hover,
+.cookie-fab:hover,
+.chat-launcher:hover,
+.chat-form .button:hover,
+.chat-static-actions .button:hover,
+.services-see-more:hover b,
+.service-card-v3-copy strong:hover,
+.sv-home-expert-card-button:hover,
+.pricing-v3-actions .button:hover,
+.pricing-v3-health-band .button:hover,
+.footer-newsletter button:hover {
+  background: var(--client-purple) !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: var(--client-purple) !important;
+}
+
+.button.button-muted,
+.sv-header-actions-clean .button-muted,
+.service-detail-actions .button-muted,
+.section-cta .button-muted,
+.pricing-v3-actions .button-muted,
+.health-plan-hero .button-muted,
+.home-health-plan-actions .button-muted,
+.services-page-banner-actions .button-muted {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: var(--client-purple) !important;
+  border: 1px solid var(--client-gold) !important;
+}
+
+.button.button-muted:hover,
+.sv-header-actions-clean .button-muted:hover,
+.service-detail-actions .button-muted:hover,
+.section-cta .button-muted:hover,
+.pricing-v3-actions .button-muted:hover,
+.health-plan-hero .button-muted:hover,
+.home-health-plan-actions .button-muted:hover,
+.services-page-banner-actions .button-muted:hover {
+  background: var(--client-gold) !important;
+  color: #ffffff !important;
+  border-color: var(--client-gold) !important;
+}
+
+.service-card-v3-media::after,
+.sv-home-expert-card-media::after,
+.home-hero::before,
+.sv-home-hero::before,
+.service-detail-hero-media::after {
+  background: rgba(31, 44, 61, 0.46) !important;
+  background-image: none !important;
+}
+
+.service-card-v3,
+.sv-home-expert-card,
+.services-master-flow-group,
+.pricing-v3-panel,
+.pricing-v3-spotlight,
+.health-plan-card,
+.hp-v2-card,
+.service-detail-next,
+.service-detail-body,
+.about-card,
+.contact-card {
+  border-color: rgba(75, 20, 95, 0.12) !important;
+  box-shadow: 0 18px 50px rgba(31, 44, 61, 0.08) !important;
+}
+
+.service-detail-related h3,
+.service-related-card h3,
+.related-service-card h3,
+.service-detail-related a h3 {
+  color: var(--client-purple) !important;
+  text-shadow: none !important;
+}
+
+.pricing-v3-ledger-row em,
+.pricing-v3-ledger-row strong,
+.pricing-v3-spotlight strong,
+.pricing-v3-float-ticket,
+.price-chip,
+.pricing-v3-price-pill,
+.pricing-mobile-price,
+.pricing-mobile-table strong {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: var(--client-purple) !important;
+  border-color: rgba(75, 20, 95, 0.14) !important;
+}
+
+.services-page-hero h1,
+.services-master-heading h2,
+.pricing-v3-hero h1,
+.pricing-v3-intro h2,
+.health-plan-hero h1,
+.hp-v2-hero-copy h1,
+.about-hero h1,
+.team-hero h1,
+.contact-hero h1,
+.service-detail-hero h1 {
+  letter-spacing: -0.02em !important;
+  word-spacing: 0.04em !important;
+}
+
+.services-master-heading p,
+.services-page-banner-copy,
+.pricing-v3-hero-copy p,
+.health-plan-hero-copy p,
+.hp-v2-hero-copy p,
+.service-detail-copy p {
+  max-width: 62ch !important;
+}
+
+/* Final client theme pass: Vet ER-inspired clean white, purple, and matte gold only. */
+:root {
+  --client-purple: #4b145f;
+  --plum: #4b145f;
+  --purple: #4b145f;
+  --client-gold: #b8872d;
+  --gold: #b8872d;
+  --gold-soft: #b8872d;
+  --page-bg: #ffffff;
+  --cream: #ffffff;
+  --off-white: #f7f7f5;
+  --surface: #ffffff;
+  --warm-cream: #ffffff;
+  --sand: #f7f7f5;
+  --ink: #1f2c3d;
+  --muted: #5f6b7b;
+}
+
+html,
+body,
+main,
+.site-shell,
+.page-shell,
+.sv-site,
+.full-bleed-section,
+.services-page,
+.about-page,
+.team-page,
+.contact-page,
+.health-plan-page,
+.pricing-v3-page,
+.service-detail-page {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+section,
+.shell,
+.panel,
+.card,
+[class*="section"],
+[class*="panel"],
+[class*="card"],
+[class*="band"],
+[class*="strip"] {
+  background-image: none !important;
+}
+
+.sv-header,
+.site-header,
+.site-header-clean,
+.sv-header-inner,
+.site-footer,
+.footer-main,
+.footer-bottom,
+.cookie-panel,
+.chat-panel {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+:is(h1, h2, h3, h4),
+:is(.services-page, .about-page, .team-page, .contact-page, .health-plan-page, .pricing-v3-page, .service-detail-page) :is(h1, h2, h3),
+.site-footer h3,
+.site-footer strong,
+.sv-header-link,
+.sv-mobile-link,
+.sv-mobile-sub-link {
+  color: var(--client-purple) !important;
+}
+
+.hero-title,
+.hero-title span,
+.sv-home-hero-title,
+.sv-home-hero-title span,
+.home-hero-content h1,
+.home-hero-content p,
+.home-hero-content .eyebrow,
+.sv-home-hero-copy-minimal p,
+.sv-home-hero-copy-minimal .eyebrow,
+.service-card-v3-copy span,
+.service-card-v3-copy h3,
+.sv-home-expert-card .eyebrow,
+.sv-home-expert-card h3,
+.sv-home-expert-card span {
+  color: #ffffff !important;
+}
+
+p,
+li,
+small,
+.services-master-flow-group p,
+.services-page-banner-copy,
+.services-group-heading p,
+.about-section p,
+.team-section p,
+.contact-section p,
+.health-plan-section p,
+.pricing-v3-section p,
+.service-detail-copy p {
+  color: var(--muted) !important;
+}
+
+.eyebrow,
+.kicker,
+.services-master-flow-title span,
+.services-master-heading .eyebrow,
+.pricing-v3-hero .eyebrow,
+.health-plan-hero .eyebrow,
+.service-detail-eyebrow,
+.footer-column h3,
+.services-master-flow-links a,
+.service-detail-related h2,
+.service-detail-related h3,
+.service-related-card h3 {
+  color: var(--client-purple) !important;
+}
+
+.button,
+.button-primary,
+.sv-header-actions-clean .button,
+.sv-mobile-actions-simple .button,
+.cookie-action-button,
+.cookie-fab,
+.chat-launcher,
+.chat-form .button,
+.services-see-more b,
+.service-card-v3-copy strong,
+.sv-home-expert-card-button,
+.pricing-v3-actions .button,
+.pricing-v3-mini-link,
+.footer-newsletter button {
+  background: var(--client-gold) !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: var(--client-gold) !important;
+  box-shadow: none !important;
+}
+
+.button *,
+.button-primary *,
+.sv-header-actions-clean .button *,
+.sv-mobile-actions-simple .button *,
+.cookie-action-button *,
+.cookie-fab *,
+.chat-launcher *,
+.service-card-v3-copy strong *,
+.sv-home-expert-card-button *,
+.pricing-v3-actions .button *,
+.pricing-v3-mini-link * {
+  color: inherit !important;
+}
+
+.button:hover,
+.button-primary:hover,
+.sv-header-actions-clean .button:hover,
+.sv-mobile-actions-simple .button:hover,
+.cookie-action-button:hover,
+.cookie-fab:hover,
+.chat-launcher:hover,
+.service-card-v3-copy strong:hover,
+.sv-home-expert-card-button:hover,
+.pricing-v3-actions .button:hover,
+.pricing-v3-mini-link:hover,
+.footer-newsletter button:hover {
+  background: var(--client-purple) !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: var(--client-purple) !important;
+}
+
+.button.button-muted,
+.sv-header-actions-clean .button-muted,
+.sv-mobile-actions-simple .button-muted,
+.service-detail-actions .button-muted,
+.section-cta .button-muted,
+.pricing-v3-actions .button-muted,
+.health-plan-hero .button-muted,
+.home-health-plan-actions .button-muted,
+.services-page-banner-actions .button-muted {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: var(--client-purple) !important;
+  border: 1px solid var(--client-gold) !important;
+}
+
+.price-chip,
+.pricing-v3-price-pill,
+.pricing-mobile-price,
+.pricing-mobile-table strong,
+.price-card-v3 strong,
+.pricing-v3-ledger-row strong,
+.pricing-v3-ledger-row em,
+.pricing-v3-spotlight strong,
+.pricing-v3-float-ticket strong {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: var(--client-purple) !important;
+  border-color: rgba(75, 20, 95, 0.16) !important;
+}
+
+.pricing-v3-panel,
+.pricing-v3-card,
+.pricing-v3-spotlight,
+.health-plan-benefit,
+.health-plan-card,
+.hp-v2-card,
+.services-master-flow-group,
+.services-page-intro-card,
+.service-detail-body,
+.service-detail-next,
+.about-card,
+.contact-card {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+.service-card-v3-media::after,
+.sv-home-expert-card-media::after,
+.home-hero::before,
+.sv-home-hero::before,
+.service-detail-hero-media::after {
+  background: rgba(20, 22, 28, 0.42) !important;
+  background-image: none !important;
+}
+
+.sv-home-intro-v3,
+.sv-home-expert-v3,
+.sv-home-why-v4,
+.home-location,
+.home-health-plan,
+.services-master-list,
+.services-page-intro,
+.services-group,
+.hp-v2-section,
+.pricing-v3-sections {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+@media (max-width: 760px) {
+  .sv-home-intro-panel h2,
+  .services-master-heading h2,
+  .services-page-hero h1,
+  .pricing-v3-hero h1,
+  .health-plan-hero h1,
+  .service-detail-hero h1 {
+    letter-spacing: -0.01em !important;
+    word-spacing: 0.08em !important;
+    line-height: 1.05 !important;
+  }
+
+  .sv-home-intro-line {
+    display: inline !important;
+  }
 }

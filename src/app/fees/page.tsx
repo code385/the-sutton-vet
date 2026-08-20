@@ -126,7 +126,7 @@ const priceSections = [
     title: "Surgery and procedures",
     eyebrow: "Procedure Guide",
     description:
-      "Advanced surgery at The Sutton Vet is for soft tissue, orthopaedic surgery, and endoscopy. Prices below are a rough guide and may change after assessment.",
+      "Soft tissue surgery, orthopaedic surgery, and endoscopy are listed here. Final prices may change after assessment.",
     rows: [
       { service: "Pyometra", standard: "\u00a3750", online: "\u00a3670" },
       { service: "Caesarean section dog", standard: "\u00a3980", online: "\u00a3830" },
@@ -177,7 +177,7 @@ export default async function FeesPage() {
               <p className="eyebrow">Pricing</p>
               <h1>Prices you can scan without feeling lost.</h1>
               <p>
-                A warmer pricing experience for routine care, diagnostics, procedures, health plans, and advanced pathways. The figures are grouped around real owner decisions, not buried in a long table.
+                Clear guide prices for routine care, diagnostics, procedures, and health plans.
               </p>
               <div className="pricing-v3-actions">
                 <Link className="button button-primary" href={siteSettings.ctas.book}>Book Online</Link>
@@ -212,7 +212,7 @@ export default async function FeesPage() {
         </Reveal>
         <Reveal variant="up" delayMs={80}>
           <p>
-            These prices are a practical launch guide for The Sutton Vet. Final costs may vary where clinical assessment, patient size, medication, or additional tests affect the treatment plan. Instalment payments via Klarna can be offered where eligible once the Lupa Pay setup is confirmed.
+            These are guide prices. Final costs may vary after assessment. Klarna instalments can be offered where eligible once payment setup is confirmed.
           </p>
         </Reveal>
       </section>
@@ -242,7 +242,7 @@ export default async function FeesPage() {
       <SectionCta
         eyebrow="Next Step"
         title="Need help understanding a likely cost?"
-        text="Tell us what your pet needs and the team can guide you towards the right appointment, estimate, or care route."
+        text="Tell us what your pet needs and we will guide you to the right appointment or estimate."
         primaryLabel="Book Online"
         primaryHref={siteSettings.ctas.book}
         secondaryLabel="Contact Us"
