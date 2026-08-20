@@ -64,9 +64,9 @@ export default async function ServicesPage() {
             <div className="shell services-page-banner-shell">
               <div className="services-page-hero-copy-v2">
                 <p className="eyebrow">Our Services</p>
-                <h1>Care, clearly grouped.</h1>
+                <h1>Services with clear next steps.</h1>
                 <p className="services-page-banner-copy">
-                  A calmer way to explore everyday appointments, diagnostics, procedures, daytime urgent care, and referral-only support.
+                  Browse care areas first, then open the detail page when you need more.
                 </p>
                 <div className="services-page-banner-actions">
                   <a className="button button-primary" href={primaryCtaHref}>
@@ -95,9 +95,9 @@ export default async function ServicesPage() {
         <Reveal variant="up">
           <div className="services-master-heading">
             <p className="eyebrow">Service Directory</p>
-            <h2>Full service list, grouped without clutter.</h2>
+            <h2>Choose a care area, then scan what is included.</h2>
             <p>
-              Wider service areas are grouped first, then the cards below open into individual detail pages. Prices can be added later, or the team can provide a quote where assessment affects the final cost.
+              A simpler directory for the services supplied. Prices can be added later, or quoted where assessment affects the final cost.
             </p>
           </div>
         </Reveal>
@@ -112,11 +112,23 @@ export default async function ServicesPage() {
                 </div>
                 <p>{group.description}</p>
                 <div className="services-master-flow-links">
-                  {group.items.map((item) => (
+                  {group.items.slice(0, 6).map((item) => (
                     <a key={item} href="/contact" aria-label={`Ask about ${item}`}>
                       {item}
                     </a>
                   ))}
+                  {group.items.length > 6 ? (
+                    <details className="services-master-more">
+                      <summary>Show full list</summary>
+                      <div>
+                        {group.items.slice(6).map((item) => (
+                          <a key={item} href="/contact" aria-label={`Ask about ${item}`}>
+                            {item}
+                          </a>
+                        ))}
+                      </div>
+                    </details>
+                  ) : null}
                 </div>
               </article>
             </Reveal>
@@ -129,9 +141,9 @@ export default async function ServicesPage() {
           <div className="services-page-intro-card">
             <div className="services-page-intro-copy">
               <p className="eyebrow">How to use this page</p>
-              <h2>Browse the list first, then open the care area you need.</h2>
+              <h2>Start simple. Ask when a quote is needed.</h2>
               <p>
-                Referral-only services are marked clearly. For procedures where pricing depends on the patient, owners can ask the team for a quote before planning the next step.
+                Referral-only routes stay clearly marked. Procedure costs can be confirmed after assessment.
               </p>
             </div>
 
