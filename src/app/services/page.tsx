@@ -60,9 +60,9 @@ export default async function ServicesPage() {
           <div className="services-page-banner">
             <div className="shell services-page-banner-shell">
               <p className="eyebrow">Our Services</p>
-              <h1>Services</h1>
+              <h1>Care we offer</h1>
               <p className="services-page-banner-copy">
-                A clear overview of the care available at The Sutton Vet, presented in a simpler and more unified way.
+                A calm, practical guide to everyday appointments, diagnostics, procedures, and referral-only support.
               </p>
               <div className="services-page-banner-actions">
                 <a className="button button-primary" href={primaryCtaHref}>
@@ -82,24 +82,24 @@ export default async function ServicesPage() {
           <div className="services-page-intro-card">
             <div className="services-page-intro-copy">
               <p className="eyebrow">Service Overview</p>
-              <h2>Everyday care, advanced procedures, and carefully defined referral support in one calmer presentation.</h2>
+              <h2>A clearer way to browse care, procedures, and referral support.</h2>
               <p>
-                This page now follows a more unified layout, so owners can browse the full service offering without feeling like they are entering two different websites. Where a service is referral only, that is still clearly stated within the individual service card.
+                Start with the area of care, then open the detail page for next steps. Where a service is referral only, that is shown clearly without making the page feel complicated.
               </p>
             </div>
 
             <div className="services-page-intro-points">
               <article>
-                <strong>Clear to scan</strong>
-                <p>Services are shown in one continuous layout, with calmer wording and less visual separation.</p>
+                <strong>Easy to scan</strong>
+                <p>Short labels, clear routes, and simple next steps.</p>
               </article>
               <article>
-                <strong>Honest scope</strong>
-                <p>Referral-only services remain clearly marked without overpowering the rest of the page.</p>
+                <strong>Referral clarity</strong>
+                <p>Soft tissue, orthopaedic, and endoscopy referrals are marked clearly.</p>
               </article>
               <article>
-                <strong>Not currently offered</strong>
-                <p>No spinal referral service, CT scanner, neuro surgery, physio, hydrotherapy, or active out-of-hours rollout yet.</p>
+                <strong>Quote where needed</strong>
+                <p>Some procedures need an assessment before pricing is confirmed.</p>
               </article>
             </div>
           </div>
@@ -110,9 +110,9 @@ export default async function ServicesPage() {
         <Reveal variant="up">
           <div className="services-group-heading">
             <p className="eyebrow">Care We Offer</p>
-            <h2>A thoughtful service list designed to feel complete, minimal, and easier to explore.</h2>
+            <h2>Services listed simply, with detail pages when you need more.</h2>
             <p>
-              The focus here is on clarity rather than category-heavy labelling, so owners can move through the service range naturally while still seeing where referral access applies.
+              Browse the main service areas first. Prices can be added later, or the team can provide a quote where the cost depends on the patient and clinical findings.
             </p>
           </div>
         </Reveal>
@@ -140,9 +140,9 @@ export default async function ServicesPage() {
         <Reveal variant="up">
           <div className="services-master-heading">
             <p className="eyebrow">Full Service Directory</p>
-            <h2>More services and procedures, kept clear until pricing is confirmed.</h2>
+            <h2>Full service list, grouped without clutter.</h2>
             <p>
-              The service list below reflects the master service areas supplied for the practice. Prices can be added later, or owners can contact the team for a quote where the final cost depends on assessment, patient size, or clinical findings.
+              This directory keeps the wider service list visible while pricing is being finalised. Owners can ask for a quote where assessment, patient size, or clinical findings affect the final cost.
             </p>
           </div>
         </Reveal>
