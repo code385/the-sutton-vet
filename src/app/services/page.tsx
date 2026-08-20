@@ -7,6 +7,11 @@ import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteS
 import { getServiceDocuments, getServicesPageDocument, portableTextToParagraphs } from "@/sanity/lib/services";
 
 const fallbackServiceImage = visualAssets.gingerSpanielHero;
+const visibleServiceCount = 9;
+
+function directoryAnchor(title: string) {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
 
 export default async function ServicesPage() {
   const [servicesPage, services, siteSettingsDocument] = await Promise.all([
@@ -26,13 +31,11 @@ export default async function ServicesPage() {
     .map((service) => {
       const paragraphs = portableTextToParagraphs(service.content);
       const detailParagraphs = paragraphs.length ? paragraphs : service.shortDescription ? [service.shortDescription] : [];
-      const imageUrl =
-        ("image" in service ? service.image?.asset?.url : undefined) || service.imageUrl || fallbackServiceImage;
+      const imageUrl = ("image" in service ? service.image?.asset?.url : undefined) || service.imageUrl || fallbackServiceImage;
       const slug = service.slug?.current || "";
       const title = service.title || "";
       const eyebrow = service.eyebrow || "";
-      const isReferral =
-        slug.includes("referral") || title.toLowerCase().includes("referral") || eyebrow.toLowerCase().includes("referral");
+      const isReferral = slug.includes("referral") || title.toLowerCase().includes("referral") || eyebrow.toLowerCase().includes("referral");
 
       return {
         id: service._id,
@@ -55,51 +58,95 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <section className="services-page-hero full-bleed-section">
+      <section className="services-page-hero services-page-hero-v2 full-bleed-section">
         <Reveal variant="up" className="services-page-hero-reveal">
           <div className="services-page-banner">
             <div className="shell services-page-banner-shell">
-              <p className="eyebrow">Our Services</p>
-              <h1>Care we offer</h1>
-              <p className="services-page-banner-copy">
-                A calm, practical guide to everyday appointments, diagnostics, procedures, and referral-only support.
-              </p>
-              <div className="services-page-banner-actions">
-                <a className="button button-primary" href={primaryCtaHref}>
-                  {resolvedServicesPage.primaryCtaLabel || "Book Online"}
-                </a>
-                <a className="button button-muted" href={secondaryCtaHref}>
-                  {resolvedServicesPage.secondaryCtaLabel || "Register Now"}
-                </a>
+              <div className="services-page-hero-copy-v2">
+                <p className="eyebrow">Our Services</p>
+                <h1>Care, clearly grouped.</h1>
+                <p className="services-page-banner-copy">
+                  A calmer way to explore everyday appointments, diagnostics, procedures, daytime urgent care, and referral-only support.
+                </p>
+                <div className="services-page-banner-actions">
+                  <a className="button button-primary" href={primaryCtaHref}>
+                    {resolvedServicesPage.primaryCtaLabel || "Book Online"}
+                  </a>
+                  <a className="button button-muted" href={secondaryCtaHref}>
+                    {resolvedServicesPage.secondaryCtaLabel || "Register Now"}
+                  </a>
+                </div>
+              </div>
+
+              <div className="services-page-hero-index" aria-label="Service groups">
+                <span>Start with a group</span>
+                {masterServiceGroups.slice(0, 6).map((group) => (
+                  <a key={group.title} href={`#${directoryAnchor(group.title)}`}>
+                    {group.title}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </Reveal>
       </section>
 
-      <section className="shell services-page-intro">
+      <section className="shell services-master-list services-master-list-v2">
+        <Reveal variant="up">
+          <div className="services-master-heading">
+            <p className="eyebrow">Service Directory</p>
+            <h2>Full service list, grouped without clutter.</h2>
+            <p>
+              Wider service areas are grouped first, then the cards below open into individual detail pages. Prices can be added later, or the team can provide a quote where assessment affects the final cost.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="services-master-flow">
+          {masterServiceGroups.map((group, index) => (
+            <Reveal key={group.title} variant="up" delayMs={index * 35}>
+              <article className="services-master-flow-group" id={directoryAnchor(group.title)}>
+                <div className="services-master-flow-title">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{group.title}</h3>
+                </div>
+                <p>{group.description}</p>
+                <div className="services-master-flow-links">
+                  {group.items.map((item) => (
+                    <a key={item} href="/contact" aria-label={`Ask about ${item}`}>
+                      {item}
+                    </a>
+                  ))}
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="shell services-page-intro services-page-intro-minimal">
         <Reveal variant="up">
           <div className="services-page-intro-card">
             <div className="services-page-intro-copy">
-              <p className="eyebrow">Service Overview</p>
-              <h2>A clearer way to browse care, procedures, and referral support.</h2>
+              <p className="eyebrow">How to use this page</p>
+              <h2>Browse the list first, then open the care area you need.</h2>
               <p>
-                Start with the area of care, then open the detail page for next steps. Where a service is referral only, that is shown clearly without making the page feel complicated.
+                Referral-only services are marked clearly. For procedures where pricing depends on the patient, owners can ask the team for a quote before planning the next step.
               </p>
             </div>
 
             <div className="services-page-intro-points">
               <article>
                 <strong>Easy to scan</strong>
-                <p>Short labels, clear routes, and simple next steps.</p>
+                <p>Groups first, detail pages second.</p>
               </article>
               <article>
                 <strong>Referral clarity</strong>
-                <p>Soft tissue, orthopaedic, and endoscopy referrals are marked clearly.</p>
+                <p>Soft tissue, orthopaedic, and endoscopy routes stay clear.</p>
               </article>
               <article>
                 <strong>Quote where needed</strong>
-                <p>Some procedures need an assessment before pricing is confirmed.</p>
+                <p>Clinical assessment can shape the final estimate.</p>
               </article>
             </div>
           </div>
@@ -117,9 +164,10 @@ export default async function ServicesPage() {
           </div>
         </Reveal>
 
-        <div className="services-card-grid services-card-grid-image-led">
+        <input className="services-more-toggle" type="checkbox" id="services-more-toggle" />
+        <div className="services-card-grid services-card-grid-image-led services-card-grid-collapsible">
           {serviceCards.map((service, index) => (
-            <Reveal key={service.id} variant="up" delayMs={index * 35}>
+            <Reveal key={service.id} variant="up" delayMs={Math.min(index, visibleServiceCount - 1) * 35} className={index >= visibleServiceCount ? "service-card-extra" : undefined}>
               <a className={`service-card-v3${service.isReferral ? " service-card-v3-referral" : ""}`} href={service.ctaHref} aria-label={`${service.title} details`}>
                 <div className="service-card-v3-media" style={{ backgroundImage: `url(${service.imageUrl})` }} aria-hidden="true">
                   <div className="service-card-v3-overlay">
@@ -134,38 +182,15 @@ export default async function ServicesPage() {
             </Reveal>
           ))}
         </div>
+        {serviceCards.length > visibleServiceCount ? (
+          <label className="services-see-more" htmlFor="services-more-toggle">
+            <span className="services-see-more-open">See more services</span>
+            <span className="services-see-more-close">Show fewer services</span>
+            <b aria-hidden="true">+</b>
+          </label>
+        ) : null}
       </section>
 
-      <section className="shell services-master-list">
-        <Reveal variant="up">
-          <div className="services-master-heading">
-            <p className="eyebrow">Full Service Directory</p>
-            <h2>Full service list, grouped without clutter.</h2>
-            <p>
-              This directory keeps the wider service list visible while pricing is being finalised. Owners can ask for a quote where assessment, patient size, or clinical findings affect the final cost.
-            </p>
-          </div>
-        </Reveal>
-
-        <div className="services-master-grid">
-          {masterServiceGroups.map((group, index) => (
-            <Reveal key={group.title} variant="up" delayMs={index * 35}>
-              <article className="services-master-group">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{group.title}</h3>
-                <p>{group.description}</p>
-                <div className="services-master-chips">
-                  {group.items.map((item) => (
-                    <a key={item} href="/contact" aria-label={`Ask about ${item}`}>
-                      {item}
-                    </a>
-                  ))}
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
       <SectionCta
         eyebrow={resolvedServicesPage.closingEyebrow || "Next Step"}
         title={resolvedServicesPage.closingTitle || "Need something specific?"}
@@ -178,7 +203,3 @@ export default async function ServicesPage() {
     </>
   );
 }
-
-
-
-

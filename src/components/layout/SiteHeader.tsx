@@ -48,7 +48,12 @@ const navGroups: NavGroup[] = [
     menuCopy: "Everyday care, daytime urgent support, procedures, diagnostics, pricing, and referral-only soft tissue, orthopaedic, and endoscopy pathways.",
     illustration: "pets",
     children: [
-      { label: "GP consultations", href: "/services/gp-consultations", description: "First appointments and follow-up care." },
+      { label: "Pet Club and preventative care", href: "/services#pet-club-and-preventative-care", description: "Vaccines, parasite support, and routine planning." },
+      { label: "Vaccinations and routine procedures", href: "/services#vaccinations-and-routine-procedures", description: "Everyday cat and dog services." },
+      { label: "Dentistry, imaging, and diagnostics", href: "/services#dentistry-imaging-and-diagnostics", description: "Dental care, X-rays, ultrasound, and tests." },
+      { label: "Soft tissue procedures", href: "/services#soft-tissue-procedures", description: "Selected procedures and referral routes." },
+      { label: "Orthopaedic procedures", href: "/services#orthopaedic-procedures", description: "Referral-only orthopaedic pathways." },
+      { label: "Endoscopy and sensitive care", href: "/services#endoscopy-and-sensitive-care", description: "Endoscopy, aftercare, and careful conversations." },      { label: "GP consultations", href: "/services/gp-consultations", description: "First appointments and follow-up care." },
       { label: "Daytime urgent care", href: "/services/daytime-urgent-care", description: "In-hours urgent support." },
       { label: "Dental care", href: "/services/dental-care", description: "Oral health checks and dental treatment." },
       { label: "Vaccinations", href: "/services/vaccinations", description: "Puppy, kitten, and booster care." },
