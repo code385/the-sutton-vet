@@ -155,7 +155,6 @@ const priceSections = [
       { service: "Puppy or kitten checks with the nurse", standard: "Free", online: "-" },
       { service: "Microchip", standard: "\u00a324", online: "\u00a319" },
       { service: "Animal Health Certificate", standard: "\u00a3160", online: "-" },
-      { service: "Pet behaviour support", standard: "Consult", online: "Book" },
       { service: "End of life care", standard: "Contact", online: "Guidance" },
     ],
   },

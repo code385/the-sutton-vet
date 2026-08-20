@@ -1,4 +1,4 @@
-import { seededServices } from "@/lib/servicesSeed";
+import { publicServiceSlugs, seededServices } from "@/lib/servicesSeed";
 import type { ServiceDocument } from "@/sanity/lib/services";
 
 type ServiceLike = ServiceDocument | (typeof seededServices)[number];
@@ -20,5 +20,5 @@ export function resolveServiceCollection(services: ServiceDocument[]): ServiceLi
     }
   });
 
-  return Array.from(bySlug.values());
+  return Array.from(bySlug.values()).filter((service) => publicServiceSlugs.has(service.slug?.current || ""));
 }

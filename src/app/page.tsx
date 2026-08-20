@@ -12,7 +12,8 @@ const homeCards = [
   "service-vaccinations",
   "service-neutering-keyhole",
   "service-in-house-diagnostics",
-  "service-home-visits",
+  "service-nurse-clinics",
+  "service-hospitalisation-and-day-care",
   "service-referral-endoscopy",
 ]
   .map((id) => seededServices.find((service) => service._id === id))

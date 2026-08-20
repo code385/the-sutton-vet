@@ -712,3 +712,25 @@ export const masterServiceGroups = [
     items: ["Rigid endoscopy", "Flexible endoscopy", "Bronchoscopy", "Cystoscopy", "Rhinoscopy", "Endoscopic biopsies", "Endoscopic foreign body removal", "BAL support", "Euthanasia care", "Sedation surcharge guidance", "Cremation arrangements", "Exotic pet care"],
   },
 ];
+
+export const publicServiceSlugs = new Set([
+  "gp-consultations",
+  "daytime-urgent-care",
+  "dental-care",
+  "vaccinations",
+  "neutering-and-keyhole-spays",
+  "in-house-diagnostics",
+  "surgery-and-procedures",
+  "end-of-life-care",
+  "soft-tissue-surgery-referrals",
+  "orthopaedic-surgery-referrals",
+  "endoscopy-referrals",
+  "pet-club-preventative-care",
+  "nurse-clinics",
+  "hospitalisation-and-day-care",
+  "exotic-pet-care",
+  "cremation-arrangements",
+  "scale-and-polish",
+  "laparoscopic-procedures",
+  "pre-operative-consultations",
+]);
