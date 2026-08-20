@@ -19251,10 +19251,8 @@ main,
 section,
 .shell,
 .panel,
-.card,
 [class*="section"],
 [class*="panel"],
-[class*="card"],
 [class*="band"],
 [class*="strip"] {
   background-image: none !important;
@@ -19466,5 +19464,84 @@ small,
 
   .sv-home-intro-line {
     display: inline !important;
+  }
+}
+
+/* Pricing page quote-led layout: service list now, prices later or by quote. */
+.pricing-quote-sections {
+  display: grid !important;
+  gap: clamp(1rem, 2vw, 1.5rem) !important;
+}
+
+.pricing-quote-panel {
+  display: grid !important;
+  grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.28fr) !important;
+  gap: clamp(1.25rem, 3vw, 2.5rem) !important;
+  padding: clamp(1.25rem, 3vw, 2rem) !important;
+  border: 1px solid rgba(75, 20, 95, 0.12) !important;
+  background: #ffffff !important;
+}
+
+.pricing-quote-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-content: flex-start !important;
+  gap: 0.7rem !important;
+}
+
+.pricing-quote-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  min-height: 2.55rem !important;
+  padding: 0.58rem 0.78rem !important;
+  border: 1px solid rgba(75, 20, 95, 0.13) !important;
+  background: #ffffff !important;
+  color: var(--ink) !important;
+  text-decoration: none !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.18 !important;
+  transition: border-color 180ms ease, transform 180ms ease, color 180ms ease !important;
+}
+
+.pricing-quote-item span {
+  color: var(--ink) !important;
+}
+
+.pricing-quote-item strong {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.25rem 0.55rem !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: var(--client-purple) !important;
+  border: 1px solid rgba(184, 135, 45, 0.48) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.pricing-quote-item:hover {
+  border-color: var(--client-gold) !important;
+  color: var(--client-purple) !important;
+  transform: translateY(-1px) !important;
+}
+
+.sv-home-expert-card-media,
+.service-card-v3-media {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+@media (max-width: 760px) {
+  .pricing-quote-panel {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pricing-quote-item {
+    width: 100% !important;
+    justify-content: space-between !important;
   }
 }
