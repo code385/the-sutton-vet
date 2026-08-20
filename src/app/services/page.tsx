@@ -94,10 +94,10 @@ export default async function ServicesPage() {
       <section className="shell services-master-list services-master-list-v2">
         <Reveal variant="up">
           <div className="services-master-heading">
-            <p className="eyebrow">Service Directory</p>
-            <h2>Full service list, without clutter.</h2>
+            <p className="eyebrow">Service List</p>
+            <h2>Browse services before prices are finalised.</h2>
             <p>
-              Services are grouped clearly. Prices can be added later or quoted where needed.
+              Use this directory to see what is available. Where a cost depends on assessment, the team can provide a quote before booking.
             </p>
           </div>
         </Reveal>
@@ -113,18 +113,18 @@ export default async function ServicesPage() {
                 <p>{group.description}</p>
                 <div className="services-master-flow-links">
                   {group.items.slice(0, 6).map((item) => (
-                    <a key={item} href="/contact" aria-label={`Ask about ${item}`}>
+                    <span key={item} className="services-master-chip">
                       {item}
-                    </a>
+                    </span>
                   ))}
                   {group.items.length > 6 ? (
                     <details className="services-master-more">
                       <summary>Show full list</summary>
                       <div>
                         {group.items.slice(6).map((item) => (
-                          <a key={item} href="/contact" aria-label={`Ask about ${item}`}>
+                          <span key={item} className="services-master-chip">
                             {item}
-                          </a>
+                          </span>
                         ))}
                       </div>
                     </details>
@@ -141,24 +141,24 @@ export default async function ServicesPage() {
           <div className="services-page-intro-card">
             <div className="services-page-intro-copy">
               <p className="eyebrow">How to use this page</p>
-              <h2>Start with the service you need.</h2>
+              <h2>Need help choosing?</h2>
               <p>
-                Each service is kept short, clear, and easy to scan.
+                The list is for browsing. The cards below open the main detail pages.
               </p>
             </div>
 
             <div className="services-page-intro-points">
               <article>
-                <strong>Easy to scan</strong>
-                <p>Groups first, detail pages second.</p>
+                <strong>Browse first</strong>
+                <p>See the full range without leaving the page.</p>
               </article>
               <article>
-                <strong>Services offered</strong>
-                <p>Soft tissue, orthopaedics, and endoscopy are listed clearly.</p>
+                <strong>Open details</strong>
+                <p>Main service cards link to dedicated pages.</p>
               </article>
               <article>
-                <strong>Quote where needed</strong>
-                <p>Clinical assessment can shape the final estimate.</p>
+                <strong>Ask for a quote</strong>
+                <p>Some costs depend on the patient and procedure.</p>
               </article>
             </div>
           </div>

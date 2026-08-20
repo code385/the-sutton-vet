@@ -19545,3 +19545,180 @@ small,
     justify-content: space-between !important;
   }
 }
+
+/* Services directory refinement: list-only chips, clearer purpose, no accidental navigation. */
+.services-master-list-v2 {
+  padding-top: clamp(3rem, 6vw, 5rem) !important;
+  padding-bottom: clamp(2rem, 5vw, 4rem) !important;
+}
+
+.services-master-list-v2 .services-master-heading {
+  display: grid !important;
+  grid-template-columns: minmax(13rem, 0.45fr) minmax(0, 0.75fr) !important;
+  gap: clamp(1.25rem, 4vw, 4rem) !important;
+  align-items: end !important;
+  margin-bottom: clamp(2rem, 4vw, 3rem) !important;
+  padding-bottom: clamp(1.25rem, 2vw, 1.75rem) !important;
+  border-bottom: 1px solid rgba(75, 20, 95, 0.12) !important;
+}
+
+.services-master-list-v2 .services-master-heading .eyebrow {
+  grid-column: 1 / -1 !important;
+  margin: 0 !important;
+}
+
+.services-master-list-v2 .services-master-heading h2 {
+  max-width: 11ch !important;
+  margin: 0 !important;
+  color: var(--client-purple) !important;
+  font-size: clamp(2.2rem, 5vw, 4.6rem) !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.025em !important;
+  word-spacing: 0.05em !important;
+}
+
+.services-master-list-v2 .services-master-heading p:not(.eyebrow) {
+  max-width: 52ch !important;
+  margin: 0 !important;
+  color: var(--muted) !important;
+  font-size: clamp(1rem, 1.25vw, 1.18rem) !important;
+  line-height: 1.75 !important;
+}
+
+.services-master-flow {
+  display: grid !important;
+  gap: 0 !important;
+  border-top: 1px solid rgba(75, 20, 95, 0.12) !important;
+}
+
+.services-master-flow-group {
+  display: grid !important;
+  grid-template-columns: minmax(12rem, 0.44fr) minmax(13rem, 0.48fr) minmax(0, 1fr) !important;
+  gap: clamp(1rem, 3vw, 2.5rem) !important;
+  align-items: start !important;
+  padding: clamp(1.4rem, 3vw, 2.2rem) 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(75, 20, 95, 0.12) !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+}
+
+.services-master-flow-title {
+  display: grid !important;
+  grid-template-columns: auto 1fr !important;
+  gap: 0.9rem !important;
+  align-items: start !important;
+  padding-left: 0.85rem !important;
+  border-left: 3px solid var(--client-gold) !important;
+}
+
+.services-master-flow-title::before {
+  display: none !important;
+}
+
+.services-master-flow-title span {
+  margin-top: 0.25rem !important;
+  color: var(--client-gold) !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+.services-master-flow-title h3 {
+  margin: 0 !important;
+  color: var(--client-purple) !important;
+  font-size: clamp(1.25rem, 2.1vw, 2rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.services-master-flow-group > p {
+  margin: 0 !important;
+  color: var(--muted) !important;
+  font-size: 0.98rem !important;
+  line-height: 1.7 !important;
+}
+
+.services-master-flow-links,
+.services-master-more > div {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.55rem 0.75rem !important;
+}
+
+.services-master-chip,
+.services-master-more summary {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 2rem !important;
+  padding: 0.35rem 0.65rem !important;
+  border: 1px solid rgba(75, 20, 95, 0.13) !important;
+  background: #ffffff !important;
+  color: var(--ink) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.015em !important;
+  cursor: default !important;
+}
+
+.services-master-more {
+  display: inline !important;
+}
+
+.services-master-more summary {
+  cursor: pointer !important;
+  color: var(--client-purple) !important;
+  border-color: rgba(184, 135, 45, 0.55) !important;
+}
+
+.services-page-intro-minimal .services-page-intro-card {
+  display: grid !important;
+  grid-template-columns: minmax(14rem, 0.7fr) repeat(3, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(75, 20, 95, 0.12) !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+}
+
+.services-page-intro-minimal .services-page-intro-copy,
+.services-page-intro-minimal .services-page-intro-points article {
+  padding: clamp(1rem, 2vw, 1.4rem) !important;
+  border-right: 1px solid rgba(75, 20, 95, 0.1) !important;
+}
+
+.services-page-intro-minimal .services-page-intro-copy h2 {
+  font-size: clamp(1.45rem, 2.1vw, 2.15rem) !important;
+  line-height: 1.04 !important;
+  margin: 0 0 0.7rem !important;
+}
+
+.services-page-intro-minimal .services-page-intro-points {
+  display: contents !important;
+}
+
+.services-page-intro-minimal .services-page-intro-points article:last-child {
+  border-right: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .services-master-list-v2 .services-master-heading,
+  .services-master-flow-group,
+  .services-page-intro-minimal .services-page-intro-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  .services-master-list-v2 .services-master-heading h2 {
+    max-width: 14ch !important;
+  }
+
+  .services-page-intro-minimal .services-page-intro-copy,
+  .services-page-intro-minimal .services-page-intro-points article {
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(75, 20, 95, 0.1) !important;
+  }
+
+  .services-page-intro-minimal .services-page-intro-points article:last-child {
+    border-bottom: 0 !important;
+  }
+}
