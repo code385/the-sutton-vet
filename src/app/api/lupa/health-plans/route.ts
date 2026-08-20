@@ -1,15 +1,18 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-import { lupaFetch } from "@/lib/lupa";
+import { getLupaErrorState, lupaFetch } from "@/lib/lupa";
 
 export async function GET() {
   try {
-    const data = await lupaFetch("/v1/health-plans?limit=100&direction=asc");
-    return NextResponse.json(data);
+    const data = await lupaFetch<Record<string, unknown>>("/v1/health-plans?limit=100&direction=asc");
+    return NextResponse.json({ available: true, source: "lupa", data });
   } catch (error) {
-    return NextResponse.json(
-      { error: "Lupa health plans are not available yet. Check server-side Lupa environment variables and final plan setup." },
-      { status: 503 },
-    );
+    return NextResponse.json({
+      available: false,
+      source: "fallback",
+      state: getLupaErrorState(error),
+      items: [],
+      error: "Lupa health plan data is not available yet. The website will keep using the current health-plan content until sandbox API access and final plan setup are confirmed.",
+    });
   }
 }

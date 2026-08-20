@@ -12,6 +12,20 @@ export type LupaIntegrationStatus = {
   healthPlanStatus: "pending" | "configured";
 };
 
+export type LupaAccessState = "ready" | "missing_config" | "forbidden" | "unauthorized" | "unavailable";
+
+export class LupaIntegrationError extends Error {
+  status?: number;
+  state: LupaAccessState;
+
+  constructor(message: string, state: LupaAccessState, status?: number) {
+    super(message);
+    this.name = "LupaIntegrationError";
+    this.state = state;
+    this.status = status;
+  }
+}
+
 export const lupaConfig = {
   apiBaseUrl: (process.env.LUPA_API_BASE_URL || defaultLupaApiBaseUrl).replace(/\/$/, ""),
   apiKey: process.env.LUPA_API_KEY || "",
@@ -48,8 +62,13 @@ function assertLupaServerConfig() {
     .map(([key]) => key);
 
   if (missing.length) {
-    throw new Error(`Missing Lupa environment variables: ${missing.join(", ")}`);
+    throw new LupaIntegrationError(`Missing Lupa environment variables: ${missing.join(", ")}`, "missing_config");
   }
+}
+
+export function getLupaErrorState(error: unknown): LupaAccessState {
+  if (error instanceof LupaIntegrationError) return error.state;
+  return "unavailable";
 }
 
 export async function lupaFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
@@ -73,7 +92,13 @@ export async function lupaFetch<T>(path: string, init: RequestInit = {}): Promis
   });
 
   if (!response.ok) {
-    throw new Error(`Lupa API request failed with ${response.status}`);
+    if (response.status === 401) {
+      throw new LupaIntegrationError("Lupa API request failed with 401", "unauthorized", response.status);
+    }
+    if (response.status === 403) {
+      throw new LupaIntegrationError("Lupa API request failed with 403", "forbidden", response.status);
+    }
+    throw new LupaIntegrationError(`Lupa API request failed with ${response.status}`, "unavailable", response.status);
   }
 
   return response.json() as Promise<T>;
