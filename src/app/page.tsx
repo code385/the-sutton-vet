@@ -14,7 +14,7 @@ const homeCards = [
   "service-in-house-diagnostics",
   "service-nurse-clinics",
   "service-hospitalisation-and-day-care",
-  "service-referral-endoscopy",
+  "service-service-endoscopy",
 ]
   .map((id) => seededServices.find((service) => service._id === id))
   .filter((service): service is NonNullable<typeof service> => Boolean(service));
@@ -30,7 +30,7 @@ const whyChoosePoints = [
   },
   {
     number: "3",
-    title: "In-house surgical and referral services",
+    title: "In-house surgical and advanced services",
   },
   {
     number: "4",
@@ -89,7 +89,7 @@ export default async function Home() {
         <Reveal variant="left">
           <div className="sv-home-intro-panel">
             <p className="eyebrow">Independent Care</p>
-            <h2><span className="sv-home-intro-line"><span className="sv-home-intro-soft">A calmer structure </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">for </span><span className="sv-home-intro-emphasis">everyday appointments </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">referral pathways</span><span className="sv-home-intro-soft"> and </span><span className="sv-home-intro-emphasis">practical </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-emphasis">next steps.</span></span></h2>
+            <h2><span className="sv-home-intro-line"><span className="sv-home-intro-soft">A calmer structure </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">for </span><span className="sv-home-intro-emphasis">everyday appointments </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-soft">care pathways</span><span className="sv-home-intro-soft"> and </span><span className="sv-home-intro-emphasis">practical </span></span><span className="sv-home-intro-line"><span className="sv-home-intro-emphasis">next steps.</span></span></h2>
             <Link className="sv-home-inline-link" href="/services">
               See our veterinary services
             </Link>
@@ -99,14 +99,14 @@ export default async function Home() {
         <Reveal variant="up" delayMs={40}>
           <div className="sv-home-intro-copy">
             <p>
-              The Sutton Vet is being shaped as an independent practice with a gentle voice, clear guidance, and modern clinical standards. The aim is to make each part of the website feel easier to understand, from first appointments to referral-only services.
+              The Sutton Vet is being shaped as an independent practice with a gentle voice, clear guidance, and modern clinical standards. The aim is to make each part of the website feel easier to understand, from first appointments to advanced services.
             </p>
             <p>
-              Everyday GP care sits alongside selected referral work in soft tissue surgery, orthopaedic surgery, and endoscopy, while pricing and visit information are presented more openly so owners can make decisions with confidence.
+              Everyday GP care sits alongside selected advanced clinical work in soft tissue surgery, orthopaedic surgery, and endoscopy, while pricing and visit information are presented more openly so owners can make decisions with confidence.
             </p>
             <div className="sv-home-intro-note">
-              <span>Referral only</span>
-              <p>Soft tissue surgery, orthopaedic surgery, and endoscopy are available on a referral basis.</p>
+              <span>Available by discussion</span>
+              <p>Soft tissue surgery, orthopaedic surgery, and endoscopy are available after case discussion.</p>
             </div>
           </div>
         </Reveal>
@@ -116,7 +116,7 @@ export default async function Home() {
         <Reveal variant="left">
           <div className="sv-home-expert-heading">
             <p className="eyebrow">Care Overview</p>
-            <h2>A clearer view of everyday care, diagnostics, procedures, home visits, and referral support.</h2>
+            <h2>A clearer view of everyday care, diagnostics, procedures, home visits, and advanced support.</h2>
             <p>
               A simple overview of the main clinical services, presented with a calmer structure and a more refined visual rhythm.
             </p>

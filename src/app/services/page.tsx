@@ -35,11 +35,11 @@ export default async function ServicesPage() {
       const slug = service.slug?.current || "";
       const title = service.title || "";
       const eyebrow = service.eyebrow || "";
-      const isReferral = slug.includes("referral") || title.toLowerCase().includes("referral") || eyebrow.toLowerCase().includes("referral");
+      const isAdvanced = ["soft-tissue", "orthopaedic", "endoscopy"].some((term) => slug.includes(term));
 
       return {
         id: service._id,
-        eyebrow: isReferral ? "Referral only" : "Clinical service",
+        eyebrow: isAdvanced ? "Advanced care" : "Clinical service",
         title,
         shortDescription: service.shortDescription,
         lead: service.lead,
@@ -48,12 +48,12 @@ export default async function ServicesPage() {
         alt: service.alt || title,
         ctaHref: slug ? `/services/${slug}` : siteSettings.ctas.book,
         ctaLabel: "View details",
-        isReferral,
+        isAdvanced,
       };
     })
     .sort((a, b) => {
-      if (a.isReferral === b.isReferral) return 0;
-      return a.isReferral ? 1 : -1;
+      if (a.isAdvanced === b.isAdvanced) return 0;
+      return a.isAdvanced ? 1 : -1;
     });
 
   return (
@@ -143,7 +143,7 @@ export default async function ServicesPage() {
               <p className="eyebrow">How to use this page</p>
               <h2>Start simple. Ask when a quote is needed.</h2>
               <p>
-                Referral-only routes stay clearly marked. Procedure costs can be confirmed after assessment.
+                Specialist procedures are listed clearly. Procedure costs can be confirmed after assessment.
               </p>
             </div>
 
@@ -153,8 +153,8 @@ export default async function ServicesPage() {
                 <p>Groups first, detail pages second.</p>
               </article>
               <article>
-                <strong>Referral clarity</strong>
-                <p>Soft tissue, orthopaedic, and endoscopy routes stay clear.</p>
+                <strong>Specialist care</strong>
+                <p>Soft tissue, orthopaedic, and endoscopy options stay clear.</p>
               </article>
               <article>
                 <strong>Quote where needed</strong>
@@ -180,7 +180,7 @@ export default async function ServicesPage() {
         <div className="services-card-grid services-card-grid-image-led services-card-grid-collapsible">
           {serviceCards.map((service, index) => (
             <Reveal key={service.id} variant="up" delayMs={Math.min(index, visibleServiceCount - 1) * 35} className={index >= visibleServiceCount ? "service-card-extra" : undefined}>
-              <a className={`service-card-v3${service.isReferral ? " service-card-v3-referral" : ""}`} href={service.ctaHref} aria-label={`${service.title} details`}>
+              <a className={`service-card-v3${service.isAdvanced ? " service-card-v3-referral" : ""}`} href={service.ctaHref} aria-label={`${service.title} details`}>
                 <div className="service-card-v3-media" style={{ backgroundImage: `url(${service.imageUrl})` }} aria-hidden="true">
                   <div className="service-card-v3-overlay">
                     <div className="service-card-v3-copy">

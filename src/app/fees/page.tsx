@@ -123,10 +123,10 @@ const priceSections = [
   },
   {
     id: "surgery",
-    title: "Surgery and referral procedures",
+    title: "Surgery and procedures",
     eyebrow: "Procedure Guide",
     description:
-      "Referral surgery at The Sutton Vet is for soft tissue, orthopaedic surgery, and endoscopy. Prices below are a rough guide and may change after assessment.",
+      "Advanced surgery at The Sutton Vet is for soft tissue, orthopaedic surgery, and endoscopy. Prices below are a rough guide and may change after assessment.",
     rows: [
       { service: "Pyometra", standard: "\u00a3750", online: "\u00a3670" },
       { service: "Caesarean section dog", standard: "\u00a3980", online: "\u00a3830" },
@@ -139,7 +139,7 @@ const priceSections = [
       { service: "BOAS surgery", standard: "-", online: "\u00a31500" },
       { service: "TPLO, size dependent", standard: "-", online: "\u00a32350-\u00a32850" },
       { service: "Total ear canal ablation", standard: "-", online: "\u00a31900" },
-      { service: "Endoscopy referrals", standard: "Assessment", online: "Estimate" },
+      { service: "Endoscopy", standard: "Assessment", online: "Estimate" },
     ],
   },
   {
@@ -177,7 +177,7 @@ export default async function FeesPage() {
               <p className="eyebrow">Pricing</p>
               <h1>Prices you can scan without feeling lost.</h1>
               <p>
-                A warmer pricing experience for routine care, diagnostics, procedures, health plans, and referral-only pathways. The figures are grouped around real owner decisions, not buried in a long table.
+                A warmer pricing experience for routine care, diagnostics, procedures, health plans, and advanced pathways. The figures are grouped around real owner decisions, not buried in a long table.
               </p>
               <div className="pricing-v3-actions">
                 <Link className="button button-primary" href={siteSettings.ctas.book}>Book Online</Link>
@@ -242,7 +242,7 @@ export default async function FeesPage() {
       <SectionCta
         eyebrow="Next Step"
         title="Need help understanding a likely cost?"
-        text="Tell us what your pet needs and the team can guide you towards the right appointment, estimate, or referral route."
+        text="Tell us what your pet needs and the team can guide you towards the right appointment, estimate, or care route."
         primaryLabel="Book Online"
         primaryHref={siteSettings.ctas.book}
         secondaryLabel="Contact Us"

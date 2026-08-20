@@ -20,10 +20,10 @@ export type SeededService = {
 export const servicesPageSeed = {
   _id: "servicesPage",
   _type: "servicesPage",
-  eyebrow: "GP & Referral Care",
+  eyebrow: "GP & Advanced Care",
   title: "Thoughtful veterinary care, organised around what owners need most.",
   description:
-    "The Sutton Vet should feel warm, clinically confident, and easy to navigate. This page brings together everyday GP support, daytime urgent care, preventative care, and selected referral services in a format that is simple to scan without feeling impersonal.",
+    "The Sutton Vet should feel warm, clinically confident, and easy to navigate. This page brings together everyday GP support, daytime urgent care, preventative care, and selected advanced services in a format that is simple to scan without feeling impersonal.",
   introNote: "Each service block below can be edited from Sanity, including title, copy, image, and CTA.",
   primaryCtaLabel: "Book Online",
   primaryCtaHref: siteConfig.ctas.book,
@@ -32,7 +32,7 @@ export const servicesPageSeed = {
   closingEyebrow: "Next Step",
   closingTitle: "Need help choosing the right appointment?",
   closingText:
-    "Tell us what is happening and we will guide you towards the right appointment, procedure discussion, or referral route.",
+    "Tell us what is happening and we will guide you towards the right appointment, procedure discussion, or care route.",
   closingPrimaryLabel: "Book Online",
   closingPrimaryHref: siteConfig.ctas.book,
   closingSecondaryLabel: "Contact Us",
@@ -348,7 +348,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "Where your pet would benefit from care outside our current scope, we will guide you honestly toward the right referral pathway.",
+            text: "Where your pet would benefit from care outside our current scope, we will guide you honestly toward the right care pathway.",
           },
         ],
       },
@@ -425,18 +425,18 @@ export const seededServices: SeededService[] = [
     ],
   },
   {
-    _id: "service-referral-soft-tissue",
+    _id: "service-service-soft-tissue",
     _type: "service",
     sortOrder: 11,
-    eyebrow: "Referral Services",
-    title: "Soft tissue surgery referrals",
-    slug: { current: "soft-tissue-surgery-referrals" },
-    shortDescription: "Referral-only soft tissue surgery for cases that need a more advanced procedural pathway.",
-    lead: "Referral messaging needs to feel clinically capable while being very clear about scope and route of access.",
+    eyebrow: "Advanced Care",
+    title: "Soft tissue surgery",
+    slug: { current: "soft-tissue-surgery" },
+    shortDescription: "Soft tissue surgery for cases that need a more advanced procedural pathway.",
+    lead: "Advanced care messaging needs to feel clinically capable while being very clear about scope and route of access.",
     imageUrl:
       visualAssets.gingerSpanielHero,
-    alt: "Veterinary surgeon preparing for a referral procedure",
-    ctaLabel: "Refer a case",
+    alt: "Veterinary surgeon preparing for a procedure",
+    ctaLabel: "Ask about soft tissue surgery",
     ctaHref: "/contact",
     content: [
       {
@@ -444,7 +444,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "Selected soft tissue procedures are available on a referral basis. This allows us to support appropriate cases while keeping the website honest about how that service is accessed.",
+            text: "Selected soft tissue procedures are available after case discussion. This allows us to support appropriate cases while keeping the website honest about how that care is accessed.",
           },
         ],
       },
@@ -453,25 +453,25 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "For owners and referring practices alike, the emphasis should be on clarity, suitability, and a well-managed pathway into treatment.",
+            text: "For owners and local practices alike, the emphasis should be on clarity, suitability, and a well-managed pathway into treatment.",
           },
         ],
       },
     ],
   },
   {
-    _id: "service-referral-orthopaedic",
+    _id: "service-service-orthopaedic",
     _type: "service",
     sortOrder: 12,
-    eyebrow: "Referral Services",
-    title: "Orthopaedic surgery referrals",
-    slug: { current: "orthopaedic-surgery-referrals" },
-    shortDescription: "Referral-only orthopaedic surgery for selected cases requiring specialist procedural care.",
-    lead: "Orthopaedic referral copy should feel expert and measured, without promising services beyond the current offering.",
+    eyebrow: "Advanced Care",
+    title: "Orthopaedic surgery",
+    slug: { current: "orthopaedic-surgery" },
+    shortDescription: "Orthopaedic surgery for selected cases requiring specialist procedural care.",
+    lead: "Orthopaedic service copy should feel expert and measured, without promising services beyond the current offering.",
     imageUrl:
       visualAssets.gingerCatHero,
     alt: "Dog being supported by veterinary staff during orthopaedic care",
-    ctaLabel: "Discuss an orthopaedic referral",
+    ctaLabel: "Discuss orthopaedic surgery",
     ctaHref: "/contact",
     content: [
       {
@@ -479,7 +479,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "Orthopaedic procedures are offered on a referral basis only, with assessment and planning shaped around the individual case rather than one-size-fits-all promises.",
+            text: "Orthopaedic procedures are offered after case discussion, with assessment and planning shaped around the individual case rather than one-size-fits-all promises.",
           },
         ],
       },
@@ -488,25 +488,25 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "The site should make clear that referral work is available, while avoiding mention of services such as neuro surgery or other areas that are not currently offered.",
+            text: "The site should make clear that advanced clinical work is available, while avoiding mention of services such as neuro surgery or other areas that are not currently offered.",
           },
         ],
       },
     ],
   },
   {
-    _id: "service-referral-endoscopy",
+    _id: "service-service-endoscopy",
     _type: "service",
     sortOrder: 13,
-    eyebrow: "Referral Services",
-    title: "Endoscopy referrals",
-    slug: { current: "endoscopy-referrals" },
-    shortDescription: "Referral-only endoscopy for cases that benefit from a minimally invasive diagnostic or procedural approach.",
-    lead: "Endoscopy is one of the differentiating referral services the client specifically wants surfaced in a professional way.",
+    eyebrow: "Advanced Care",
+    title: "Endoscopy",
+    slug: { current: "endoscopy" },
+    shortDescription: "Endoscopy for cases that benefit from a minimally invasive diagnostic or procedural approach.",
+    lead: "Endoscopy is one of the differentiating advanced services the client specifically wants surfaced in a professional way.",
     imageUrl:
       visualAssets.goldenDogWarm,
     alt: "Veterinary team working in a clean clinical environment",
-    ctaLabel: "Ask about endoscopy referrals",
+    ctaLabel: "Ask about endoscopy",
     ctaHref: "/contact",
     content: [
       {
@@ -514,7 +514,7 @@ export const seededServices: SeededService[] = [
         children: [
           {
             _type: "span",
-            text: "Endoscopy referrals are available for suitable cases and should be presented as part of a careful, modern clinical offering rather than as a broad catch-all service.",
+            text: "Endoscopy is available for suitable cases and should be presented as part of a careful, modern clinical offering rather than as a broad catch-all service.",
           },
         ],
       },
@@ -675,7 +675,7 @@ seededServices.push(
     ctaHref: siteConfig.ctas.book,
     content: [
       { _type: "block", children: [{ _type: "span", text: "Pre-operative consultations are available before procedures so the team can explain suitability, preparation, estimate ranges, recovery, and aftercare." }] },
-      { _type: "block", children: [{ _type: "span", text: "This gives owners a clearer route into treatment before committing to a surgical or referral pathway." }] },
+      { _type: "block", children: [{ _type: "span", text: "This gives owners a clearer route into treatment before committing to a surgical or care pathway." }] },
     ],
   },
 );
@@ -698,17 +698,17 @@ export const masterServiceGroups = [
   },
   {
     title: "Soft tissue procedures",
-    description: "Selected soft tissue procedures, with referral-only pathways where appropriate.",
+    description: "Selected soft tissue procedures, with advanced pathways where appropriate.",
     items: ["Total ear canal ablation", "Anal sacculectomy", "Forequarter amputation", "Perineal hernia repair", "Soft tissue mass removal", "Complex mass removal with flap", "Thyroidectomy", "Perineal urethrostomy", "Mammary strip surgery", "Tieback surgery", "Exploratory coeliotomy", "Screw tail surgery", "Salivary mucoele surgery", "BOAS surgery", "Diaphragmatic rupture or hernia repair", "Enterectomy", "Entropion surgery", "Cherry eye surgery", "Gall bladder removal", "Inguinal hernia repair", "Liver lobectomy", "Nephrectomy", "Ovarian remnant surgery", "Scrotal urethrostomy", "Sialoadenectomy", "Bloat and GDV surgery", "Foreign body removal", "Splenectomy", "Gastrotomy", "Enterotomy"],
   },
   {
     title: "Orthopaedic procedures",
-    description: "Referral-only orthopaedic procedures, assessed case by case.",
+    description: "Orthopaedic procedures are assessed carefully around each patient.",
     items: ["TPLO", "TPLO with patellar luxation", "Patellar luxation surgery", "Implant removal", "Femoral head and neck excision", "Arthrodesis", "Elbow arthroscopy", "Simple fracture repair", "Moderate fracture plating", "Complex fracture repair", "Shoulder OCD fragment removal", "Hip toggle", "Extra-capsular suture", "Bone graft substitute support"],
   },
   {
     title: "Endoscopy and sensitive care",
-    description: "Referral endoscopy, end-of-life support, and services that need a careful conversation first.",
+    description: "Endoscopy, end-of-life support, and services that need a careful conversation first.",
     items: ["Rigid endoscopy", "Flexible endoscopy", "Bronchoscopy", "Cystoscopy", "Rhinoscopy", "Endoscopic biopsies", "Endoscopic foreign body removal", "BAL support", "Euthanasia care", "Sedation surcharge guidance", "Cremation arrangements", "Exotic pet care"],
   },
 ];
@@ -722,9 +722,9 @@ export const publicServiceSlugs = new Set([
   "in-house-diagnostics",
   "surgery-and-procedures",
   "end-of-life-care",
-  "soft-tissue-surgery-referrals",
-  "orthopaedic-surgery-referrals",
-  "endoscopy-referrals",
+  "soft-tissue-surgery",
+  "orthopaedic-surgery",
+  "endoscopy",
   "pet-club-preventative-care",
   "nurse-clinics",
   "hospitalisation-and-day-care",

@@ -549,6 +549,9 @@ export const staleCmsDocumentIds = [
   "blog-registering-before-visit",
   "blog-routine-health-checks",
   "blog-local-first-visit-planning",
+  "service-referral-soft-tissue",
+  "service-referral-orthopaedic",
+  "service-referral-endoscopy",
 ];
 
 export const allSeedDocuments: SanitySeedDocument[] = [

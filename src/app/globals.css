@@ -18639,3 +18639,275 @@ body,
     font-size: 0.8rem !important;
   }
 }
+
+/* Client colour rebalance: Vet ER-inspired purple with matte gold accents. */
+:root {
+  --plum: #55166f;
+  --client-purple: #55166f;
+  --gold: #bd8a2d;
+  --client-gold: #bd8a2d;
+  --gold-soft: rgba(189, 138, 45, 0.12);
+  --plum-soft: rgba(85, 22, 111, 0.08);
+  --page: #ffffff;
+  --cream: #fbfaf7;
+  --sand: #f7f5ef;
+}
+
+html,
+body,
+.site-main,
+.full-bleed-section,
+.services-page-hero,
+.services-master-list,
+.services-page-intro,
+.services-group,
+.health-plan-hero,
+.pricing-v3-hero,
+.pricing-v3-intro,
+.about-page,
+.about-hero,
+.contact-page,
+.team-page,
+.service-detail-page,
+.site-footer {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+.eyebrow,
+.services-master-flow-title span,
+.pricing-v3-route-map span,
+.service-detail-eyebrow,
+.footer-column h3,
+.site-footer h2,
+.site-footer strong,
+.sv-nav-dropdown-copy .eyebrow,
+.sv-mobile-link,
+.sv-mobile-sub-link,
+.sv-header-link,
+.sv-header-dropdown-link strong,
+.services-page-hero-index a,
+.services-master-flow-group h3,
+.services-master-flow-links a,
+.service-card-v3-copy span,
+.pricing-v3-card small,
+.price-card-v3 small,
+.health-plan-benefit svg,
+.health-plan-feature svg {
+  color: var(--client-purple) !important;
+}
+
+h1,
+h2,
+h3,
+.site-footer a,
+.site-footer p,
+.service-detail-copy,
+.services-master-heading p,
+.services-page-banner-copy,
+.pricing-v3-hero-copy p,
+.health-plan-hero-copy p {
+  color: #263447 !important;
+}
+
+.hero-title .hero-title-gold,
+.sv-home-hero-title .hero-title-gold,
+.home-why-brand,
+.pricing-v3-float-ticket strong,
+.health-plan-price strong,
+.services-master-flow-links a::after,
+.services-page-intro-card strong {
+  color: var(--client-gold) !important;
+}
+
+.button,
+.button-primary,
+.sv-header-actions-clean .button-primary,
+.sv-mobile-actions-simple .button-primary,
+.cookie-action-button.button-primary,
+.pricing-v3-actions .button-primary,
+.health-plan-hero .button-primary,
+.home-health-plan-actions .button-primary,
+.service-detail-actions .button-primary,
+.section-cta .button-primary,
+.services-page-banner-actions .button-primary,
+.services-see-more b,
+.pricing-mobile-summary::after,
+.service-card-v3-copy strong,
+.footer-newsletter button {
+  background: var(--client-gold) !important;
+  background-image: none !important;
+  color: var(--client-purple) !important;
+  border-color: var(--client-gold) !important;
+  box-shadow: 0 14px 30px rgba(189, 138, 45, 0.18) !important;
+}
+
+.button-muted,
+.sv-header-actions-clean .button-muted,
+.sv-mobile-actions-simple .button-muted,
+.pricing-v3-actions .button-muted,
+.health-plan-hero .button-muted,
+.home-health-plan-actions .button-muted,
+.service-detail-actions .button-muted,
+.section-cta .button-muted,
+.services-page-banner-actions .button-muted {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: var(--client-purple) !important;
+  border-color: rgba(85, 22, 111, 0.24) !important;
+  box-shadow: 0 10px 24px rgba(38, 52, 71, 0.08) !important;
+}
+
+.button:hover,
+.button-primary:hover,
+.button-muted:hover,
+.service-card-v3-copy strong:hover,
+.services-see-more:hover b,
+.footer-newsletter button:hover {
+  background: #55166f !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: #55166f !important;
+}
+
+.sv-mobile-actions-simple .button-muted,
+.sv-header-actions-clean .button-muted[href*="book"],
+.button.button-muted[href*="book"] {
+  background: var(--client-gold) !important;
+  color: var(--client-purple) !important;
+  border-color: var(--client-gold) !important;
+}
+
+.service-card-v3-copy h3,
+.home-services .service-card-v3-copy h3 {
+  color: #ffffff !important;
+  text-shadow: 0 16px 28px rgba(0, 0, 0, 0.34) !important;
+}
+
+.service-detail-related h3,
+.service-related-card h3,
+.related-service-card h3,
+.service-detail-related a h3 {
+  color: var(--client-purple) !important;
+  text-shadow: none !important;
+}
+
+.price-chip,
+.pricing-v3-price-pill,
+.pricing-mobile-price,
+.pricing-mobile-table strong,
+.price-card-v3 strong,
+.pricing-v3-float-ticket,
+.pricing-v3-float-ticket strong {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: var(--client-purple) !important;
+  border-color: rgba(85, 22, 111, 0.16) !important;
+}
+
+.sv-nav-dropdown,
+.sv-nav-dropdown-feature,
+.sv-mobile-panel,
+.services-page-intro-card,
+.services-master-flow-group,
+.health-plan-benefit,
+.health-plan-card,
+.pricing-v3-card,
+.service-detail-next,
+.service-detail-body,
+.site-footer-inner,
+.footer-bottom {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+.sv-nav-dropdown,
+.services-page-intro-card,
+.services-master-flow-group,
+.pricing-v3-card,
+.health-plan-card,
+.service-detail-next,
+.service-detail-body {
+  border-color: rgba(85, 22, 111, 0.12) !important;
+}
+
+.sv-nav-dropdown-feature,
+.services-master-flow-title,
+.services-page-intro-copy,
+.pricing-v3-intro-copy,
+.service-detail-highlight,
+.health-plan-feature {
+  border-color: var(--client-gold) !important;
+}
+
+/* Final pass: purple leads the brand language; matte gold stays as accent/button colour only. */
+.services-page-hero h1,
+.services-master-heading h2,
+.services-page-intro h2,
+.services-group-heading h2,
+.pricing-v3-hero h1,
+.pricing-v3-intro h2,
+.pricing-v3-health-band h2,
+.health-plan-hero h1,
+.health-plan-section h2,
+.about-hero h1,
+.about-section h2,
+.contact-hero h1,
+.team-hero h1,
+.service-detail-hero h1,
+.service-detail-main h2,
+.section-cta h2,
+.sv-nav-dropdown-copy h3,
+.sv-nav-dropdown-link strong,
+.site-footer h3 {
+  color: var(--client-purple) !important;
+}
+
+.sv-home-hero-title,
+.sv-home-hero-title span,
+.hero-title,
+.hero-title span,
+.service-card-v3-copy h3,
+.sv-home-expert-card h3,
+.sv-home-expert-card h3 span {
+  color: #ffffff !important;
+}
+
+.sv-home-hero-title .hero-title-gold,
+.hero-title .hero-title-gold,
+.sv-home-intro-emphasis,
+.home-why-brand,
+.price-card-v3 strong,
+.pricing-v3-float-ticket strong,
+.health-plan-price strong {
+  color: var(--client-gold) !important;
+}
+
+.chat-launcher,
+.chat-form .button,
+.chat-static-actions .button,
+.chat-emergency-button,
+.cookie-fab,
+.cookie-toggle.is-on {
+  background: var(--client-gold) !important;
+  background-image: none !important;
+  color: var(--client-purple) !important;
+  border-color: var(--client-gold) !important;
+}
+
+.chat-launcher:hover,
+.cookie-fab:hover {
+  background: var(--client-purple) !important;
+  color: #ffffff !important;
+}
+
+.site-footer,
+.site-footer-inner,
+.footer-bottom {
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+.sv-home-intro-note span {
+  color: var(--client-gold) !important;
+}

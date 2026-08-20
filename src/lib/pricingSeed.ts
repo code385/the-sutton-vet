@@ -1,4 +1,4 @@
-﻿import { siteConfig } from "./site";
+import { siteConfig } from "./site";
 import { visualAssets } from "./visualAssets";
 
 export type PricingCalculatorEntrySeed = {
@@ -93,7 +93,7 @@ export const pricingPageSeed = {
   ctaEyebrow: "Next Step",
   ctaTitle: "Need help choosing the right route?",
   ctaText:
-    "If you are unsure whether you need a routine appointment, a procedure estimate, or a referral conversation, the team can guide you to the most sensible next step.",
+    "If you are unsure whether you need a routine appointment, a procedure estimate, or a care conversation, the team can guide you to the most sensible next step.",
   ctaImageUrl:
     visualAssets.goldenDogWarm,
   ctaPrimaryLabel: "Book Online",
