@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/shared/Reveal";
 import { visualAssets } from "@/lib/visualAssets";
 import { SectionCta } from "@/components/shared/SectionCta";
-import { servicesPageSeed } from "@/lib/servicesSeed";
+import { masterServiceGroups, servicesPageSeed } from "@/lib/servicesSeed";
 import { resolveServiceCollection } from "@/lib/resolveServices";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 import { getServiceDocuments, getServicesPageDocument, portableTextToParagraphs } from "@/sanity/lib/services";
@@ -136,6 +136,36 @@ export default async function ServicesPage() {
         </div>
       </section>
 
+      <section className="shell services-master-list">
+        <Reveal variant="up">
+          <div className="services-master-heading">
+            <p className="eyebrow">Full Service Directory</p>
+            <h2>More services and procedures, kept clear until pricing is confirmed.</h2>
+            <p>
+              The service list below reflects the master service areas supplied for the practice. Prices can be added later, or owners can contact the team for a quote where the final cost depends on assessment, patient size, or clinical findings.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="services-master-grid">
+          {masterServiceGroups.map((group, index) => (
+            <Reveal key={group.title} variant="up" delayMs={index * 35}>
+              <article className="services-master-group">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{group.title}</h3>
+                <p>{group.description}</p>
+                <div className="services-master-chips">
+                  {group.items.map((item) => (
+                    <a key={item} href="/contact" aria-label={`Ask about ${item}`}>
+                      {item}
+                    </a>
+                  ))}
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
       <SectionCta
         eyebrow={resolvedServicesPage.closingEyebrow || "Next Step"}
         title={resolvedServicesPage.closingTitle || "Need something specific?"}
