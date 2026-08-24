@@ -19722,3 +19722,46 @@ small,
     border-bottom: 0 !important;
   }
 }
+
+/* Lupa booking and registration journeys keep all sensitive API access server-side. */
+.lupa-journey {
+  width: min(1040px, calc(100% - 2rem));
+  margin: 3rem auto 6rem;
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  background: #fff;
+  border: 1px solid rgba(77, 24, 111, 0.16);
+}
+
+.lupa-journey-intro h1 {
+  margin: 0.65rem 0 1rem;
+  color: #4d186f;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.2rem, 4vw, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.lupa-journey-intro p:not(.eyebrow) { color: #596576; font-size: 1.02rem; line-height: 1.75; }
+.lupa-journey-note { padding-top: 1rem; border-top: 1px solid rgba(77, 24, 111, 0.14); }
+.lupa-journey-note a { color: #4d186f; font-weight: 800; }
+.lupa-form { display: grid; gap: 1rem; align-content: start; }
+.lupa-form label { display: grid; gap: 0.42rem; color: #2a3444; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.02em; }
+.lupa-form input, .lupa-form select, .lupa-form textarea { width: 100%; padding: 0.78rem 0.9rem; border: 1px solid rgba(77, 24, 111, 0.22); border-radius: 0; color: #2a3444; background: #fff; font: inherit; }
+.lupa-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+.lupa-consent { grid-template-columns: auto 1fr; align-items: start; font-weight: 500 !important; line-height: 1.5; }
+.lupa-consent input { width: 1rem; margin-top: 0.2rem; }
+.lupa-slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; margin: 0; padding: 1rem; border: 1px solid rgba(77, 24, 111, 0.16); }
+.lupa-slots legend { color: #4d186f; font-weight: 800; padding: 0 0.25rem; }
+.lupa-slot { grid-template-columns: auto 1fr; align-items: center; padding: 0.6rem; border: 1px solid rgba(77, 24, 111, 0.12); font-size: 0.78rem !important; cursor: pointer; }
+.lupa-slot input { width: auto; }
+.lupa-form-message { margin: 0; color: #4d186f; font-weight: 700; line-height: 1.5; }
+
+@media (max-width: 720px) {
+  .lupa-journey { width: min(100% - 1.25rem, 560px); margin: 1.25rem auto 3rem; grid-template-columns: 1fr; gap: 1.75rem; padding: 1.15rem; }
+  .lupa-journey-intro h1 { font-size: clamp(2rem, 10vw, 3.15rem); }
+  .lupa-form-grid, .lupa-slots { grid-template-columns: 1fr; }
+  .lupa-form .button { width: 100%; justify-content: center; }
+}

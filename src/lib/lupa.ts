@@ -1,4 +1,4 @@
-const defaultLupaApiBaseUrl = "https://api.dev.lupapets.com/api/external";
+const defaultLupaApiBaseUrl = "https://api.lupapets.com/api/external";
 
 export type LupaIntegrationStatus = {
   apiBaseUrl: string;
@@ -102,4 +102,25 @@ export async function lupaFetch<T>(path: string, init: RequestInit = {}): Promis
   }
 
   return response.json() as Promise<T>;
+}
+export function withLupaScope<T extends Record<string, unknown>>(payload: T) {
+  return {
+    companyId: lupaConfig.companyId,
+    storeIds: [lupaConfig.storeId],
+    storeId: lupaConfig.storeId,
+    ...payload,
+  };
+}
+
+export function getLupaRecordId(payload: unknown): string | undefined {
+  if (!payload || typeof payload !== "object") return undefined;
+
+  const record = payload as Record<string, unknown>;
+  if (typeof record.id === "string") return record.id;
+  if (record.data && typeof record.data === "object") {
+    const data = record.data as Record<string, unknown>;
+    if (typeof data.id === "string") return data.id;
+  }
+
+  return undefined;
 }
