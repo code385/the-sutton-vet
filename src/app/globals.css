@@ -19765,3 +19765,169 @@ small,
   .lupa-form-grid, .lupa-slots { grid-template-columns: 1fr; }
   .lupa-form .button { width: 100%; justify-content: center; }
 }
+
+
+/* Client-provided orthopaedic work: restrained editorial gallery. */
+.services-clinical-showcase {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.services-clinical-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 0.75fr);
+  gap: clamp(2rem, 7vw, 7rem);
+  align-items: end;
+  padding-bottom: clamp(1.75rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line, #dedbd5);
+}
+
+.services-clinical-heading h2 {
+  max-width: 13ch;
+  margin: 0;
+  color: var(--purple, #53146f);
+  font-size: clamp(2.2rem, 4.5vw, 4.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.services-clinical-heading > p {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--muted, #667085);
+  line-height: 1.65;
+}
+
+.services-clinical-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(1.75rem, 4vw, 3.5rem);
+  overflow: hidden;
+  border: 1px solid var(--line, #dedbd5);
+  background: var(--line, #dedbd5);
+}
+
+.services-clinical-feature {
+  grid-column: span 2;
+}
+
+.services-clinical-card {
+  height: 100%;
+  background: #fff;
+}
+
+.services-clinical-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  height: clamp(15rem, 26vw, 23rem);
+  overflow: hidden;
+  background: #fff;
+}
+
+.services-clinical-image {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #f7f6f3;
+}
+
+.services-clinical-image img {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.services-clinical-card:hover .services-clinical-image img {
+  transform: scale(1.025);
+}
+
+.services-clinical-copy {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0.8rem;
+  min-height: 8.5rem;
+  padding: 1.35rem;
+}
+
+.services-clinical-copy > span {
+  padding-top: 0.22rem;
+  color: var(--gold, #bc892b);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.services-clinical-copy h3 {
+  margin: 0;
+  color: var(--purple, #53146f);
+  font-size: clamp(1.2rem, 1.7vw, 1.65rem);
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+}
+
+.services-clinical-copy p {
+  margin: 0.55rem 0 0;
+  color: var(--muted, #667085);
+  line-height: 1.5;
+}
+
+.services-clinical-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  padding-top: 1.5rem;
+}
+
+.services-clinical-footer p {
+  margin: 0;
+  color: var(--muted, #667085);
+}
+
+@media (max-width: 900px) {
+  .services-clinical-heading {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .services-clinical-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .services-clinical-feature {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 620px) {
+  .services-clinical-showcase {
+    padding-block: 3.5rem;
+  }
+
+  .services-clinical-heading h2 {
+    font-size: clamp(2rem, 11vw, 3rem);
+    line-height: 1.02;
+  }
+
+  .services-clinical-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-clinical-feature {
+    grid-column: auto;
+  }
+
+  .services-clinical-images {
+    height: 18rem;
+  }
+
+  .services-clinical-copy {
+    min-height: 0;
+  }
+
+  .services-clinical-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}

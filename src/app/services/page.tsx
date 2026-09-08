@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Reveal } from "@/components/shared/Reveal";
 import { visualAssets } from "@/lib/visualAssets";
 import { SectionCta } from "@/components/shared/SectionCta";
@@ -8,6 +10,16 @@ import { getServiceDocuments, getServicesPageDocument, portableTextToParagraphs 
 
 const fallbackServiceImage = visualAssets.gingerSpanielHero;
 const visibleServiceCount = 9;
+
+const orthopaedicWork = [
+  { title: "TPLO", description: "Planning and post-operative imaging.", images: ["/images/services/orthopaedic/tplo-1.webp", "/images/services/orthopaedic/tplo-2.webp"] },
+  { title: "CCWO", description: "Case-led corrective osteotomy.", images: ["/images/services/orthopaedic/ccwo-1.webp", "/images/services/orthopaedic/ccwo-2.webp"] },
+  { title: "Lateral condylar fracture", description: "Fracture assessment and repair.", images: ["/images/services/orthopaedic/lateral-condylar-fracture-1.webp", "/images/services/orthopaedic/lateral-condylar-fracture-2.webp"] },
+  { title: "Pancarpal arthrodesis", description: "Stabilisation planned around the patient.", images: ["/images/services/orthopaedic/pancarpal-arthrodesis-1.webp", "/images/services/orthopaedic/pancarpal-arthrodesis-2.webp"] },
+  { title: "Pantarsal arthrodesis", description: "Careful surgical planning and follow-up.", images: ["/images/services/orthopaedic/pantarsal-arthrodesis-1.webp", "/images/services/orthopaedic/pantarsal-arthrodesis-2.webp"] },
+  { title: "Fracture repair", description: "Repair options assessed case by case.", images: ["/images/services/orthopaedic/fracture-repair-a-1.webp", "/images/services/orthopaedic/fracture-repair-a-2.webp"] },
+  { title: "Complex fracture repair", description: "Imaging-led planning for complex cases.", images: ["/images/services/orthopaedic/fracture-repair-b-1.webp", "/images/services/orthopaedic/fracture-repair-b-2.webp"] },
+];
 
 function directoryAnchor(title: string) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -134,6 +146,53 @@ export default async function ServicesPage() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      <section className="shell services-clinical-showcase" aria-labelledby="orthopaedic-showcase-title">
+        <Reveal variant="up">
+          <div className="services-clinical-heading">
+            <div>
+              <p className="eyebrow">Orthopaedic Procedures</p>
+              <h2 id="orthopaedic-showcase-title">Care shown through real clinical work.</h2>
+            </div>
+            <p>Selected procedures offered by the team. Every case begins with an individual assessment.</p>
+          </div>
+        </Reveal>
+
+        <div className="services-clinical-grid">
+          {orthopaedicWork.map((procedure, index) => (
+            <Reveal key={procedure.title} variant="up" delayMs={Math.min(index, 5) * 40} className={index === 0 ? "services-clinical-feature" : undefined}>
+              <article className="services-clinical-card">
+                <div className="services-clinical-images">
+                  {procedure.images.map((src, imageIndex) => (
+                    <div className="services-clinical-image" key={src}>
+                      <Image
+                        src={src}
+                        alt={`${procedure.title} clinical image ${imageIndex + 1}`}
+                        fill
+                        sizes={index === 0 ? "(max-width: 720px) 50vw, 32vw" : "(max-width: 720px) 50vw, 16vw"}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="services-clinical-copy">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <div>
+                    <h3>{procedure.title}</h3>
+                    <p>{procedure.description}</p>
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal variant="up">
+          <div className="services-clinical-footer">
+            <p>Suitability, treatment options and costs are discussed after assessment.</p>
+            <a className="text-link" href="/services/orthopaedic-surgery">Explore orthopaedic care</a>
+          </div>
+        </Reveal>
       </section>
 
       <section className="shell services-page-intro services-page-intro-minimal">
