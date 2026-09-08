@@ -20071,3 +20071,101 @@ small,
     flex-wrap: wrap;
   }
 }
+
+
+/* Final compact page rhythm and clinical image controls. */
+.service-clinical-image > span {
+  position: absolute;
+  right: 0.65rem;
+  bottom: 0.65rem;
+  z-index: 2;
+  padding: 0.4rem 0.65rem;
+  color: #fff !important;
+  background: rgba(31, 44, 61, 0.78);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.service-detail-hero-media:has(img[alt="TPLO orthopaedic radiograph"]) {
+  background: #0a0a0a !important;
+}
+
+.service-detail-hero-media:has(img[alt="TPLO orthopaedic radiograph"]) img {
+  object-fit: contain !important;
+}
+
+/* Reduce excessive section gaps while preserving readable internal spacing. */
+main > section:not(.home-hero):not(.sv-home-hero),
+.services-page-hero,
+.services-master-list,
+.services-page-intro,
+.services-group,
+.service-detail-hero,
+.service-detail-content,
+.service-detail-subservices,
+.service-detail-clinical,
+.service-detail-related,
+.about-hero,
+.about-section,
+.contact-hero,
+.contact-section,
+.team-hero,
+.team-section,
+.health-plan-hero,
+.health-plan-section,
+.pricing-v3-hero,
+.pricing-v3-intro,
+.pricing-v3-sections,
+.hp-v2-hero,
+.hp-v2-section {
+  padding-top: clamp(2.5rem, 5vw, 4.5rem) !important;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem) !important;
+}
+
+.service-detail-content + .service-detail-subservices,
+.service-detail-subservices + .service-detail-clinical,
+.services-page-hero + .services-master-list {
+  padding-top: clamp(1.75rem, 3.5vw, 3rem) !important;
+}
+
+.services-master-flow,
+.service-detail-subservice-list,
+.service-clinical-grid,
+.service-detail-related-grid {
+  margin-top: clamp(1.25rem, 2.5vw, 2.25rem) !important;
+}
+
+@media (max-width: 620px) {
+  main > section:not(.home-hero):not(.sv-home-hero),
+  .services-page-hero,
+  .services-master-list,
+  .services-page-intro,
+  .services-group,
+  .service-detail-hero,
+  .service-detail-content,
+  .service-detail-subservices,
+  .service-detail-clinical,
+  .service-detail-related,
+  .about-hero,
+  .about-section,
+  .contact-hero,
+  .contact-section,
+  .team-hero,
+  .team-section,
+  .health-plan-hero,
+  .health-plan-section,
+  .pricing-v3-hero,
+  .pricing-v3-intro,
+  .pricing-v3-sections,
+  .hp-v2-hero,
+  .hp-v2-section {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+
+  .service-detail-hero-media {
+    min-height: 20rem !important;
+  }
+}

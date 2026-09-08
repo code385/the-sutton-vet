@@ -88,6 +88,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const paragraphs = portableTextToParagraphs(service.content);
   const body = paragraphs.length ? paragraphs : service.shortDescription ? [service.shortDescription] : [];
   const imageUrl = ("image" in service ? service.image?.asset?.url : undefined) || service.imageUrl || fallbackServiceImage;
+  const featureImageUrl = slug === "orthopaedic-surgery" ? "/images/services/orthopaedic/tplo-2.webp" : imageUrl;
   const serviceCtaHref = service.ctaHref === "/contact#register" ? siteSettings.ctas.register : service.ctaHref === "/contact#book" ? siteSettings.ctas.book : service.ctaHref || siteSettings.ctas.book;
   const relatedServices = resolvedServices.filter((item) => item._id !== service._id).slice(0, 3);
   const fallbackGroup = masterServiceGroups.find((group) => group.title === detailGroupBySlug[slug]);
@@ -117,7 +118,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             </div>
           </div>
           <div className="service-detail-hero-media">
-            <Image src={imageUrl} alt={service.alt || service.title || "Service image"} fill sizes="(max-width: 1080px) 100vw, 44vw" />
+            <Image src={featureImageUrl} alt={slug === "orthopaedic-surgery" ? "TPLO orthopaedic radiograph" : service.alt || service.title || "Service image"} fill sizes="(max-width: 1080px) 100vw, 44vw" />
           </div>
         </div>
       </section>

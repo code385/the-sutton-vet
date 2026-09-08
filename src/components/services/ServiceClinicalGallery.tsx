@@ -32,6 +32,7 @@ export function ServiceClinicalGallery({ items }: { items: ClinicalGalleryItem[]
               {item.images.map((image) => (
                 <button type="button" className="service-clinical-image" key={image.src} onClick={() => openImage(image)} aria-label={`Enlarge ${image.alt}`}>
                   <Image src={image.src} alt={image.alt} fill sizes={index === 0 ? "(max-width: 720px) 50vw, 30vw" : "(max-width: 720px) 50vw, 18vw"} />
+                  <span>View</span>
                 </button>
               ))}
             </div>
