@@ -14,6 +14,18 @@ export type LupaIntegrationStatus = {
 
 export type LupaAccessState = "ready" | "missing_config" | "forbidden" | "unauthorized" | "unavailable";
 
+export type LupaDiagnosticResult = {
+  method: string;
+  endpoint: string;
+  requestUrl: string;
+  companyIdIncluded: boolean;
+  storeIdIncluded: boolean;
+  authorization: "Bearer [REDACTED]";
+  status: number | null;
+  ok: boolean;
+  state: LupaAccessState;
+};
+
 export class LupaIntegrationError extends Error {
   status?: number;
   state: LupaAccessState;
@@ -102,6 +114,65 @@ export async function lupaFetch<T>(path: string, init: RequestInit = {}): Promis
   }
 
   return response.json() as Promise<T>;
+}
+
+export async function diagnoseLupaRequest(path: string, init: RequestInit = {}): Promise<LupaDiagnosticResult> {
+  assertLupaServerConfig();
+
+  const method = init.method?.toUpperCase() || "GET";
+  const url = new URL(`${lupaConfig.apiBaseUrl}${path.startsWith("/") ? path : `/${path}`}`);
+  if (method === "GET") {
+    if (!url.searchParams.has("companyId")) url.searchParams.set("companyId", lupaConfig.companyId);
+    if (!url.searchParams.has("storeIds")) url.searchParams.set("storeIds", lupaConfig.storeId);
+  }
+
+  try {
+    const response = await fetch(url, {
+      ...init,
+      method,
+      headers: {
+        Authorization: `Bearer ${lupaConfig.apiKey}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        ...(init.headers || {}),
+      },
+      cache: "no-store",
+    });
+    const state: LupaAccessState = response.ok
+      ? "ready"
+      : response.status === 401
+        ? "unauthorized"
+        : response.status === 403
+          ? "forbidden"
+          : "unavailable";
+    const result: LupaDiagnosticResult = {
+      method,
+      endpoint: url.pathname,
+      requestUrl: url.toString(),
+      companyIdIncluded: url.searchParams.get("companyId") === lupaConfig.companyId,
+      storeIdIncluded: url.pathname.includes(lupaConfig.storeId) || url.searchParams.get("storeIds") === lupaConfig.storeId,
+      authorization: "Bearer [REDACTED]",
+      status: response.status,
+      ok: response.ok,
+      state,
+    };
+    console.info("[Lupa diagnostic]", result);
+    return result;
+  } catch {
+    const result: LupaDiagnosticResult = {
+      method,
+      endpoint: url.pathname,
+      requestUrl: url.toString(),
+      companyIdIncluded: url.searchParams.get("companyId") === lupaConfig.companyId,
+      storeIdIncluded: url.pathname.includes(lupaConfig.storeId) || url.searchParams.get("storeIds") === lupaConfig.storeId,
+      authorization: "Bearer [REDACTED]",
+      status: null,
+      ok: false,
+      state: "unavailable",
+    };
+    console.info("[Lupa diagnostic]", result);
+    return result;
+  }
 }
 export function withLupaScope<T extends Record<string, unknown>>(payload: T) {
   return {
