@@ -19766,168 +19766,321 @@ small,
   .lupa-form .button { width: 100%; justify-content: center; }
 }
 
-
-/* Client-provided orthopaedic work: restrained editorial gallery. */
-.services-clinical-showcase {
-  padding-block: clamp(4rem, 8vw, 7rem);
+/* Service directory and detail collections. */
+.services-master-heading-wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  column-gap: clamp(2rem, 7vw, 7rem);
+  align-items: end;
 }
 
-.services-clinical-heading {
+.services-master-heading-wide .eyebrow {
+  grid-column: 1 / -1;
+}
+
+.services-master-heading-wide h2 {
+  max-width: 18ch !important;
+  margin-bottom: 0 !important;
+  font-size: clamp(2.35rem, 4.4vw, 4.7rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.03em !important;
+}
+
+.services-master-heading-wide > p {
+  margin: 0 0 0.35rem !important;
+}
+
+.services-master-flow-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+}
+
+.services-master-flow-summary p {
+  margin: 0 !important;
+}
+
+.services-master-detail-button {
+  min-height: 2.7rem !important;
+  padding: 0.72rem 1.2rem !important;
+  font-size: 0.84rem !important;
+}
+
+.service-detail-subservices,
+.service-detail-clinical {
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+.service-detail-clinical {
+  padding-top: 1rem;
+}
+
+.service-detail-section-heading {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 0.75fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
   gap: clamp(2rem, 7vw, 7rem);
   align-items: end;
-  padding-bottom: clamp(1.75rem, 4vw, 3rem);
-  border-bottom: 1px solid var(--line, #dedbd5);
+  padding: 0 clamp(0.35rem, 1vw, 0.85rem) clamp(1.8rem, 4vw, 3rem);
+  border-bottom: 1px solid rgba(75, 20, 95, 0.14);
 }
 
-.services-clinical-heading h2 {
-  max-width: 13ch;
+.service-detail-section-heading h2 {
+  max-width: 18ch;
   margin: 0;
-  color: var(--purple, #53146f);
-  font-size: clamp(2.2rem, 4.5vw, 4.6rem);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
+  color: var(--client-purple) !important;
+  font-size: clamp(2.2rem, 4.2vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  word-spacing: 0.04em;
 }
 
-.services-clinical-heading > p {
-  max-width: 34rem;
-  margin: 0;
-  color: var(--muted, #667085);
+.service-detail-section-heading > p {
+  max-width: 32rem;
+  margin: 0 0 0.35rem;
+  color: var(--muted) !important;
   line-height: 1.65;
 }
 
-.services-clinical-grid {
+.service-detail-subservice-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: clamp(1.75rem, 4vw, 3.5rem);
-  overflow: hidden;
-  border: 1px solid var(--line, #dedbd5);
-  background: var(--line, #dedbd5);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.75rem;
+  border-top: 1px solid rgba(75, 20, 95, 0.14);
+  border-left: 1px solid rgba(75, 20, 95, 0.14);
 }
 
-.services-clinical-feature {
-  grid-column: span 2;
-}
-
-.services-clinical-card {
-  height: 100%;
+.service-detail-subservice-list > div {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 0.85rem;
+  align-items: baseline;
+  min-height: 4.7rem;
+  padding: 1.1rem 1.25rem;
+  border-right: 1px solid rgba(75, 20, 95, 0.14);
+  border-bottom: 1px solid rgba(75, 20, 95, 0.14);
   background: #fff;
 }
 
-.services-clinical-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  height: clamp(15rem, 26vw, 23rem);
-  overflow: hidden;
-  background: #fff;
-}
-
-.services-clinical-image {
-  position: relative;
-  min-width: 0;
-  overflow: hidden;
-  background: #f7f6f3;
-}
-
-.services-clinical-image img {
-  object-fit: cover;
-  transition: transform 500ms ease;
-}
-
-.services-clinical-card:hover .services-clinical-image img {
-  transform: scale(1.025);
-}
-
-.services-clinical-copy {
-  display: grid;
-  grid-template-columns: 2.25rem 1fr;
-  gap: 0.8rem;
-  min-height: 8.5rem;
-  padding: 1.35rem;
-}
-
-.services-clinical-copy > span {
-  padding-top: 0.22rem;
-  color: var(--gold, #bc892b);
+.service-detail-subservice-list span {
+  color: var(--client-gold) !important;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 
-.services-clinical-copy h3 {
+.service-detail-subservice-list strong {
+  color: var(--client-purple);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.service-clinical-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(0.35rem, 1vw, 0.85rem) 0;
+}
+
+.service-clinical-card {
+  overflow: hidden;
+  border: 1px solid rgba(75, 20, 95, 0.14);
+  background: #fff;
+}
+
+.service-clinical-card-featured {
+  grid-column: span 2;
+}
+
+.service-clinical-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  height: clamp(18rem, 34vw, 31rem);
+  padding: 0.7rem;
+  background: #f7f7f5;
+}
+
+.service-clinical-card:not(.service-clinical-card-featured) .service-clinical-images {
+  height: clamp(16rem, 28vw, 24rem);
+}
+
+.service-clinical-image {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  background: #fff;
+  cursor: zoom-in;
+}
+
+.service-clinical-image img {
+  object-fit: contain;
+  transition: transform 350ms ease;
+}
+
+.service-clinical-image:hover img {
+  transform: scale(1.035);
+}
+
+.service-clinical-image > span {
+  position: absolute;
+  right: 0.65rem;
+  bottom: 0.65rem;
+  z-index: 2;
+  padding: 0.4rem 0.65rem;
+  color: #fff !important;
+  background: rgba(31, 44, 61, 0.78);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.service-clinical-copy {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  gap: 0.85rem;
+  min-height: 7.5rem;
+  padding: 1.35rem 1.5rem 1.5rem;
+}
+
+.service-clinical-copy > span {
+  padding-top: 0.25rem;
+  color: var(--client-gold) !important;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.service-clinical-copy h3 {
   margin: 0;
-  color: var(--purple, #53146f);
-  font-size: clamp(1.2rem, 1.7vw, 1.65rem);
+  color: var(--client-purple) !important;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
   line-height: 1.12;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.02em;
 }
 
-.services-clinical-copy p {
+.service-clinical-copy p {
   margin: 0.55rem 0 0;
-  color: var(--muted, #667085);
-  line-height: 1.5;
+  color: var(--muted) !important;
+  line-height: 1.55;
 }
 
-.services-clinical-footer {
+.service-image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  background: rgba(18, 22, 29, 0.92);
+}
+
+.service-image-lightbox-panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(96vw, 86rem);
+  height: min(92vh, 58rem);
+  overflow: hidden;
+  background: #fff;
+}
+
+.service-image-lightbox-toolbar {
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
-  padding-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(75, 20, 95, 0.14);
 }
 
-.services-clinical-footer p {
-  margin: 0;
-  color: var(--muted, #667085);
+.service-image-lightbox-toolbar > span {
+  color: var(--client-purple) !important;
+  font-weight: 700;
+}
+
+.service-image-lightbox-toolbar > div {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.service-image-lightbox-toolbar button {
+  min-width: 2.6rem;
+  min-height: 2.4rem;
+  padding-inline: 0.7rem;
+  border: 1px solid var(--client-gold);
+  color: var(--client-purple);
+  background: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.service-image-lightbox-toolbar button:hover {
+  color: #fff;
+  background: var(--client-gold);
+}
+
+.service-image-lightbox-stage {
+  position: relative;
+  overflow: auto;
+  background: #f7f7f5;
+}
+
+.service-image-lightbox-stage img {
+  object-fit: contain;
+  transition: transform 180ms ease;
 }
 
 @media (max-width: 900px) {
-  .services-clinical-heading {
+  .services-master-heading-wide,
+  .service-detail-section-heading {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 
-  .services-clinical-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .service-clinical-grid {
+    grid-template-columns: 1fr;
   }
 
-  .services-clinical-feature {
-    grid-column: span 2;
+  .service-clinical-card-featured {
+    grid-column: auto;
   }
 }
 
 @media (max-width: 620px) {
-  .services-clinical-showcase {
-    padding-block: 3.5rem;
+  .services-master-heading-wide h2,
+  .service-detail-section-heading h2 {
+    font-size: clamp(2rem, 10.5vw, 3rem) !important;
+    line-height: 1.04 !important;
   }
 
-  .services-clinical-heading h2 {
-    font-size: clamp(2rem, 11vw, 3rem);
-    line-height: 1.02;
-  }
-
-  .services-clinical-grid {
+  .service-detail-subservice-list {
     grid-template-columns: 1fr;
   }
 
-  .services-clinical-feature {
-    grid-column: auto;
+  .service-clinical-grid {
+    padding-inline: 0;
   }
 
-  .services-clinical-images {
-    height: 18rem;
+  .service-clinical-images,
+  .service-clinical-card:not(.service-clinical-card-featured) .service-clinical-images {
+    height: 20rem;
+    padding: 0.45rem;
   }
 
-  .services-clinical-copy {
+  .service-clinical-copy {
     min-height: 0;
+    padding: 1.1rem;
   }
 
-  .services-clinical-footer {
+  .service-image-lightbox-toolbar {
     align-items: flex-start;
     flex-direction: column;
-    gap: 0.8rem;
+  }
+
+  .service-image-lightbox-toolbar > div {
+    width: 100%;
+    flex-wrap: wrap;
   }
 }

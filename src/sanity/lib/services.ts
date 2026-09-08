@@ -17,6 +17,14 @@ type SanityImageAsset = {
 
 type SanityImage = {
   asset?: SanityImageAsset;
+  alt?: string;
+};
+
+export type ServiceGalleryItem = {
+  _key?: string;
+  title?: string;
+  description?: string;
+  images?: SanityImage[];
 };
 
 export type ServicesPageDocument = {
@@ -51,6 +59,8 @@ export type ServiceDocument = {
   ctaHref?: string;
   sortOrder?: number;
   content?: PortableTextBlock[];
+  subservices?: string[];
+  gallery?: ServiceGalleryItem[];
 };
 
 const servicesPageQuery = groq`
@@ -91,6 +101,16 @@ const servicesListQuery = groq`
     ctaLabel,
     ctaHref,
     sortOrder,
+    subservices,
+    gallery[]{
+      _key,
+      title,
+      description,
+      images[]{
+        alt,
+        asset->{ url }
+      }
+    },
     content[]{
       _type,
       children[]{
