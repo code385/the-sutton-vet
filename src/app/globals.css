@@ -19923,19 +19923,6 @@ small,
   transform: scale(1.035);
 }
 
-.service-clinical-image > span {
-  position: absolute;
-  right: 0.65rem;
-  bottom: 0.65rem;
-  z-index: 2;
-  padding: 0.4rem 0.65rem;
-  color: #fff !important;
-  background: rgba(31, 44, 61, 0.78);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
 
 .service-clinical-copy {
   display: grid;
