@@ -39,6 +39,7 @@ const navGroups: NavGroup[] = [
       { label: "Parking & Access", href: "/about#parking-access", description: "Parking guidance and local access notes." },
       { label: "Find Us", href: "/about#find-us", description: "Address, directions, and contact routes." },
       { label: "Meet The Team", href: "/meet-the-team", description: "Founder-led placeholder team area." },
+      { label: "Careers", href: "/careers", description: "Current roles and opportunities to join the practice." },
     ],
   },
   {

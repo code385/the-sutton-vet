@@ -131,6 +131,7 @@ export function SiteFooter({ siteSettings }: SiteFooterProps) {
           <h3>Company</h3>
           <Link href="/about">About Us</Link>
           <Link href="/meet-the-team">Meet The Team</Link>
+          <Link href="/careers">Careers</Link>
           <Link href="/terms">Terms</Link>
           <a href={siteSettings.ctas.register}>Register Now</a>
         </div>

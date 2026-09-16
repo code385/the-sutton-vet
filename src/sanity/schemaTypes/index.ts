@@ -1,3 +1,4 @@
+import { careersPage } from "./careersPage";
 ﻿import { contactPage } from "./contactPage";
 import { emergencySettings } from "./emergencySettings";
 import { feeCategory } from "./feeCategory";
@@ -15,6 +16,7 @@ export const schemaTypes = [
   siteSettings,
   homePage,
   contactPage,
+  careersPage,
   servicesPage,
   service,
   teamPage,
