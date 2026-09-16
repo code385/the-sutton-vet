@@ -32,6 +32,10 @@ type ChatSettings = {
   feesReply?: string;
   planReply?: string;
   bookingReply?: string;
+  servicesReply?: string;
+  careersReply?: string;
+  contactReply?: string;
+  paymentsReply?: string;
   fallbackReply?: string;
   emergencyLabel?: string;
   emergencyReply?: string;
@@ -120,6 +124,10 @@ export type ResolvedSiteSettings = {
     feesReply: string;
     planReply: string;
     bookingReply: string;
+    servicesReply: string;
+    careersReply: string;
+    contactReply: string;
+    paymentsReply: string;
     fallbackReply: string;
     emergencyLabel: string;
     emergencyReply: string;
@@ -204,28 +212,34 @@ function resolveSocialHref(item: LinkItem) {
 function fallbackChatSettings(): ResolvedSiteSettings["chatSettings"] {
   return {
     eyebrow: "Chat Help",
-    title: "Quick help only",
-    introLabel: "Approved topics only",
-    introText: "Ask about hours, location, fees, Health Plan, or booking. Urgent or other topics should be called through straight away.",
+    title: "How can we help?",
+    introLabel: "Practice information",
+    introText: "Ask about services, opening hours, location, pricing, Health Plans, careers, registration, or booking. For urgent concerns, please call the practice.",
     topicButtons: [
+      { label: "Services", query: "What services do you offer?" },
       { label: "Opening hours", query: "What are your opening hours?" },
       { label: "Parking & location", query: "Where are you located and is parking available?" },
-      { label: "Fee ranges", query: "What are your basic fee ranges?" },
-      { label: "Health Plan", query: "Can you explain your health plan?" },
+      { label: "Pricing", query: "How does pricing work?" },
+      { label: "Health Plan", query: "Can you explain the Health Plan?" },
+      { label: "Careers", query: "Are you currently hiring?" },
       { label: "Register & book", query: "How do I register or book?" },
     ],
-    inputPlaceholder: "Opening hours, parking, fees, health plan...",
-    hoursReply: "Mon-Fri 09:00am to 6:00pm, Sat 9:00am to 12.00pm, Sun closed. Outside these hours, use the emergency line.",
-    locationReply: "The Sutton Vet is at 4 Spinning Wheel Way, Sutton, SM6 7DS. For parking or arrival guidance, call the team before your visit.",
-    feesReply: "Basic consultation, vaccination, microchip, and neutering ranges are on the Fees page. For exact costs, please call the practice.",
-    planReply: "The Health Plan is a monthly preventative-care plan for dogs and cats. It covers routine support and is different from insurance.",
-    bookingReply: "Use the approved PMS / online portal route on the site for registration or booking. New clients should register before the first visit where possible.",
-    fallbackReply: "This chat covers approved admin topics only. For anything urgent or outside those topics, please call the practice directly.",
-    emergencyLabel: "Call now",
-    emergencyReply: "If this may be urgent, call the emergency line now. This chat does not provide clinical advice.",
-    emergencyButtonLabel: "Call Emergency Line",
-    registerButtonLabel: "Register/Book via Online Portal",
-    whatsappButtonLabel: "Talk to our team on WhatsApp",
+    inputPlaceholder: "Services, hours, pricing, careers, booking...",
+    hoursReply: "The practice is open Monday to Friday, 9:00am to 6:00pm, and Saturday, 9:00am to 12:00pm. Sunday is closed. Please call for urgent guidance.",
+    locationReply: "The Sutton Vet is at 4 Spinning Wheel Way, Hackbridge, Sutton, SM6 7DS. Nearby parking and step-free access information is available on the Contact page.",
+    feesReply: "Services are listed on the website. Where a final price depends on assessment, patient size, or the procedure, the team will provide a quote before treatment.",
+    planReply: "The Health Plan is currently presented as information only while the final provider and sign-up process are confirmed. Plan details can be updated on the website as soon as they are available.",
+    bookingReply: "Online registration and booking are being connected through Lupa. If the online journey is unavailable, please call or message the practice and the team will help directly.",
+    servicesReply: "The practice offers consultations, daytime urgent care, preventative care, vaccinations, dentistry, diagnostics, surgery, orthopaedic procedures, endoscopy, home visits, and sensitive end-of-life support. Open the Services menu for full details.",
+    careersReply: "The Sutton Vet is currently advertising a Veterinary Nurse opportunity. Visit the Careers page for the role overview and application email.",
+    contactReply: "Call 07440 278373 or email info@thesuttonvet.co.uk. You can also use the Contact page for directions, parking, and opening times.",
+    paymentsReply: "There is no Lupa Pay integration planned. Please contact the practice for current payment arrangements and any available options.",
+    fallbackReply: "I can help with practice information only. Ask about services, hours, location, pricing, Health Plans, careers, registration, or booking. For clinical advice or urgent concerns, please call the practice.",
+    emergencyLabel: "Urgent help",
+    emergencyReply: "This chat cannot provide clinical advice. If you are worried your pet may need urgent care, please call the practice now.",
+    emergencyButtonLabel: "Call the practice",
+    registerButtonLabel: "Register Online",
+    whatsappButtonLabel: "Message the team",
   };
 }
 
@@ -357,6 +371,10 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
       feesReply: chat.feesReply || fallbackChat.feesReply,
       planReply: chat.planReply || fallbackChat.planReply,
       bookingReply: chat.bookingReply || fallbackChat.bookingReply,
+      servicesReply: chat.servicesReply || fallbackChat.servicesReply,
+      careersReply: chat.careersReply || fallbackChat.careersReply,
+      contactReply: chat.contactReply || fallbackChat.contactReply,
+      paymentsReply: chat.paymentsReply || fallbackChat.paymentsReply,
       fallbackReply: chat.fallbackReply || fallbackChat.fallbackReply,
       emergencyLabel: chat.emergencyLabel || fallbackChat.emergencyLabel,
       emergencyReply: chat.emergencyReply || fallbackChat.emergencyReply,

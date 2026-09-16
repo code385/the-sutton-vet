@@ -14,6 +14,7 @@ const allSitePaths = [
   "/fees",
   "/meet-the-team",
   "/contact",
+  "/careers",
   "/first-visit",
   "/faq",
   "/blog",
@@ -112,6 +113,10 @@ function resolvePaths(payload: RevalidatePayload) {
     case "contactPage":
       paths.add("/");
       paths.add("/contact");
+      break;
+    case "careersPage":
+      paths.add("/");
+      paths.add("/careers");
       break;
     case "legalPage": {
       const legalPath = getLegalPath(payload.pageType, slug);

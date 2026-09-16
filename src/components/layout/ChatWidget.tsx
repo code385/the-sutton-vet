@@ -72,6 +72,34 @@ function buildStandardMessage(topic: string, siteSettings: ResolvedSiteSettings)
         text: siteSettings.chatSettings.bookingReply,
         topicLabel: "Registration & booking",
       };
+    case "services":
+      return {
+        id: `bot-services-${Date.now()}`,
+        role: "bot",
+        text: siteSettings.chatSettings.servicesReply,
+        topicLabel: "Services",
+      };
+    case "careers":
+      return {
+        id: `bot-careers-${Date.now()}`,
+        role: "bot",
+        text: siteSettings.chatSettings.careersReply,
+        topicLabel: "Careers",
+      };
+    case "contact":
+      return {
+        id: `bot-contact-${Date.now()}`,
+        role: "bot",
+        text: siteSettings.chatSettings.contactReply,
+        topicLabel: "Contact",
+      };
+    case "payments":
+      return {
+        id: `bot-payments-${Date.now()}`,
+        role: "bot",
+        text: siteSettings.chatSettings.paymentsReply,
+        topicLabel: "Payments",
+      };
     default:
       return buildFallbackMessage(siteSettings);
   }
@@ -96,7 +124,7 @@ function resolveTopic(input: string, siteSettings: ResolvedSiteSettings, emergen
     return buildStandardMessage("location", siteSettings);
   }
 
-  if (/(fee|fees|price|prices|pricing|cost|costs|consultation|vaccination|microchip|neuter|neutering)/.test(normalized)) {
+  if (/(fee|fees|price|prices|pricing|cost|costs|quote|how much)/.test(normalized)) {
     return buildStandardMessage("fees", siteSettings);
   }
 
@@ -104,8 +132,24 @@ function resolveTopic(input: string, siteSettings: ResolvedSiteSettings, emergen
     return buildStandardMessage("plan", siteSettings);
   }
 
-  if (/(register|registration|book|booking|lupa|first visit|new client|appointment)/.test(normalized)) {
+  if (/(payment|payments|pay online|deposit|lupa pay|klarna|instalment|installment)/.test(normalized)) {
+    return buildStandardMessage("payments", siteSettings);
+  }
+
+  if (/(register|registration|book|booking|first visit|new client|appointment)/.test(normalized)) {
     return buildStandardMessage("booking", siteSettings);
+  }
+
+  if (/(service|services|consult|vaccination|microchip|neuter|neutering|dental|dentistry|diagnostic|x-ray|ultrasound|surgery|orthopaedic|orthopedic|endoscopy|home visit|euthanasia|cremation|nurse clinic)/.test(normalized)) {
+    return buildStandardMessage("services", siteSettings);
+  }
+
+  if (/(career|careers|job|jobs|vacancy|vacancies|hiring|nurse role|work for|join the team|apply)/.test(normalized)) {
+    return buildStandardMessage("careers", siteSettings);
+  }
+
+  if (/(contact|phone|telephone|email|call you|message you|whatsapp)/.test(normalized)) {
+    return buildStandardMessage("contact", siteSettings);
   }
 
   return buildFallbackMessage(siteSettings);
@@ -136,7 +180,7 @@ export function ChatWidget({ siteSettings, emergencyKeywords }: ChatWidgetProps)
 
   const quickActions = useMemo(
     () => [
-      { label: siteSettings.chatSettings.registerButtonLabel, href: siteSettings.ctas.book, variant: "button-primary" },
+      { label: siteSettings.chatSettings.registerButtonLabel, href: siteSettings.ctas.register, variant: "button-primary" },
       { label: siteSettings.chatSettings.whatsappButtonLabel, href: siteSettings.ctas.whatsapp, variant: "button-muted" },
     ],
     [siteSettings],
