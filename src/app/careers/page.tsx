@@ -1,40 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-
-import { Reveal } from "@/components/shared/Reveal";
+import { careersPageDefaults, defaultVacancy } from "@/lib/careersContent";
 import { visualAssets } from "@/lib/visualAssets";
-import { getCareersPageDocument, type Vacancy } from "@/sanity/lib/careers";
+import { getCareersPageDocument } from "@/sanity/lib/careers";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 
 export const metadata: Metadata = {
   title: "Careers | The Sutton Vet",
-  description: "Explore veterinary career opportunities with The Sutton Vet in Sutton.",
-};
-
-const defaultVacancy: Vacancy = {
-  title: "Veterinary Nurse",
-  location: "The Sutton Vet, Hackbridge",
-  employmentType: "Working pattern to be discussed",
-  salary: "Package discussed during the application process",
-  summary: "We are looking for a veterinary nurse who shares our calm, thoughtful approach to patient care and owner communication.",
-  responsibilities: [
-    "Support patients throughout consultations, procedures, recovery, and routine nurse-led care.",
-    "Help create a calm, organised experience for pets and their owners.",
-    "Work closely with the clinical and client-care team as the practice grows.",
-  ],
-  requirements: [
-    "A compassionate and reliable approach to patient care.",
-    "Clear, reassuring communication with owners and colleagues.",
-    "A commitment to professional standards and collaborative working.",
-  ],
-  benefits: [
-    "A growing independent practice with a personal approach.",
-    "A supportive environment where good ideas and careful care matter.",
-    "Role details and development opportunities discussed openly during the application process.",
-  ],
-  applicationEmail: "info@thesuttonvet.co.uk",
-  applicationLabel: "Apply by email",
-  active: true,
+  description: "Join The Sutton Vet in Hackbridge, Sutton. Explore our current veterinary vacancies.",
 };
 
 export default async function CareersPage() {
@@ -43,99 +16,80 @@ export default async function CareersPage() {
     getSiteSettingsDocument(),
   ]);
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
-  const vacancies = (careersDocument?.vacancies || [defaultVacancy]).filter((vacancy) => vacancy.active !== false);
-  const applicationEmail = vacancies[0]?.applicationEmail || siteSettings.email;
+  const vacancies = (careersDocument?.vacancies ?? [defaultVacancy]).filter((vacancy) => vacancy.active !== false);
 
   return (
     <main className="careers-page">
-      <section className="careers-hero full-bleed-section">
+      <section className="careers-hero full-bleed-section" aria-labelledby="careers-title">
         <div className="shell careers-hero-shell">
-          <Reveal variant="left">
-            <div className="careers-hero-copy">
-              <p className="eyebrow">{careersDocument?.eyebrow || "Join The Sutton Vet"}</p>
-              <h1>{careersDocument?.title || "Bring your care, confidence, and ideas to our growing team."}</h1>
-              <p>{careersDocument?.description || "We are building an independent practice around thoughtful clinical care, kind communication, and a more personal experience for pets and owners."}</p>
-              <a className="button button-primary" href={`mailto:${applicationEmail}?subject=Veterinary Nurse Application — The Sutton Vet`}>
-                View current vacancy
-              </a>
-            </div>
-          </Reveal>
-          <Reveal variant="up" delayMs={60}>
-            <div className="careers-hero-media">
-              <Image src={visualAssets.vetDoctorWithPet} alt="Veterinary professional caring for a pet" fill sizes="(max-width: 900px) 100vw, 46vw" priority />
-              <div className="careers-hero-note">
-                <span>Now hiring</span>
-                <strong>{vacancies[0]?.title || "Veterinary Nurse"}</strong>
-              </div>
-            </div>
-          </Reveal>
+          <div className="careers-hero-copy">
+            <p className="eyebrow">{careersDocument?.eyebrow || careersPageDefaults.eyebrow}</p>
+            <h1 id="careers-title">{careersDocument?.title || careersPageDefaults.title}</h1>
+            <p>{careersDocument?.description || careersPageDefaults.description}</p>
+            <a className="button button-primary" href="#vacancies">
+              {vacancies.length ? "View vacancies" : "Get in touch"}
+            </a>
+          </div>
+          <div className="careers-hero-media">
+            <Image src={visualAssets.vetDoctorWithPet} alt="Gentle care for a cat at the veterinary practice"
+              fill sizes="(max-width: 760px) 100vw, 46vw" priority />
+          </div>
         </div>
       </section>
 
-      <section className="shell careers-intro">
-        <div>
-          <p className="eyebrow">{careersDocument?.cultureEyebrow || "Work With Us"}</p>
-          <h2>{careersDocument?.cultureTitle || "A smaller practice with room to make a real contribution."}</h2>
-        </div>
-        <p>{careersDocument?.cultureText || "This is an opportunity to help shape a growing team and support a standard of care that feels clear, calm, and genuinely personal."}</p>
-      </section>
-
-      <section className="shell careers-vacancies" aria-label="Current vacancies">
+      <section id="vacancies" className="shell careers-vacancies" aria-label="Current vacancies">
         {vacancies.length ? vacancies.map((vacancy, vacancyIndex) => {
           const email = vacancy.applicationEmail || siteSettings.email;
-          const subject = encodeURIComponent(`${vacancy.title || "Career"} Application — The Sutton Vet`);
+          const subject = encodeURIComponent(`${vacancy.title || "Career"} application - The Sutton Vet`);
+          const detailGroups = [
+            { title: "The role", items: vacancy.responsibilities },
+            { title: "About you", items: vacancy.requirements },
+            { title: "Working with us", items: vacancy.benefits },
+          ].filter((group) => group.items?.length);
+
           return (
-            <Reveal key={vacancy._key || vacancy.title || vacancyIndex} variant="up">
-              <article className="careers-role">
-                <header className="careers-role-header">
-                  <div>
-                    <p className="eyebrow">Current Vacancy</p>
-                    <h2>{vacancy.title || "Veterinary Nurse"}</h2>
-                    <p>{vacancy.summary}</p>
-                  </div>
-                  <div className="careers-role-meta">
-                    <div><span>Location</span><strong>{vacancy.location || "Hackbridge, Sutton"}</strong></div>
-                    <div><span>Working pattern</span><strong>{vacancy.employmentType || "To be discussed"}</strong></div>
-                    <div><span>Package</span><strong>{vacancy.salary || "Discussed during application"}</strong></div>
-                    {vacancy.applicationDeadline ? <div><span>Apply by</span><strong>{vacancy.applicationDeadline}</strong></div> : null}
-                  </div>
-                </header>
-
-                <div className="careers-role-columns">
-                  <div>
-                    <span className="careers-role-number">01</span>
-                    <h3>The role</h3>
-                    <ul>{(vacancy.responsibilities || defaultVacancy.responsibilities || []).map((item) => <li key={item}>{item}</li>)}</ul>
-                  </div>
-                  <div>
-                    <span className="careers-role-number">02</span>
-                    <h3>What we are looking for</h3>
-                    <ul>{(vacancy.requirements || defaultVacancy.requirements || []).map((item) => <li key={item}>{item}</li>)}</ul>
-                  </div>
-                  <div>
-                    <span className="careers-role-number">03</span>
-                    <h3>What we offer</h3>
-                    <ul>{(vacancy.benefits || defaultVacancy.benefits || []).map((item) => <li key={item}>{item}</li>)}</ul>
-                  </div>
+            <article key={vacancy._key || vacancy.title || vacancyIndex} className="careers-role">
+              <div className="careers-role-header">
+                <div className="careers-role-copy">
+                  <p className="careers-hiring-label"><span aria-hidden="true" />Now hiring</p>
+                  <h2>{vacancy.title || "Veterinary Nurse"}</h2>
+                  {vacancy.summary ? <p>{vacancy.summary}</p> : null}
+                  <dl className="careers-role-meta">
+                    <div><dt>Location</dt><dd>{vacancy.location || "Hackbridge, Sutton"}</dd></div>
+                    {vacancy.employmentType ? <div><dt>Hours</dt><dd>{vacancy.employmentType}</dd></div> : null}
+                    {vacancy.salary ? <div><dt>Salary</dt><dd>{vacancy.salary}</dd></div> : null}
+                    {vacancy.applicationDeadline ? <div><dt>Apply by</dt><dd>{vacancy.applicationDeadline}</dd></div> : null}
+                  </dl>
                 </div>
-
-                <footer className="careers-role-footer">
-                  <div>
-                    <strong>Interested in joining us?</strong>
-                    <p>Send your CV and a short introduction. We will respond with the full role details and next steps.</p>
-                  </div>
+                <div className="careers-apply">
+                  <h3>Interested?</h3>
+                  <p>Send your CV and a short introduction.</p>
                   <a className="button button-primary" href={`mailto:${email}?subject=${subject}`}>
                     {vacancy.applicationLabel || "Apply by email"}
                   </a>
-                </footer>
-              </article>
-            </Reveal>
+                  <a className="careers-email" href={`mailto:${email}?subject=${subject}`}>{email}</a>
+                </div>
+              </div>
+              {detailGroups.length ? (
+                <details className="careers-role-details">
+                  <summary>About this role</summary>
+                  <div className="careers-role-columns">
+                    {detailGroups.map((group) => (
+                      <div key={group.title}>
+                        <h3>{group.title}</h3>
+                        <ul>{group.items?.map((item, index) => <li key={index}>{item}</li>)}</ul>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              ) : null}
+            </article>
           );
         }) : (
           <div className="careers-empty">
             <h2>No current vacancies</h2>
-            <p>{careersDocument?.generalEnquiryText || "We are always happy to hear from people who share our approach to veterinary care."}</p>
-            <a className="button button-primary" href={`mailto:${siteSettings.email}?subject=Careers enquiry — The Sutton Vet`}>Send a careers enquiry</a>
+            <p>{careersDocument?.generalEnquiryText || "Interested in joining us? We'd love to hear from you."}</p>
+            <a className="button button-primary" href={`mailto:${siteSettings.email}?subject=Careers%20enquiry`}>Email the team</a>
           </div>
         )}
       </section>

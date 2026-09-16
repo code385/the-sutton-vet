@@ -39,7 +39,6 @@ const navGroups: NavGroup[] = [
       { label: "Parking & Access", href: "/about#parking-access", description: "Parking guidance and local access notes." },
       { label: "Find Us", href: "/about#find-us", description: "Address, directions, and contact routes." },
       { label: "Meet The Team", href: "/meet-the-team", description: "Founder-led placeholder team area." },
-      { label: "Careers", href: "/careers", description: "Current roles and opportunities to join the practice." },
     ],
   },
   {
@@ -61,6 +60,7 @@ const navGroups: NavGroup[] = [
   },
   { label: "Pricing", href: "/fees" },
   { label: "Health Plan", href: "/health-plan" },
+  { label: "Careers", href: "/careers" },
 ];
 
 export function SiteHeader({ siteSettings }: SiteHeaderProps) {
@@ -160,7 +160,7 @@ export function SiteHeader({ siteSettings }: SiteHeaderProps) {
                     <span>{group.label}</span>
                   </button>
                 ) : (
-                  <Link className="sv-nav-link sv-nav-link-clean" href={group.href || "/"} onClick={closeAll}>
+                  <Link className="sv-nav-link sv-nav-link-clean" href={group.href || "/"} aria-current={pathname === group.href ? "page" : undefined} onClick={closeAll}>
                     {group.label}
                   </Link>
                 )}
@@ -250,7 +250,7 @@ export function SiteHeader({ siteSettings }: SiteHeaderProps) {
                     </div>
                   </>
                 ) : (
-                  <Link className="sv-mobile-group-link sv-mobile-group-link-simple" href={group.href || "/"} onClick={closeAll}>
+                  <Link className="sv-mobile-group-link sv-mobile-group-link-simple" href={group.href || "/"} aria-current={pathname === group.href ? "page" : undefined} onClick={closeAll}>
                     {group.label}
                   </Link>
                 )}

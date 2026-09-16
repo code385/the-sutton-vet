@@ -26,6 +26,7 @@ import {
 import { fallbackTeamMembers, teamPageSeed } from "@/lib/teamSeed";
 import { seededServices, servicesPageSeed } from "@/lib/servicesSeed";
 import { visualAssets } from "@/lib/visualAssets";
+import { careersPageDefaults, defaultVacancy } from "@/lib/careersContent";
 
 type SanitySeedDocument = Record<string, unknown>;
 
@@ -561,6 +562,12 @@ export const staleCmsDocumentIds = [
 ];
 
 export const allSeedDocuments: SanitySeedDocument[] = [
+  {
+    _id: "careersPage",
+    _type: "careersPage",
+    ...careersPageDefaults,
+    vacancies: [{ ...defaultVacancy, _key: "veterinary-nurse" }],
+  },
   siteSettingsSeedDocument,
   emergencySettingsSeedDocument,
   homePageSeedDocument,

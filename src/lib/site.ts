@@ -31,6 +31,7 @@ export const siteConfig = {
     { label: "Services", href: "/services" },
     { label: "Pricing", href: "/fees" },
     { label: "Health Plan", href: "/health-plan" },
+    { label: "Careers", href: "/careers" },
     { label: "Terms", href: "/terms" },
   ],
   secondaryNav: [
