@@ -19795,6 +19795,17 @@ small,
 .lupa-form { display: grid; gap: 1rem; align-content: start; }
 .lupa-form label { display: grid; gap: 0.42rem; color: #2a3444; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.02em; }
 .lupa-form input, .lupa-form select, .lupa-form textarea { width: 100%; padding: 0.78rem 0.9rem; border: 1px solid rgba(77, 24, 111, 0.22); border-radius: 0; color: #2a3444; background: #fff; font: inherit; }
+.lupa-form select:required:invalid,
+.lupa-form select:required:disabled {
+  color: rgba(42, 52, 68, 0.52);
+  opacity: 1;
+}
+.lupa-form select option {
+  color: #2a3444;
+}
+.lupa-form select option[value=""] {
+  color: rgba(42, 52, 68, 0.52);
+}
 .lupa-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
 .lupa-consent { grid-template-columns: auto 1fr; align-items: start; font-weight: 500 !important; line-height: 1.5; }
 .lupa-consent input { width: 1rem; margin-top: 0.2rem; }
