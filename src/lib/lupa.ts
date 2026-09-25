@@ -29,12 +29,14 @@ export type LupaDiagnosticResult = {
 export class LupaIntegrationError extends Error {
   status?: number;
   state: LupaAccessState;
+  validationFields: string[];
 
-  constructor(message: string, state: LupaAccessState, status?: number) {
+  constructor(message: string, state: LupaAccessState, status?: number, validationFields: string[] = []) {
     super(message);
     this.name = "LupaIntegrationError";
     this.state = state;
     this.status = status;
+    this.validationFields = validationFields;
   }
 }
 
@@ -104,13 +106,27 @@ export async function lupaFetch<T>(path: string, init: RequestInit = {}): Promis
   });
 
   if (!response.ok) {
+    const validationFields: string[] = [];
+    if (response.status === 400 || response.status === 422) {
+      const body: unknown = await response.json().catch(() => null);
+      if (body && typeof body === "object" && "issues" in body && Array.isArray(body.issues)) {
+        for (const issue of body.issues) {
+          const field: unknown = issue?.path?.[0];
+          if (typeof field === "string" && ["phone", "email", "firstName", "lastName"].includes(field)) {
+            validationFields.push(field);
+          }
+        }
+      }
+    }
+    // Keep upstream failures visible without logging credentials or client details.
+    console.error("[Lupa request failed]", { method: init.method || "GET", endpoint: url.pathname, status: response.status, validationFields });
     if (response.status === 401) {
       throw new LupaIntegrationError("Lupa API request failed with 401", "unauthorized", response.status);
     }
     if (response.status === 403) {
       throw new LupaIntegrationError("Lupa API request failed with 403", "forbidden", response.status);
     }
-    throw new LupaIntegrationError(`Lupa API request failed with ${response.status}`, "unavailable", response.status);
+    throw new LupaIntegrationError(`Lupa API request failed with ${response.status}`, "unavailable", response.status, validationFields);
   }
 
   return response.json() as Promise<T>;
@@ -174,16 +190,17 @@ export async function diagnoseLupaRequest(path: string, init: RequestInit = {}):
     return result;
   }
 }
-export function withLupaScope<T extends Record<string, unknown>>(payload: T) {
+export function withLupaScope<T extends Record<string, unknown>>(payload: T, endpoint: "client" | "pet" | "booking" = "pet") {
   return {
     companyId: lupaConfig.companyId,
-    storeIds: [lupaConfig.storeId],
-    storeId: lupaConfig.storeId,
+    ...(endpoint !== "client" ? { storeIds: [lupaConfig.storeId] } : {}),
+    ...(endpoint !== "booking" ? { storeId: lupaConfig.storeId } : {}),
     ...payload,
   };
 }
 
 export function getLupaRecordId(payload: unknown): string | undefined {
+  if (typeof payload === "string" && payload) return payload;
   if (!payload || typeof payload !== "object") return undefined;
 
   const record = payload as Record<string, unknown>;

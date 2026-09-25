@@ -20,6 +20,7 @@ export function LupaJourney({ mode, clinicPhone }: Props) {
   const [visitTypeId, setVisitTypeId] = useState("");
   const [selectedSlot, setSelectedSlot] = useState<RecordItem | null>(null);
   const [message, setMessage] = useState("");
+  const [submissionLocked, setSubmissionLocked] = useState(false);
   const [loading, setLoading] = useState(mode === "book");
   const isBooking = mode === "book";
 
@@ -29,7 +30,9 @@ export function LupaJourney({ mode, clinicPhone }: Props) {
       .then((response) => response.json())
       .then((payload) => {
         if (!payload.available) throw new Error(payload.error || "Appointment types are unavailable.");
-        setTypes(normaliseItems(payload.data));
+        const availableTypes = normaliseItems(payload.data);
+        setTypes(availableTypes);
+        if (!availableTypes.length) setMessage("Online appointment types are not available yet. Please call the clinic to book.");
       })
       .catch((error: Error) => setMessage(error.message))
       .finally(() => setLoading(false));
@@ -56,7 +59,9 @@ export function LupaJourney({ mode, clinicPhone }: Props) {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    if (loading || submissionLocked) return;
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const body = Object.fromEntries(formData.entries());
     if (isBooking) {
       if (!selectedSlot) { setMessage("Please choose an available appointment time first."); return; }
@@ -70,9 +75,15 @@ export function LupaJourney({ mode, clinicPhone }: Props) {
       const response = await fetch(isBooking ? "/api/lupa/booking" : "/api/lupa/registration", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const payload = await response.json();
       setMessage(payload.message || payload.error || "Please try again.");
-      if (payload.ok) event.currentTarget.reset();
+      if (payload.ok) {
+        form.reset();
+        setSubmissionLocked(true);
+      } else if (payload.retryable === false) {
+        setSubmissionLocked(true);
+      }
     } catch {
-      setMessage("We could not send your request. Please call the clinic instead.");
+      setSubmissionLocked(true);
+      setMessage("We could not confirm your request. Please call the clinic before submitting again.");
     } finally {
       setLoading(false);
     }
@@ -92,10 +103,10 @@ export function LupaJourney({ mode, clinicPhone }: Props) {
           <button className="button button-muted" type="button" onClick={loadSlots} disabled={!visitTypeId || loading}>Check available times</button>
           {slots.length > 0 && <fieldset className="lupa-slots"><legend>Available times</legend>{slots.slice(0, 18).map((slot, index) => { const value = slot.start || slot.startsAt || String(index); return <label key={value} className="lupa-slot"><input type="radio" name="slot" checked={selectedSlot === slot} onChange={() => setSelectedSlot(slot)} /><span>{new Date(value).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}</span></label>; })}</fieldset>}
         </>}
-        <div className="lupa-form-grid"><label>First name<input name="firstName" autoComplete="given-name" required /></label><label>Last name<input name="lastName" autoComplete="family-name" required /></label><label>Email<input type="email" name="email" autoComplete="email" required /></label><label>Phone<input type="tel" name="phone" autoComplete="tel" required /></label><label>Pet's name<input name="petName" required /></label><label>Species<select name="species" defaultValue="Dog"><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Other</option></select></label><label>Breed<input name="breed" placeholder="If known" /></label><label>Sex<select name="sex" defaultValue="Unknown"><option>Unknown</option><option>Female</option><option>Male</option></select></label></div>
+        <div className="lupa-form-grid"><label>First name<input name="firstName" autoComplete="given-name" required /></label><label>Last name<input name="lastName" autoComplete="family-name" required /></label><label>Email<input type="email" name="email" autoComplete="email" required /></label><label>Phone (include country code)<input type="tel" name="phone" autoComplete="tel" placeholder="+44..." required /></label><label>Pet's name<input name="petName" required /></label><label>Species<select name="species" defaultValue="Dog"><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Other</option></select></label><label>Breed<input name="breed" placeholder="If known" /></label><label>Sex<select name="sex" defaultValue="Unknown"><option>Unknown</option><option>Female</option><option>Male</option></select></label></div>
         {isBooking && <label>What would you like help with?<textarea name="notes" rows={4} /></label>}
-        {!isBooking && <label className="lupa-consent"><input type="checkbox" name="gdprOptIn" value="true" /> I am happy for The Sutton Vet to use these details to contact me about my registration.</label>}
-        <button className="button button-primary" type="submit" disabled={loading}>{isBooking ? "Send booking request" : "Send registration"}</button>
+        {!isBooking && <label className="lupa-consent"><input type="checkbox" name="contactConsent" value="true" /> I am happy for The Sutton Vet to contact me by email or SMS about my registration.</label>}
+        <button className="button button-primary" type="submit" disabled={loading || submissionLocked || (isBooking && !selectedSlot)}>{loading ? "Please wait..." : isBooking ? "Send booking request" : "Send registration"}</button>
         {message && <p className="lupa-form-message" role="status">{message}</p>}
       </form>
     </section>
