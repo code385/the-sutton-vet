@@ -21,14 +21,14 @@ export async function POST(request: NextRequest) {
   const email = clean(input.email, 160);
   const phone = clean(input.phone, 40);
   const name = clean(input.petName, 80);
-  const species = clean(input.species, 50) || "Dog";
-  const breed = clean(input.breed, 100) || "Unknown";
-  const sex = clean(input.sex, 20) || "Unknown";
+  const species = clean(input.species, 50);
+  const breed = clean(input.breed, 100);
+  const sex = clean(input.sex, 20);
   if (!titleOptions.includes(title) || !firstName || !lastName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || !name) {
     return NextResponse.json({ ok: false, error: "Please provide your title, name, a valid email, phone number, and your pet's name." }, { status: 400 });
   }
-  if (!["Dog", "Cat", "Rabbit", "Other"].includes(species) || !["Male", "Female", "Unknown"].includes(sex)) {
-    return NextResponse.json({ ok: false, error: "Please choose a species and sex from the available options." }, { status: 400 });
+  if (!["Dog", "Cat", "Rabbit", "Other"].includes(species) || !breed || !["Male", "Female", "Unknown"].includes(sex)) {
+    return NextResponse.json({ ok: false, error: "Please choose a species, breed, and sex from the available options." }, { status: 400 });
   }
 
   // The old form called essential contact consent gdprOptIn. It is not marketing consent.

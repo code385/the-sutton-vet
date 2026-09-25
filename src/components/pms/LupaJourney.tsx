@@ -31,8 +31,8 @@ export function LupaJourney({ mode, clinicPhone, clientPortalUrl = "" }: Props) 
   const [submissionLocked, setSubmissionLocked] = useState(false);
   const [loading, setLoading] = useState(mode === "book");
   const [selectedMonth, setSelectedMonth] = useState(() => new Date().toISOString().slice(0, 7));
-  const [species, setSpecies] = useState("Dog");
-  const [breed, setBreed] = useState("Unknown");
+  const [species, setSpecies] = useState("");
+  const [breed, setBreed] = useState("");
   const isBooking = mode === "book";
   const monthOptions = useMemo(() => Array.from({ length: 6 }, (_, index) => {
     const value = new Date();
@@ -101,8 +101,8 @@ export function LupaJourney({ mode, clinicPhone, clientPortalUrl = "" }: Props) 
       setMessage(payload.message || payload.error || "Please try again.");
       if (payload.ok) {
         form.reset();
-        setSpecies("Dog");
-        setBreed("Unknown");
+        setSpecies("");
+        setBreed("");
         setSubmissionLocked(true);
       } else if (payload.retryable === false) {
         setSubmissionLocked(true);
@@ -139,7 +139,7 @@ export function LupaJourney({ mode, clinicPhone, clientPortalUrl = "" }: Props) 
           <button className="button button-muted" type="button" onClick={loadSlots} disabled={!visitTypeId || loading}>Check available times</button>
           {slots.length > 0 && <fieldset className="lupa-slots"><legend>Available times</legend>{slots.slice(0, 24).map((slot, index) => { const value = slot.start || slot.startsAt || String(index); return <label key={`${value}-${slot.employeeId || index}`} className="lupa-slot"><input type="radio" name="slot" checked={selectedSlot === slot} onChange={() => setSelectedSlot(slot)} /><span>{new Date(value).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}</span></label>; })}</fieldset>}
         </>}
-        <div className="lupa-form-grid"><label>Title<select name="title" defaultValue="" required><option value="" disabled>Choose a title</option>{titleOptions.map((title) => <option key={title} value={title}>{title}</option>)}</select></label><label>First name<input name="firstName" autoComplete="given-name" required /></label><label>Last name<input name="lastName" autoComplete="family-name" required /></label><label>Email<input type="email" name="email" autoComplete="email" required /></label><label>Phone (include country code)<input type="tel" name="phone" autoComplete="tel" placeholder="+44..." required /></label><label>Pet's name<input name="petName" required /></label><label>Species<select name="species" value={species} onChange={(event) => { setSpecies(event.target.value); setBreed("Unknown"); }}><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Other</option></select></label><label>Breed<select name="breed" value={breed} onChange={(event) => setBreed(event.target.value)} required>{breedOptions[species].map((option) => <option key={option} value={option}>{option}</option>)}</select></label><label>Sex<select name="sex" defaultValue="Unknown"><option>Unknown</option><option>Female</option><option>Male</option></select></label></div>
+        <div className="lupa-form-grid"><label>Title<select name="title" defaultValue="" required><option value="" disabled>Choose a title</option>{titleOptions.map((title) => <option key={title} value={title}>{title}</option>)}</select></label><label>First name<input name="firstName" autoComplete="given-name" required /></label><label>Last name<input name="lastName" autoComplete="family-name" required /></label><label>Email<input type="email" name="email" autoComplete="email" required /></label><label>Phone (include country code)<input type="tel" name="phone" autoComplete="tel" placeholder="+44..." required /></label><label>Pet's name<input name="petName" required /></label><label>Species<select name="species" value={species} onChange={(event) => { setSpecies(event.target.value); setBreed(""); }} required><option value="" disabled>Choose species</option><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Other</option></select></label><label>Breed<select name="breed" value={breed} onChange={(event) => setBreed(event.target.value)} required disabled={!species}><option value="" disabled>{species ? "Choose breed" : "Choose species first"}</option>{species ? breedOptions[species].map((option) => <option key={option} value={option}>{option}</option>) : null}</select></label><label>Sex<select name="sex" defaultValue="" required><option value="" disabled>Choose sex</option><option>Unknown</option><option>Female</option><option>Male</option></select></label></div>
         {isBooking && <label>What would you like help with?<textarea name="notes" rows={4} /></label>}
         {!isBooking && <label className="lupa-consent"><input type="checkbox" name="contactConsent" value="true" /> I am happy for The Sutton Vet to contact me by email or SMS about my registration.</label>}
         <button className="button button-primary" type="submit" disabled={loading || submissionLocked || (isBooking && !selectedSlot)}>{loading ? "Please wait..." : isBooking ? "Send booking request" : "Send registration"}</button>
