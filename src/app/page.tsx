@@ -3,9 +3,11 @@ import Link from "next/link";
 import { Reveal } from "@/components/shared/Reveal";
 import { seededServices } from "@/lib/servicesSeed";
 import { visualAssets } from "@/lib/visualAssets";
+import { getHomePageDocument } from "@/sanity/lib/homePage";
+import { getServiceDocuments } from "@/sanity/lib/services";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 
-const homeCards = [
+const homeCardIds = [
   "service-gp-consultations",
   "service-daytime-urgent-care",
   "service-dental-care",
@@ -15,9 +17,8 @@ const homeCards = [
   "service-nurse-clinics",
   "service-hospitalisation-and-day-care",
   "service-service-endoscopy",
-]
-  .map((id) => seededServices.find((service) => service._id === id))
-  .filter((service): service is NonNullable<typeof service> => Boolean(service));
+];
+const fallbackHomeCards = homeCardIds.map((id) => seededServices.find((service) => service._id === id)).filter((service): service is NonNullable<typeof service> => Boolean(service));
 
 const whyChoosePoints = [
   {
@@ -42,21 +43,23 @@ const whyChoosePoints = [
   },
 ];
 
-const clinicHours = [
-  { day: "Monday - Friday", hours: "09:00am - 6:00pm" },
-  { day: "Saturday", hours: "9:00am - 12.00pm" },
-];
-
 export default async function Home() {
-  const siteSettingsDocument = await getSiteSettingsDocument();
+  const [siteSettingsDocument, homePage, cmsServices] = await Promise.all([getSiteSettingsDocument(), getHomePageDocument(), getServiceDocuments()]);
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
+  const selectedCmsServices = homeCardIds.map((id) => cmsServices.find((service) => service._id === id)).filter((service): service is NonNullable<typeof service> => Boolean(service));
+  const homeCards = selectedCmsServices.length ? selectedCmsServices : fallbackHomeCards;
+  const introParagraphs = homePage?.introParagraphs?.length ? homePage.introParagraphs : [
+    "The Sutton Vet is an independent practice built around calm guidance, modern clinical standards, and clear information.",
+    "From appointments to surgery, diagnostics, endoscopy, and daytime urgent care, services are listed clearly.",
+  ];
+  const whyChooseItems = homePage?.whyChooseCards?.length ? homePage.whyChooseCards : whyChoosePoints;
 
   return (
     <>
       <section className="sv-home-hero full-bleed-section">
         <div
           className="sv-home-hero-image"
-          style={{ backgroundImage: `url(${visualAssets.homeHeroClient})` }}
+          style={{ backgroundImage: `url(${homePage?.heroImageUrl || visualAssets.homeHeroClient})` }}
           aria-hidden="true"
         />
         <div className="sv-home-hero-overlay" />
@@ -64,20 +67,15 @@ export default async function Home() {
         <div className="shell sv-home-hero-shell">
           <Reveal variant="left">
             <div className="sv-home-hero-copy sv-home-hero-copy-minimal">
-              <p className="eyebrow">{siteSettings.tagline}</p>
-              <h1>
-                <span className="sv-hero-line sv-hero-line-first">Calm, independent</span>
-                <span className="sv-hero-line">
-                  vet care in <span className="sv-hero-word-white">Sutton.</span>
-                </span>
-              </h1>
-              <p>Kind, practical care with a calm personal approach.</p>
+              <p className="eyebrow">{homePage?.heroEyebrow || siteSettings.tagline}</p>
+              <h1>{homePage?.heroTitle || "Calm, independent vet care in Sutton."}</h1>
+              <p>{homePage?.heroDescription || "Kind, practical care with a calm personal approach."}</p>
               <div className="cta-actions">
                 <a className="button button-primary" href={siteSettings.ctas.register}>
-                  Register Now
+                  {homePage?.heroPrimaryCtaLabel || "Register Now"}
                 </a>
                 <a className="button button-muted" href="/services">
-                  View Services
+                  {homePage?.heroSecondaryCtaLabel || "View Services"}
                 </a>
               </div>
             </div>
@@ -88,8 +86,8 @@ export default async function Home() {
       <section className="shell sv-home-intro-v3">
         <Reveal variant="left">
           <div className="sv-home-intro-panel">
-            <p className="eyebrow">Independent Care</p>
-            <h2>Calm care, clear services, and practical next steps.</h2>
+            <p className="eyebrow">{homePage?.introEyebrow || "Independent Care"}</p>
+            <h2>{homePage?.introTitle || "Calm care, clear services, and practical next steps."}</h2>
             <Link className="sv-home-inline-link" href="/services">
               See our veterinary services
             </Link>
@@ -98,15 +96,10 @@ export default async function Home() {
 
         <Reveal variant="up" delayMs={40}>
           <div className="sv-home-intro-copy">
-            <p>
-              The Sutton Vet is an independent practice built around calm guidance, modern clinical standards, and clear information.
-            </p>
-            <p>
-              From appointments to surgery, diagnostics, endoscopy, and daytime urgent care, services are listed clearly.
-            </p>
+            {introParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             <div className="sv-home-intro-note">
-              <span>Services available</span>
-              <p>Soft tissue surgery, orthopaedic surgery, and endoscopy are included.</p>
+              <span>{homePage?.introNoteLabel || "Services available"}</span>
+              <p>{homePage?.introNoteText || "Soft tissue surgery, orthopaedic surgery, and endoscopy are included."}</p>
             </div>
           </div>
         </Reveal>
@@ -115,21 +108,19 @@ export default async function Home() {
       <Reveal variant="mask" className="sv-home-expert-reveal"><section className="shell sv-home-expert-v3">
         <Reveal variant="left">
           <div className="sv-home-expert-heading">
-            <p className="eyebrow">Care Overview</p>
-            <h2>Care, diagnostics, procedures, home visits, and daytime urgent support.</h2>
-            <p>
-              A simple overview of the care available at The Sutton Vet.
-            </p>
+            <p className="eyebrow">{homePage?.servicesEyebrow || "Care Overview"}</p>
+            <h2>{homePage?.servicesTitle || "Care, diagnostics, procedures, home visits, and daytime urgent support."}</h2>
+            <p>{homePage?.servicesDescription || "A simple overview of the care available at The Sutton Vet."}</p>
           </div>
         </Reveal>
 
         <div className="sv-home-expert-grid">
           {homeCards.map((service, index) => (
             <Reveal key={service._id} variant="up" delayMs={index * 35}>
-              <Link className="sv-home-expert-card" href={`/services/${service.slug.current}`}>
+              <Link className="sv-home-expert-card" href={`/services/${service.slug?.current || service._id.replace(/^service-/, "")}`}>
                 <div
                   className="sv-home-expert-card-media"
-                  style={{ backgroundImage: `url("${service.imageUrl}")` }}
+                  style={{ backgroundImage: `url("${"image" in service ? service.image?.asset?.url || service.imageUrl : service.imageUrl}")` }}
                   aria-hidden="true"
                 >
                   <div className="sv-home-expert-card-overlay">
@@ -157,14 +148,11 @@ export default async function Home() {
       <section className="shell sv-home-why-v4">
         <Reveal variant="left">
           <div className="sv-home-why-v4-intro">
-            <p className="eyebrow">Why Choose The Sutton Vet</p>
-            <h2>
-              <span className="sv-home-why-line">Why pet owners choose</span>
-              <span className="sv-home-why-line sv-home-why-brand">The Sutton Vet</span>
-            </h2>
+            <p className="eyebrow">{homePage?.whyChooseEyebrow || "Why Choose The Sutton Vet"}</p>
+            <h2>{homePage?.whyChooseTitle || "Why pet owners choose The Sutton Vet"}</h2>
             <div
               className="sv-home-why-video-frame sv-home-why-image-frame"
-              style={{ backgroundImage: `url(${visualAssets.gingerCatHero})` }}
+              style={{ backgroundImage: `url(${homePage?.whyChooseImageUrl || visualAssets.gingerCatHero})` }}
               aria-hidden="true"
             >
               <div className="sv-home-why-video-overlay" />
@@ -178,10 +166,10 @@ export default async function Home() {
         </Reveal>
 
         <div className="sv-home-why-v4-list">
-          {whyChoosePoints.map((item, index) => (
-            <Reveal key={item.number} variant="up" delayMs={index * 35}>
+          {whyChooseItems.map((item, index) => (
+            <Reveal key={`${index}-${item.title}`} variant="up" delayMs={index * 35}>
               <article className="sv-home-why-v4-item">
-                <span>{item.number}</span>
+                <span>{String(index + 1)}</span>
                 <div>
                   <h3>{item.title}</h3>
                 </div>
@@ -194,19 +182,19 @@ export default async function Home() {
       <section className="shell sv-home-location-v1">
         <Reveal variant="left">
           <div className="sv-home-location-copy">
-            <p className="eyebrow">Find Us</p>
-            <h2>Visit planning made simple.</h2>
-            <p>4 Spinning Wheel Way, Hackbridge, SM6 7DS</p>
-            <p>Ample parking and step-free access.</p>
+            <p className="eyebrow">{homePage?.locationEyebrow || "Find Us"}</p>
+            <h2>{homePage?.locationTitle || "Visit planning made simple."}</h2>
+            <p>{homePage?.locationAddress || siteSettings.address}</p>
+            <p>{homePage?.locationPoints?.[0] || "Ample parking and step-free access."}</p>
             <div className="sv-home-location-hours">
-              {clinicHours.map((item) => (
+              {siteSettings.openingHours.map((item) => (
                 <div key={item.day}>
                   <span>{item.day}</span>
                   <strong>{item.hours}</strong>
                 </div>
               ))}
             </div>
-            <p>Free parking at Lidl&apos;s across the road (90 minutes) and parking at Hackbridge Rail Station.</p>
+            <p>{homePage?.locationPoints?.[1] || "Free parking at Lidl's across the road (90 minutes) and parking at Hackbridge Rail Station."}</p>
             <div className="sv-home-location-actions">
               <a className="button button-primary" href={siteSettings.hasMapUrl}>
                 Get Directions

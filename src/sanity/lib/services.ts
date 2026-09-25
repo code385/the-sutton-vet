@@ -63,6 +63,19 @@ export type ServiceDocument = {
   gallery?: ServiceGalleryItem[];
 };
 
+export type ServiceCategoryDocument = {
+  _id: string;
+  title?: string;
+  description?: string;
+  highlights?: string[];
+  sortOrder?: number;
+  active?: boolean;
+  featuredService?: {
+    title?: string;
+    slug?: { current?: string };
+  };
+};
+
 const servicesPageQuery = groq`
   *[_type == "servicesPage"][0]{
     eyebrow,
@@ -120,12 +133,28 @@ const servicesListQuery = groq`
   }
 `;
 
+const serviceCategoriesQuery = groq`
+  *[_type == "serviceCategory" && active != false] | order(sortOrder asc, _createdAt asc){
+    _id,
+    title,
+    description,
+    highlights,
+    sortOrder,
+    active,
+    featuredService->{ title, slug }
+  }
+`;
+
 export async function getServicesPageDocument() {
   return safeSanityFetch<ServicesPageDocument | null>(servicesPageQuery, undefined, null);
 }
 
 export async function getServiceDocuments() {
   return safeSanityFetch<ServiceDocument[]>(servicesListQuery, undefined, []);
+}
+
+export async function getServiceCategories() {
+  return safeSanityFetch<ServiceCategoryDocument[]>(serviceCategoriesQuery, undefined, []);
 }
 
 export function portableTextToParagraphs(blocks?: PortableTextBlock[]) {

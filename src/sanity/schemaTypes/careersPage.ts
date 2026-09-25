@@ -8,9 +8,21 @@ export const careersPage = defineType({
     defineField({ name: "eyebrow", title: "Page Eyebrow", type: "string" }),
     defineField({ name: "title", title: "Page Title", type: "string" }),
     defineField({ name: "description", title: "Page Introduction", type: "text", rows: 4 }),
+    defineField({ name: "heroImage", title: "Hero Image", type: "image", options: { hotspot: true } }),
+    defineField({ name: "heroImageAlt", title: "Hero Image Alt Text", type: "string" }),
+    defineField({ name: "heroCtaLabel", title: "Hero Button Label", type: "string" }),
+    defineField({ name: "heroBadgeEyebrow", title: "Image Badge Eyebrow", type: "string" }),
+    defineField({ name: "heroBadgeTitle", title: "Image Badge Title", type: "string" }),
+    defineField({ name: "vacanciesEyebrow", title: "Vacancies Eyebrow", type: "string" }),
+    defineField({ name: "vacanciesTitle", title: "Vacancies Heading", type: "string" }),
+    defineField({ name: "hiringLabel", title: "Vacancy Status Label", type: "string" }),
+    defineField({ name: "applyTitle", title: "Application Panel Title", type: "string" }),
+    defineField({ name: "applyText", title: "Application Panel Text", type: "text", rows: 2 }),
+    defineField({ name: "roleDetailsLabel", title: "Role Details Button Label", type: "string" }),
     defineField({
       name: "vacancies",
-      title: "Vacancies",
+      title: "Legacy Embedded Vacancies",
+      description: "Existing entries remain supported. Add all new roles as separate Job Vacancy records.",
       type: "array",
       of: [
         {
@@ -41,6 +53,7 @@ export const careersPage = defineType({
     defineField({ name: "cultureTitle", title: "Culture Title", type: "string" }),
     defineField({ name: "cultureText", title: "Culture Text", type: "text", rows: 4 }),
     defineField({ name: "generalEnquiryText", title: "General Careers Enquiry Text", type: "text", rows: 3 }),
+    defineField({ name: "generalEnquiryLabel", title: "General Enquiry Button Label", type: "string" }),
   ],
   preview: {
     prepare() {

@@ -24,7 +24,7 @@ import {
   trustModules,
 } from "@/lib/site";
 import { fallbackTeamMembers, teamPageSeed } from "@/lib/teamSeed";
-import { seededServices, servicesPageSeed } from "@/lib/servicesSeed";
+import { masterServiceGroups, seededServices, servicesPageSeed } from "@/lib/servicesSeed";
 import { visualAssets } from "@/lib/visualAssets";
 import { careersPageDefaults, defaultVacancy } from "@/lib/careersContent";
 
@@ -34,9 +34,9 @@ const homePageSeedDocument: SanitySeedDocument = {
   _id: "homePage",
   _type: "homePage",
   heroEyebrow: "Independent veterinary care in Sutton",
-  heroTitle: "You'll always want calm, capable care close by. We make that decision feel easier.",
+  heroTitle: "Calm, independent vet care in Sutton.",
   heroDescription:
-    "Founder-led veterinary care with a more personal experience, clear next steps, and a smoother route into registration, booking, and urgent support.",
+    "Kind, practical care with a calm personal approach.",
   heroPracticalNote: "Near Hackbridge station, with practical parking guidance surfaced early for first visits.",
   heroImageUrl: visualAssets.homeHeroClient,
   heroVideoUrl: "https://videos.pexels.com/video-files/6230151/6230151-hd_1920_1080_25fps.mp4",
@@ -50,6 +50,14 @@ const homePageSeedDocument: SanitySeedDocument = {
     { label: "Health Plan", href: "/health-plan" },
     { label: "Contact", href: "/contact" },
   ],
+  introEyebrow: "Independent Care",
+  introTitle: "Calm care, clear services, and practical next steps.",
+  introParagraphs: [
+    "The Sutton Vet is an independent practice built around calm guidance, modern clinical standards, and clear information.",
+    "From appointments to surgery, diagnostics, endoscopy, and daytime urgent care, services are listed clearly.",
+  ],
+  introNoteLabel: "Services available",
+  introNoteText: "Soft tissue surgery, orthopaedic surgery, and endoscopy are included.",
   whyChooseEyebrow: "Why Choose The Sutton Vet",
   whyChooseTitle: "Independent, transparent, and reassuring from day one.",
   whyChooseDescription:
@@ -79,10 +87,10 @@ const homePageSeedDocument: SanitySeedDocument = {
   founderPrimaryCtaHref: siteConfig.ctas.register,
   founderSecondaryCtaLabel: "Talk to our team on WhatsApp",
   founderSecondaryCtaHref: siteConfig.ctas.whatsapp,
-  servicesEyebrow: "Core services",
-  servicesTitle: "Practical services with clearer pathways.",
+  servicesEyebrow: "Care Overview",
+  servicesTitle: "Care, diagnostics, procedures, home visits, and daytime urgent support.",
   servicesDescription:
-    "The homepage should reassure first, then guide visitors into the right clinical pathway without making the site feel crowded.",
+    "A simple overview of the care available at The Sutton Vet.",
   servicesImageUrl: homeMedia.servicesImage,
   servicesVideoUrl: homeMedia.servicesVideo,
   servicesMediaKicker: "Services overview",
@@ -304,6 +312,7 @@ const contactPageSeedDocument: SanitySeedDocument = {
   heroPrimaryCtaHref: siteConfig.ctas.book,
   heroSecondaryCtaLabel: "Register Now",
   heroSecondaryCtaHref: siteConfig.ctas.register,
+  summaryEyebrow: "At A Glance",
   quickLinks: [
     { title: "Call us", value: siteConfig.phone, href: siteConfig.ctas.call, meta: "Fastest route for appointments and practical questions", icon: "phone" },
     { title: "Visit us", value: siteConfig.address, href: "https://maps.google.com/?q=4%20Spinning%20Wheel%20Way%2C%20Sutton%2C%20SM6%207DS", meta: "Directions, local travel guidance, and nearby access", icon: "pin" },
@@ -313,6 +322,8 @@ const contactPageSeedDocument: SanitySeedDocument = {
   openEyebrow: "Open Practice Hours",
   openTitle: "Book, register, or ask a practical question.",
   openDescription: "During practice hours, the quickest route is to call, book online, or use the registration flow.",
+  parkingEyebrow: "Parking & Access",
+  parkingTitle: "Arrival guidance for a calmer first visit.",
   openMetaLines: [`Phone: ${siteConfig.phone}`, `Address: ${siteConfig.address}`, `Email: ${siteConfig.email}`],
   openCtas: [
     { label: "Book Online", href: siteConfig.ctas.book, variant: "primary" },
@@ -329,6 +340,11 @@ const contactPageSeedDocument: SanitySeedDocument = {
   emergencyButtonLabel: "Call Emergency Line",
   hoursEyebrow: "Opening Hours",
   hoursTitle: "When we are open",
+  communityEyebrow: "Community",
+  communityTitle: "Passionate about animals and our community.",
+  communityText: "A local practice supporting pet education, animal welfare, and neighbourhood connection.",
+  detailsEyebrow: "Contact Details",
+  detailsTitle: "Everything important, in one place.",
   locationEyebrow: "Find Us",
   locationTitle: "How to find us",
   locationDescription: `The Sutton Vet is based at ${siteConfig.address}. The contact journey should reassure new clients with a clear map, straightforward access guidance, and practical next steps before the visit.`,
@@ -408,6 +424,9 @@ const teamPageSeedDocument: SanitySeedDocument = {
   _id: "teamPage",
   _type: "teamPage",
   ...teamPageSeed,
+  promiseEyebrow: "Team Promise",
+  promiseTitle: "Care should feel clear before, during, and after the appointment.",
+  values: ["Kind communication", "Clear clinical options", "A calmer visit", "Continuity of care"],
   ctaTitle: "Meet us in person?",
   ctaText: "Register, contact, or book online when you're ready.",
   ctaPrimaryLabel: "Book Online",
@@ -524,6 +543,26 @@ export const serviceSeedDocuments: SanitySeedDocument[] = seededServices.map((se
   ...service,
 }));
 
+const serviceCategoryTargets: Record<string, string> = {
+  "Pet Club and preventative care": "service-pet-club-preventative-care",
+  "Vaccinations and routine procedures": "service-vaccinations",
+  "Dentistry, imaging, and diagnostics": "service-in-house-diagnostics",
+  "Soft tissue procedures": "service-service-soft-tissue",
+  "Orthopaedic procedures": "service-service-orthopaedic",
+  "Endoscopy and sensitive care": "service-service-endoscopy",
+};
+
+export const serviceCategorySeedDocuments: SanitySeedDocument[] = masterServiceGroups.map((group, index) => ({
+  _id: `service-category-${index + 1}`,
+  _type: "serviceCategory",
+  title: group.title,
+  description: group.description,
+  highlights: group.items,
+  sortOrder: index + 1,
+  active: true,
+  featuredService: { _type: "reference", _ref: serviceCategoryTargets[group.title] },
+}));
+
 export const healthPlanPageSeedDocument: SanitySeedDocument = {
   _id: "healthPlanPage",
   _type: "healthPlan",
@@ -566,16 +605,63 @@ export const allSeedDocuments: SanitySeedDocument[] = [
     _id: "careersPage",
     _type: "careersPage",
     ...careersPageDefaults,
-    vacancies: [{ ...defaultVacancy, _key: "veterinary-nurse" }],
+    vacanciesEyebrow: "Current opportunities",
+    vacanciesTitle: "Find your place in our growing team.",
+    heroCtaLabel: "View vacancies",
+    heroBadgeEyebrow: "Now recruiting",
+    heroBadgeTitle: "Veterinary professionals",
+    hiringLabel: "Now hiring",
+    applyTitle: "Interested?",
+    applyText: "Send your CV and a short introduction.",
+    roleDetailsLabel: "About this role",
+    generalEnquiryText: "Interested in joining us? We'd love to hear from you.",
+    generalEnquiryLabel: "Email the team",
+  },
+  {
+    _id: "job-veterinary-nurse",
+    _type: "jobVacancy",
+    ...defaultVacancy,
   },
   siteSettingsSeedDocument,
   emergencySettingsSeedDocument,
   homePageSeedDocument,
+  {
+    _id: "aboutPage",
+    _type: "aboutPage",
+    heroEyebrow: "About The Sutton Vet",
+    heroTitle: "Independent, family-owned, and rooted in Sutton.",
+    heroDescription: "A small independent practice offering gentle, advanced veterinary care at fair prices.",
+    heroImageUrl: visualAssets.gingerSpanielHero,
+    introEyebrow: "Our Approach",
+    introTitle: "Care that feels warm, thoughtful, and clear.",
+    introParagraphs: ["We offer a personalised, friendly, and caring service with objective options explained clearly.", "Our decisions are guided by kindness, clinical standards, and fairness."],
+    storyEyebrow: "Our Story",
+    storyTitle: "Born from values, not from a business model.",
+    storyText: "The Sutton Vet was created to place animals, families, and ethical decision-making first.",
+    carePillars: [
+      { label: "Character", text: "Honesty, patience, and consistency when answers are not immediate." },
+      { label: "Duty", text: "Continuity through every life stage." },
+      { label: "Conscience", text: "Recommendations guided by what is right for each animal." },
+    ],
+    differenceEyebrow: "A Different Kind Of Veterinary Service",
+    differenceTitle: "Small enough to know you, big enough to serve you.",
+    differencePoints: ["Not rushed", "Fear-free handling", "See the same people", "Independent and locally vet-owned", "Transparent pricing", "Advanced care without compromise"],
+    visitEyebrow: "Visit Information",
+    visitTitle: "Opening times, parking, and access in one simple place.",
+    visitDescription: "The clinic is based near Hackbridge Rail Station, with step-free access and nearby parking.",
+    visitDetails: [
+      { label: "Address", text: siteConfig.address },
+      { label: "Access", text: "Ample parking and step-free access" },
+      { label: "Monday - Friday", text: "09:00am - 6:00pm" },
+      { label: "Saturday", text: "9:00am - 12.00pm" },
+    ],
+  },
   contactPageSeedDocument,
   teamPageSeedDocument,
   ...teamMemberSeedDocuments,
   ...legalPageSeedDocuments,
   servicesPageSeedDocument,
+  ...serviceCategorySeedDocuments,
   ...serviceSeedDocuments,
   healthPlanPageSeedDocument,
   pricingPageSeedDocument,

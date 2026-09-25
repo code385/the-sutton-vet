@@ -7,7 +7,7 @@ Production-ready Next.js website for The Sutton Vet. Sanity manages website cont
 - Responsive website, services, service galleries, pricing/quote messaging, Careers, legal pages, and chatbot are implemented.
 - Sanity Studio is available at `/studio`.
 - The chatbot answers approved administrative questions only and never gives clinical advice.
-- Lupa routes are implemented with graceful fallbacks. Sandbox calls currently return upstream `403 Forbidden` until Lupa enables the key for the correct Sutton environment and scopes.
+- Lupa registration has been verified against the Sutton production API. Booking remains unavailable until Lupa returns active appointment types and available slots for the Sutton store.
 - Lupa Pay is not part of this project.
 - Health Plan is informational and editable in Sanity until its provider and sign-up flow are confirmed.
 - Public booking/registration URLs are separate from API credentials and must be supplied by Lupa.
@@ -43,10 +43,13 @@ npm run dev
 npm run build
 npm run start
 npm run seed:cms
+npm run migrate:cms-extensions
 npx sanity deploy
 ```
 
 `npm run seed:cms` creates or replaces known seeded documents. Use it for initial migration only because matching CMS document IDs can be overwritten.
+
+`npm run migrate:cms-extensions` is the safer incremental migration for Careers, About, service-directory records, concise homepage copy, and quote-first pricing. It does not delete documents.
 
 ## Environment Variables
 
@@ -90,7 +93,7 @@ The `NEXT_PUBLIC_PMS_*` variables are legacy fallbacks. Prefer `NEXT_PUBLIC_LUPA
 8. Review all content, then run `npx sanity deploy`.
 9. Keep a dataset export before bulk migrations.
 
-Editable content includes Site Settings/chat replies, pages, services/subservices/galleries, pricing copy, Health Plan, team, Careers, contact/emergency details, and legal pages.
+Editable content includes Site Settings/chat replies, Home, About, Contact, Careers, service directory groups, service detail pages/subservices/galleries, pricing/quotes, Health Plan, team, emergency details, and legal pages. Forms, API payloads, validation, layout, and navigation behaviour remain code-controlled for reliability.
 
 ### Live Content Updates
 
@@ -174,7 +177,27 @@ Emergency wording always tells visitors to call. Never add diagnosis, dosage, tr
 
 ## Careers
 
-`/careers` currently advertises a Veterinary Nurse role. Edit role copy, benefits, application email, and status in the Sanity Careers document, publish, then verify the live route.
+The Careers page has two content areas in Sanity:
+
+1. Open **Careers Page** to edit the page heading, introduction, hero image, labels, and application-panel copy.
+2. Create a **Job Vacancy** record for each role.
+3. Complete Job Title, Location, Hours / Employment Type, Salary, Summary, Benefits, application email, and optional deadline.
+4. Keep **Show On Careers Page** enabled, set Display Order, and publish.
+5. The vacancy appears automatically on `/careers`. Disable the toggle or unpublish the record to remove it.
+
+Salary and at least one benefit are required before a vacancy can be published. Existing legacy vacancies remain readable, but all new roles should use standalone **Job Vacancy** records.
+
+## Routine Content Editing
+
+- **Site Settings**: navigation, contact details, opening hours, social links, chatbot replies, booking/registration links.
+- **Home Page / About Page / Contact Page / Team Page / Careers Page**: page-specific headings, text, images, and section labels.
+- **Service Directory Group**: the six main service areas, their descriptions, visible service list, order, and linked detail page.
+- **Service**: detail-page title, description, image, subservices, clinical galleries, CTA, and order.
+- **Pricing Page / Fee Category**: quote messaging, service categories, individual items, and confirmed prices when approved.
+- **Health Plan**: informational copy and plan details.
+- **Legal Page / Emergency Settings**: compliance and emergency content.
+
+Publish changes in Studio. With the revalidation webhook configured, the relevant live route refreshes automatically; otherwise trigger a Vercel redeploy.
 
 ## Go-Live Checklist
 

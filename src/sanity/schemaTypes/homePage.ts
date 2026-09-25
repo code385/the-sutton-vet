@@ -33,6 +33,12 @@ export const homePage = defineType({
       of: [{ type: "object", fields: linkField.fields }],
     }),
 
+    defineField({ name: "introEyebrow", title: "Introduction Eyebrow", type: "string" }),
+    defineField({ name: "introTitle", title: "Introduction Title", type: "string" }),
+    defineField({ name: "introParagraphs", title: "Introduction Paragraphs", type: "array", of: [{ type: "text" }] }),
+    defineField({ name: "introNoteLabel", title: "Introduction Note Label", type: "string" }),
+    defineField({ name: "introNoteText", title: "Introduction Note Text", type: "text", rows: 2 }),
+
     defineField({ name: "whyChooseEyebrow", title: "Why Choose Eyebrow", type: "string" }),
     defineField({ name: "whyChooseTitle", title: "Why Choose Title", type: "string" }),
     defineField({ name: "whyChooseDescription", title: "Why Choose Description", type: "text", rows: 3 }),

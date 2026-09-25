@@ -76,6 +76,11 @@ export type HomePageDocument = {
   heroSecondaryCtaHref?: string;
   heroStats?: string[];
   heroLinks?: LinkItem[];
+  introEyebrow?: string;
+  introTitle?: string;
+  introParagraphs?: string[];
+  introNoteLabel?: string;
+  introNoteText?: string;
   whyChooseEyebrow?: string;
   whyChooseTitle?: string;
   whyChooseDescription?: string;
@@ -180,6 +185,11 @@ const homePageQuery = groq`
     heroSecondaryCtaHref,
     heroStats,
     heroLinks,
+    introEyebrow,
+    introTitle,
+    introParagraphs,
+    introNoteLabel,
+    introNoteText,
     whyChooseEyebrow,
     whyChooseTitle,
     whyChooseDescription,

@@ -2,7 +2,7 @@ import { Reveal } from "@/components/shared/Reveal";
 import { SectionCta } from "@/components/shared/SectionCta";
 import { masterServiceGroups, servicesPageSeed } from "@/lib/servicesSeed";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
-import { getServicesPageDocument } from "@/sanity/lib/services";
+import { getServiceCategories, getServicesPageDocument } from "@/sanity/lib/services";
 
 const groupRoutes: Record<string, string> = {
   "Pet Club and preventative care": "/services/pet-club-preventative-care",
@@ -18,8 +18,9 @@ function directoryAnchor(title: string) {
 }
 
 export default async function ServicesPage() {
-  const [servicesPage, siteSettingsDocument] = await Promise.all([
+  const [servicesPage, serviceCategories, siteSettingsDocument] = await Promise.all([
     getServicesPageDocument(),
+    getServiceCategories(),
     getSiteSettingsDocument(),
   ]);
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
@@ -28,6 +29,12 @@ export default async function ServicesPage() {
   const secondaryCtaHref = resolvedServicesPage.secondaryCtaHref === "/contact#register" ? siteSettings.ctas.register : resolvedServicesPage.secondaryCtaHref || siteSettings.ctas.register;
   const closingPrimaryHref = resolvedServicesPage.closingPrimaryHref === "/contact#book" ? siteSettings.ctas.book : resolvedServicesPage.closingPrimaryHref || siteSettings.ctas.book;
   const closingSecondaryHref = resolvedServicesPage.closingSecondaryHref === "/contact#register" ? siteSettings.ctas.register : resolvedServicesPage.closingSecondaryHref || siteSettings.ctas.register;
+  const directoryGroups = serviceCategories.length ? serviceCategories.map((group) => ({
+    title: group.title || "Service area",
+    description: group.description || "Explore this area of care.",
+    items: group.highlights || [],
+    href: group.featuredService?.slug?.current ? `/services/${group.featuredService.slug.current}` : "/contact",
+  })) : masterServiceGroups.map((group) => ({ ...group, href: groupRoutes[group.title] || "/contact" }));
 
   return (
     <>
@@ -53,7 +60,7 @@ export default async function ServicesPage() {
 
               <div className="services-page-hero-index" aria-label="Service groups">
                 <span>Choose a care area</span>
-                {masterServiceGroups.slice(0, 6).map((group) => (
+                {directoryGroups.slice(0, 6).map((group) => (
                   <a key={group.title} href={`#${directoryAnchor(group.title)}`}>
                     {group.title}
                   </a>
@@ -74,7 +81,7 @@ export default async function ServicesPage() {
         </Reveal>
 
         <div className="services-master-flow">
-          {masterServiceGroups.map((group, index) => (
+          {directoryGroups.map((group, index) => (
             <Reveal key={group.title} variant="up" delayMs={index * 35}>
               <article className="services-master-flow-group" id={directoryAnchor(group.title)}>
                 <div className="services-master-flow-title">
@@ -83,7 +90,7 @@ export default async function ServicesPage() {
                 </div>
                 <div className="services-master-flow-summary">
                   <p>{group.description}</p>
-                  <a className="button button-primary services-master-detail-button" href={groupRoutes[group.title] || "/contact"}>
+                  <a className="button button-primary services-master-detail-button" href={group.href}>
                     View service
                   </a>
                 </div>

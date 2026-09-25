@@ -1,4 +1,5 @@
 ﻿import { Reveal } from "@/components/shared/Reveal";
+import { getContactPageDocument } from "@/sanity/lib/contentPages";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 
 const overviewPoints = [
@@ -25,27 +26,31 @@ const contactDetails = [
 ];
 
 export default async function ContactPage() {
-  const siteSettingsDocument = await getSiteSettingsDocument();
+  const [siteSettingsDocument, contactPage] = await Promise.all([getSiteSettingsDocument(), getContactPageDocument()]);
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
+  const cmsSummaryPoints = contactPage?.quickLinks?.map((item) => item.meta || item.value || item.title || "").filter(Boolean) || [];
+  const summaryPoints = cmsSummaryPoints.length ? cmsSummaryPoints : overviewPoints;
+  const arrivalNotes = contactPage?.locationPoints?.length ? contactPage.locationPoints : parkingNotes;
+  const hours = siteSettings.openingHours.length ? siteSettings.openingHours : clinicHours;
+  const cmsDetails = contactPage?.quickLinks?.filter((item) => item.title && item.value).map((item) => ({ label: item.title || "Contact", value: item.value || "", href: item.href })) || [];
+  const details = cmsDetails.length ? cmsDetails : contactDetails;
 
   return (
     <>
       <section className="shell contact-page-v2-hero">
         <Reveal variant="left">
           <div className="contact-page-v2-copy">
-            <p className="eyebrow">About</p>
-            <h1>Independent veterinary care in Sutton, designed to feel calm, clear, and personal.</h1>
-            <p>
-              The Sutton Vet is being shaped as a smaller independent practice where care feels more considered, practical information is easier to find, and each visit can be planned with more confidence.
-            </p>
+            <p className="eyebrow">{contactPage?.heroEyebrow || "About"}</p>
+            <h1>{contactPage?.heroTitle || "Independent veterinary care in Sutton, designed to feel calm, clear, and personal."}</h1>
+            <p>{contactPage?.heroDescription || "A smaller independent practice where practical information is easy to find and each visit can be planned with confidence."}</p>
           </div>
         </Reveal>
 
         <Reveal variant="up" delayMs={40}>
           <div className="contact-page-v2-summary">
-            <p className="eyebrow">At A Glance</p>
+            <p className="eyebrow">{contactPage?.summaryEyebrow || "At A Glance"}</p>
             <ul>
-              {overviewPoints.map((item) => (
+              {summaryPoints.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -56,26 +61,26 @@ export default async function ContactPage() {
       <section className="shell contact-page-v2-grid">
         <Reveal variant="left">
           <div className="contact-page-v2-panel" id="opening-times">
-            <p className="eyebrow">Clinic Hours</p>
-            <h2>Visit times kept simple.</h2>
+            <p className="eyebrow">{contactPage?.openEyebrow || "Clinic Hours"}</p>
+            <h2>{contactPage?.openTitle || "Visit times kept simple."}</h2>
             <div className="contact-page-v2-hours">
-              {clinicHours.map((item) => (
+              {hours.map((item) => (
                 <div key={item.day}>
                   <span>{item.day}</span>
                   <strong>{item.hours}</strong>
                 </div>
               ))}
             </div>
-            <p>Appointments can still be requested through the website at any time using the online booking portal.</p>
+            <p>{contactPage?.openDescription || "Appointments can be requested through the website at any time."}</p>
           </div>
         </Reveal>
 
         <Reveal variant="right">
           <div className="contact-page-v2-panel contact-page-v2-panel-soft" id="parking-access">
-            <p className="eyebrow">Parking & Access</p>
-            <h2>Arrival guidance for a calmer first visit.</h2>
+            <p className="eyebrow">{contactPage?.parkingEyebrow || "Parking & Access"}</p>
+            <h2>{contactPage?.parkingTitle || "Arrival guidance for a calmer first visit."}</h2>
             <div className="contact-page-v2-notes">
-              {parkingNotes.map((item) => (
+              {arrivalNotes.map((item) => (
                 <p key={item}>{item}</p>
               ))}
             </div>
@@ -87,11 +92,9 @@ export default async function ContactPage() {
       <section className="shell contact-page-v2-community">
         <Reveal variant="left">
           <div className="contact-page-v2-community-copy">
-            <p className="eyebrow">Community</p>
-            <h2>Passionate about animals and our community.</h2>
-            <p>
-              We are more than a veterinary surgery. The Sutton Vet is being built as a local practice that supports pet education, local animal welfare, and neighbourhood connection as the clinic grows.
-            </p>
+            <p className="eyebrow">{contactPage?.communityEyebrow || "Community"}</p>
+            <h2>{contactPage?.communityTitle || "Passionate about animals and our community."}</h2>
+            <p>{contactPage?.communityText || "We are more than a veterinary surgery: a local practice supporting pet education, animal welfare, and neighbourhood connection."}</p>
           </div>
         </Reveal>
         <Reveal variant="right" delayMs={40}>
@@ -108,10 +111,10 @@ export default async function ContactPage() {
       <section className="shell contact-page-v2-details">
         <Reveal variant="left">
           <div className="contact-page-v2-panel">
-            <p className="eyebrow">Contact Details</p>
-            <h2>Everything important, in one place.</h2>
+            <p className="eyebrow">{contactPage?.detailsEyebrow || "Contact Details"}</p>
+            <h2>{contactPage?.detailsTitle || "Everything important, in one place."}</h2>
             <div className="contact-page-v2-detail-list">
-              {contactDetails.map((item) => (
+              {details.map((item) => (
                 <div key={item.label}>
                   <span>{item.label}</span>
                   {item.href ? (
@@ -129,20 +132,18 @@ export default async function ContactPage() {
       <section className="shell contact-page-v2-location" id="find-us">
         <Reveal variant="left">
           <div className="contact-page-v2-location-copy">
-            <p className="eyebrow">Find Us</p>
-            <h2>4 Spinning Wheel Way, Hackbridge, SM6 7DS</h2>
-            <p>
-              Located near Hackbridge Rail Station, with free nearby parking options and step-free access to help visits feel easier from the moment you arrive.
-            </p>
+            <p className="eyebrow">{contactPage?.locationEyebrow || "Find Us"}</p>
+            <h2>{contactPage?.locationTitle || siteSettings.address}</h2>
+            <p>{contactPage?.locationDescription || "Located near Hackbridge Rail Station, with nearby parking and step-free access."}</p>
             <div className="contact-page-v2-actions">
               <a className="button button-primary" href={siteSettings.hasMapUrl}>
-                Get Directions
+                {contactPage?.locationButtonLabel || "Get Directions"}
               </a>
               <a className="button button-muted" href={siteSettings.googleBusinessProfileUrl} target="_blank" rel="noreferrer">
                 Google Profile
               </a>
-              <a className="button button-muted" href="tel:07440278373">
-                Call 07440278373
+              <a className="button button-muted" href={siteSettings.ctas.call}>
+                Call {siteSettings.phone}
               </a>
             </div>
           </div>
@@ -151,7 +152,7 @@ export default async function ContactPage() {
         <Reveal variant="up" delayMs={50}>
           <div className="contact-page-v2-map">
             <iframe
-              src={siteSettings.googleMapEmbedUrl}
+              src={contactPage?.locationMapEmbedUrl || siteSettings.googleMapEmbedUrl}
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"

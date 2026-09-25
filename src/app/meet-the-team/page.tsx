@@ -2,7 +2,9 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/shared/Reveal";
 import { visualAssets } from "@/lib/visualAssets";
+import { getTeamPageDocument } from "@/sanity/lib/contentPages";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
+import { getTeamMembers } from "@/sanity/lib/teamMembers";
 
 const teamPlaceholders = [
   {
@@ -30,18 +32,25 @@ const teamPlaceholders = [
 const values = ["Kind communication", "Clear clinical options", "A calmer visit", "Continuity of care"];
 
 export default async function MeetTheTeamPage() {
-  const siteSettings = resolveSiteSettings(await getSiteSettingsDocument());
+  const [siteSettingsDocument, teamPage, cmsMembers] = await Promise.all([getSiteSettingsDocument(), getTeamPageDocument(), getTeamMembers()]);
+  const siteSettings = resolveSiteSettings(siteSettingsDocument);
+  const teamRows = cmsMembers.length ? cmsMembers.map((member) => ({
+    id: member._id,
+    role: member.name || member.role || "Team member",
+    note: member.shortBio || member.bio || "Profile details coming soon.",
+    focus: [member.role, member.qualifications].filter(Boolean).join(" ? ") || member.category || "The Sutton Vet team",
+    image: member.image?.asset?.url || member.imageUrl,
+  })) : teamPlaceholders.map((member) => ({ ...member, id: member.role, image: undefined }));
+  const teamValues = teamPage?.values?.length ? teamPage.values : values;
   return (
     <>
       <section className="team-studio-hero full-bleed-section">
         <div className="shell team-studio-hero-shell">
           <Reveal variant="left">
             <div className="team-studio-hero-copy">
-              <p className="eyebrow">Meet The Team</p>
-              <h1>Profiles are coming soon, but the tone is already personal.</h1>
-              <p>
-                This page is prepared for final portraits, names, qualifications, and short biographies. Until then, it gives visitors a warm sense of the people-led care behind The Sutton Vet without inventing details.
-              </p>
+              <p className="eyebrow">{teamPage?.heroEyebrow || "Meet The Team"}</p>
+              <h1>{teamPage?.heroTitle || "Meet the people behind your pet's care."}</h1>
+              <p>{teamPage?.heroDescription || "Names, qualifications, portraits, and biographies can be added as the team grows."}</p>
               <div className="team-studio-actions">
                 <Link className="button button-primary" href={siteSettings.ctas.register}>
                   Register Now
@@ -55,7 +64,7 @@ export default async function MeetTheTeamPage() {
 
           <Reveal variant="up" delayMs={80}>
             <div className="team-studio-portrait-board" aria-label="Warm pet care preview">
-              <div className="team-studio-image team-studio-image-large" style={{ backgroundImage: `url(${visualAssets.vetDoctorWithPet})` }} />
+              <div className="team-studio-image team-studio-image-large" style={{ backgroundImage: `url(${teamPage?.heroImageUrl || visualAssets.vetDoctorWithPet})` }} />
               <div className="team-studio-image team-studio-image-small" style={{ backgroundImage: `url(${visualAssets.gingerCatHero})` }} />
               <div className="team-studio-note-card">
                 <span>Team page status</span>
@@ -69,14 +78,12 @@ export default async function MeetTheTeamPage() {
       <section className="shell team-studio-intro">
         <Reveal variant="up">
           <div className="team-studio-intro-copy">
-            <p className="eyebrow">How it will feel</p>
-            <h2>A quieter team page: clear roles first, fuller stories later.</h2>
+            <p className="eyebrow">{teamPage?.introEyebrow || "Our people"}</p>
+            <h2>{teamPage?.introTitle || "Clear roles and genuine introductions."}</h2>
           </div>
         </Reveal>
         <Reveal variant="up" delayMs={80}>
-          <p>
-            The design leaves space for real people rather than filling the page with generic biographies. Each profile can later hold a portrait, qualifications, interests, and a short note in the same calm visual system.
-          </p>
+          <p>{teamPage?.introDescription || "Each profile can include a portrait, qualifications, clinical interests, and a short biography."}</p>
         </Reveal>
       </section>
 
@@ -87,8 +94,8 @@ export default async function MeetTheTeamPage() {
         </div>
 
         <div className="team-studio-role-list">
-          {teamPlaceholders.map((member, index) => (
-            <Reveal key={member.role} variant="up" delayMs={index * 55}>
+          {teamRows.map((member, index) => (
+            <Reveal key={member.id} variant="up" delayMs={index * 55}>
               <article className="team-studio-role-row">
                 <div className="team-studio-role-index">{String(index + 1).padStart(2, "0")}</div>
                 <div className="team-studio-role-main">
@@ -96,8 +103,8 @@ export default async function MeetTheTeamPage() {
                   <h3>{member.role}</h3>
                   <p>{member.note}</p>
                 </div>
-                <div className="team-studio-role-slot" aria-hidden="true">
-                  <span>Profile</span>
+                <div className="team-studio-role-slot" style={member.image ? { backgroundImage: `url(${member.image})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined} aria-hidden="true">
+                  {!member.image ? <span>Profile</span> : null}
                 </div>
               </article>
             </Reveal>
@@ -109,13 +116,13 @@ export default async function MeetTheTeamPage() {
         <div className="shell team-studio-promise-shell">
           <Reveal variant="left">
             <div className="team-studio-promise-copy">
-              <p className="eyebrow">Team Promise</p>
-              <h2>Care should feel clear before, during, and after the appointment.</h2>
+              <p className="eyebrow">{teamPage?.promiseEyebrow || "Team Promise"}</p>
+              <h2>{teamPage?.promiseTitle || "Care should feel clear before, during, and after the appointment."}</h2>
             </div>
           </Reveal>
 
           <div className="team-studio-values">
-            {values.map((value, index) => (
+            {teamValues.map((value, index) => (
               <Reveal key={value} variant="up" delayMs={index * 45}>
                 <div className="team-studio-value">
                   <span>{String(index + 1).padStart(2, "0")}</span>

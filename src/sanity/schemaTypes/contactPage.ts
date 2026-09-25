@@ -13,6 +13,7 @@ export const contactPage = defineType({
     defineField({ name: "heroPrimaryCtaHref", title: "Hero Primary CTA Href", type: "string" }),
     defineField({ name: "heroSecondaryCtaLabel", title: "Hero Secondary CTA Label", type: "string" }),
     defineField({ name: "heroSecondaryCtaHref", title: "Hero Secondary CTA Href", type: "string" }),
+    defineField({ name: "summaryEyebrow", title: "Summary Eyebrow", type: "string" }),
 
     defineField({
       name: "quickLinks",
@@ -41,6 +42,8 @@ export const contactPage = defineType({
     defineField({ name: "openEyebrow", title: "Open Hours Eyebrow", type: "string" }),
     defineField({ name: "openTitle", title: "Open Hours Title", type: "string" }),
     defineField({ name: "openDescription", title: "Open Hours Description", type: "text", rows: 3 }),
+    defineField({ name: "parkingEyebrow", title: "Parking Eyebrow", type: "string" }),
+    defineField({ name: "parkingTitle", title: "Parking Title", type: "string" }),
     defineField({
       name: "openMetaLines",
       title: "Open Hours Meta Lines",
@@ -82,6 +85,11 @@ export const contactPage = defineType({
 
     defineField({ name: "hoursEyebrow", title: "Hours Eyebrow", type: "string" }),
     defineField({ name: "hoursTitle", title: "Hours Title", type: "string" }),
+    defineField({ name: "communityEyebrow", title: "Community Eyebrow", type: "string" }),
+    defineField({ name: "communityTitle", title: "Community Title", type: "string" }),
+    defineField({ name: "communityText", title: "Community Text", type: "text", rows: 3 }),
+    defineField({ name: "detailsEyebrow", title: "Contact Details Eyebrow", type: "string" }),
+    defineField({ name: "detailsTitle", title: "Contact Details Title", type: "string" }),
 
     defineField({ name: "locationEyebrow", title: "Location Eyebrow", type: "string" }),
     defineField({ name: "locationTitle", title: "Location Title", type: "string" }),

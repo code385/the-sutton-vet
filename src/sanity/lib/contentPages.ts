@@ -37,6 +37,16 @@ type InventoryItem = {
   duration?: string;
 };
 
+export type AboutPageDocument = {
+  heroEyebrow?: string; heroTitle?: string; heroDescription?: string; heroImageUrl?: string;
+  introEyebrow?: string; introTitle?: string; introParagraphs?: string[];
+  storyEyebrow?: string; storyTitle?: string; storyText?: string;
+  carePillars?: { label?: string; text?: string }[];
+  differenceEyebrow?: string; differenceTitle?: string; differencePoints?: string[];
+  visitEyebrow?: string; visitTitle?: string; visitDescription?: string;
+  visitDetails?: { label?: string; text?: string }[];
+};
+
 export type ContactPageDocument = {
   heroEyebrow?: string;
   heroTitle?: string;
@@ -46,10 +56,13 @@ export type ContactPageDocument = {
   heroPrimaryCtaHref?: string;
   heroSecondaryCtaLabel?: string;
   heroSecondaryCtaHref?: string;
+  summaryEyebrow?: string;
   quickLinks?: QuickLink[];
   openEyebrow?: string;
   openTitle?: string;
   openDescription?: string;
+  parkingEyebrow?: string;
+  parkingTitle?: string;
   openMetaLines?: string[];
   openCtas?: LinkItem[];
   emergencyEyebrow?: string;
@@ -59,6 +72,11 @@ export type ContactPageDocument = {
   emergencyButtonLabel?: string;
   hoursEyebrow?: string;
   hoursTitle?: string;
+  communityEyebrow?: string;
+  communityTitle?: string;
+  communityText?: string;
+  detailsEyebrow?: string;
+  detailsTitle?: string;
   locationEyebrow?: string;
   locationTitle?: string;
   locationDescription?: string;
@@ -99,6 +117,9 @@ export type TeamPageDocument = {
   introEyebrow?: string;
   introTitle?: string;
   introDescription?: string;
+  promiseEyebrow?: string;
+  promiseTitle?: string;
+  values?: string[];
   ctaTitle?: string;
   ctaText?: string;
   ctaPrimaryLabel?: string;
@@ -154,6 +175,7 @@ export type FaqItemDocument = {
 };
 
 const contactPageQuery = groq`*[_type == "contactPage"][0]{..., quickLinks[], openCtas[], socialCards[]}`;
+const aboutPageQuery = groq`*[_type == "aboutPage"][0]`;
 const faqPageQuery = groq`*[_type == "faqPage"][0]`;
 const firstVisitPageQuery = groq`*[_type == "firstVisitPage"][0]`;
 const teamPageQuery = groq`*[_type == "teamPage"][0]`;
@@ -171,6 +193,10 @@ const legalPageByTypeQuery = groq`
 
 export async function getContactPageDocument() {
   return safeSanityFetch<ContactPageDocument | null>(contactPageQuery, undefined, null);
+}
+
+export async function getAboutPageDocument() {
+  return safeSanityFetch<AboutPageDocument | null>(aboutPageQuery, undefined, null);
 }
 
 export async function getFaqPageDocument() {

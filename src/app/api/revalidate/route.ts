@@ -9,6 +9,7 @@ type RevalidatePayload = {
 
 const allSitePaths = [
   "/",
+  "/about",
   "/services",
   "/health-plan",
   "/fees",
@@ -69,7 +70,11 @@ function resolvePaths(payload: RevalidatePayload) {
     case "homePage":
       paths.add("/");
       break;
+    case "aboutPage":
+      paths.add("/about");
+      break;
     case "servicesPage":
+    case "serviceCategory":
     case "service":
       paths.add("/");
       paths.add("/services");
@@ -115,6 +120,7 @@ function resolvePaths(payload: RevalidatePayload) {
       paths.add("/contact");
       break;
     case "careersPage":
+    case "jobVacancy":
       paths.add("/");
       paths.add("/careers");
       break;

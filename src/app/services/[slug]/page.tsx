@@ -8,7 +8,7 @@ import { visualAssets } from "@/lib/visualAssets";
 import { masterServiceGroups, servicesPageSeed } from "@/lib/servicesSeed";
 import { resolveServiceCollection } from "@/lib/resolveServices";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
-import { getServiceDocuments, portableTextToParagraphs } from "@/sanity/lib/services";
+import { getServiceDocuments, getServicesPageDocument, portableTextToParagraphs } from "@/sanity/lib/services";
 
 const fallbackServiceImage = visualAssets.gingerSpanielHero;
 
@@ -78,8 +78,13 @@ export async function generateStaticParams() {
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const [services, siteSettingsDocument] = await Promise.all([getServiceDocuments(), getSiteSettingsDocument()]);
+  const [services, servicesPage, siteSettingsDocument] = await Promise.all([
+    getServiceDocuments(),
+    getServicesPageDocument(),
+    getSiteSettingsDocument(),
+  ]);
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
+  const resolvedServicesPage = servicesPage || servicesPageSeed;
   const resolvedServices = resolveServiceCollection(services);
   const service = resolvedServices.find((item) => item.slug?.current === slug);
 
@@ -190,13 +195,13 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       </section>
 
       <SectionCta
-        eyebrow={servicesPageSeed.closingEyebrow || "Next Step"}
-        title={servicesPageSeed.closingTitle || "Need something specific?"}
-        text={servicesPageSeed.closingText || "Move from information to booking with less friction."}
-        primaryLabel={servicesPageSeed.closingPrimaryLabel}
-        primaryHref={servicesPageSeed.closingPrimaryHref}
-        secondaryLabel={servicesPageSeed.closingSecondaryLabel}
-        secondaryHref={servicesPageSeed.closingSecondaryHref}
+        eyebrow={resolvedServicesPage.closingEyebrow || "Next Step"}
+        title={resolvedServicesPage.closingTitle || "Need something specific?"}
+        text={resolvedServicesPage.closingText || "Move from information to booking with less friction."}
+        primaryLabel={resolvedServicesPage.closingPrimaryLabel}
+        primaryHref={resolvedServicesPage.closingPrimaryHref === "/contact#book" ? siteSettings.ctas.book : resolvedServicesPage.closingPrimaryHref || siteSettings.ctas.book}
+        secondaryLabel={resolvedServicesPage.closingSecondaryLabel}
+        secondaryHref={resolvedServicesPage.closingSecondaryHref === "/contact#register" ? siteSettings.ctas.register : resolvedServicesPage.closingSecondaryHref || "/contact"}
       />
     </>
   );

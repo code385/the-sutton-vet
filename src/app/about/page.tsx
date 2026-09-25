@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/shared/Reveal";
 import { visualAssets } from "@/lib/visualAssets";
+import { getAboutPageDocument } from "@/sanity/lib/contentPages";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 
 const carePillars = [
@@ -39,19 +40,24 @@ const visitDetails = [
 ];
 
 export default async function AboutPage() {
-  const siteSettingsDocument = await getSiteSettingsDocument();
+  const [siteSettingsDocument, aboutPage] = await Promise.all([getSiteSettingsDocument(), getAboutPageDocument()]);
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
+  const pillars = aboutPage?.carePillars?.length ? aboutPage.carePillars : carePillars;
+  const differences = aboutPage?.differencePoints?.length ? aboutPage.differencePoints : differencePoints;
+  const visits = aboutPage?.visitDetails?.length ? aboutPage.visitDetails.map((item) => ({ label: item.label || "Detail", value: item.text || "" })) : visitDetails;
+  const introParagraphs = aboutPage?.introParagraphs?.length ? aboutPage.introParagraphs : [
+    "We offer a personalised, friendly, and caring service. We listen, explain options clearly, and help you choose what suits your pet.",
+    "Our decisions are guided by kindness, clinical standards, and fairness.",
+  ];
 
   return (
     <>
       <section className="shell about-page-hero">
         <Reveal variant="left">
           <div className="about-page-hero-copy">
-            <p className="eyebrow">About The Sutton Vet</p>
-            <h1>Independent, family-owned, and rooted in Sutton.</h1>
-            <p>
-              Amidst larger corporate veterinary groups, The Sutton Vet is being shaped as a small independent practice offering gentle, advanced veterinary care at fair prices.
-            </p>
+            <p className="eyebrow">{aboutPage?.heroEyebrow || "About The Sutton Vet"}</p>
+            <h1>{aboutPage?.heroTitle || "Independent, family-owned, and rooted in Sutton."}</h1>
+            <p>{aboutPage?.heroDescription || "A small independent practice offering gentle, advanced veterinary care at fair prices."}</p>
             <div className="about-page-hero-actions">
               <a className="button button-primary" href={siteSettings.ctas.register}>
                 Register Now
@@ -64,25 +70,20 @@ export default async function AboutPage() {
         </Reveal>
 
         <Reveal variant="right" delayMs={40}>
-          <div className="about-page-hero-media about-page-hero-image" style={{ backgroundImage: `url(${visualAssets.gingerSpanielHero})` }} aria-hidden="true" />
+          <div className="about-page-hero-media about-page-hero-image" style={{ backgroundImage: `url(${aboutPage?.heroImageUrl || visualAssets.gingerSpanielHero})` }} aria-hidden="true" />
         </Reveal>
       </section>
 
       <section className="shell about-page-intro" id="overview">
         <Reveal variant="up">
           <div className="about-page-intro-heading">
-            <p className="eyebrow">Our Approach</p>
-            <h2>Care that feels warm, thoughtful, and clear.</h2>
+            <p className="eyebrow">{aboutPage?.introEyebrow || "Our Approach"}</p>
+            <h2>{aboutPage?.introTitle || "Care that feels warm, thoughtful, and clear."}</h2>
           </div>
         </Reveal>
         <Reveal variant="up" delayMs={40}>
           <div className="about-page-intro-copy">
-            <p>
-              We offer a personalised, friendly, and caring service. We listen to your concerns, talk things through clearly, and give objective options from best care to what is reasonable, so you can choose what suits your pet and you best.
-            </p>
-            <p>
-              Despite being small, we are mighty in the services we offer. We draw on a team with different areas of expertise and keep decisions guided by kindness, clinical standards, and fairness.
-            </p>
+            {introParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
         </Reveal>
       </section>
@@ -91,17 +92,15 @@ export default async function AboutPage() {
         <div className="shell about-page-story">
           <Reveal variant="left">
             <div className="about-page-story-copy">
-              <p className="eyebrow">Our Story</p>
-              <h2>Born from values, not from a business model.</h2>
-              <p>
-                After years in veterinary medicine, the team wanted to practise in a way that placed animals, families, and ethical decision-making first. The Sutton Vet exists to provide that bridge: independent, locally vet-owned, and guided by conscience rather than convenience.
-              </p>
+              <p className="eyebrow">{aboutPage?.storyEyebrow || "Our Story"}</p>
+              <h2>{aboutPage?.storyTitle || "Born from values, not from a business model."}</h2>
+              <p>{aboutPage?.storyText || "The Sutton Vet was created to place animals, families, and ethical decision-making first."}</p>
             </div>
           </Reveal>
 
           <Reveal variant="right" delayMs={60}>
             <div className="about-page-values">
-              {carePillars.map((item, index) => (
+              {pillars.map((item, index) => (
                 <article key={item.label}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <h3>{item.label}</h3>
@@ -121,10 +120,10 @@ export default async function AboutPage() {
         </Reveal>
         <Reveal variant="right" delayMs={40}>
           <div className="about-page-difference-copy">
-            <p className="eyebrow">A Different Kind Of Veterinary Service</p>
-            <h2>Small enough to know you, big enough to serve you.</h2>
+            <p className="eyebrow">{aboutPage?.differenceEyebrow || "A Different Kind Of Veterinary Service"}</p>
+            <h2>{aboutPage?.differenceTitle || "Small enough to know you, big enough to serve you."}</h2>
             <div className="about-page-difference-list">
-              {differencePoints.map((item) => (
+              {differences.map((item) => (
                 <span key={item}>{item}</span>
               ))}
             </div>
@@ -135,17 +134,17 @@ export default async function AboutPage() {
       <section className="shell about-page-visit" id="opening-times">
         <Reveal variant="left">
           <div className="about-page-visit-copy">
-            <p className="eyebrow">Visit Information</p>
-            <h2>Opening times, parking, and access in one simple place.</h2>
+            <p className="eyebrow">{aboutPage?.visitEyebrow || "Visit Information"}</p>
+            <h2>{aboutPage?.visitTitle || "Opening times, parking, and access in one simple place."}</h2>
             <p id="parking-access">
-              The clinic is based near Hackbridge Rail Station, with step-free access and nearby parking options to help the first visit feel easier.
+              {aboutPage?.visitDescription || "The clinic is based near Hackbridge Rail Station, with step-free access and nearby parking."}
             </p>
           </div>
         </Reveal>
 
         <Reveal variant="up" delayMs={40}>
           <div className="about-page-visit-list" id="find-us">
-            {visitDetails.map((item) => (
+            {visits.map((item) => (
               <div key={item.label}>
                 <span>{item.label}</span>
                 <strong>{item.value}</strong>
@@ -153,11 +152,11 @@ export default async function AboutPage() {
             ))}
             <div>
               <span>Telephone</span>
-              <a href="tel:07440278373">07440278373</a>
+              <a href={siteSettings.ctas.call}>{siteSettings.phone}</a>
             </div>
             <div>
               <span>Email</span>
-              <a href="mailto:info@thesuttonvet.co.uk">info@thesuttonvet.co.uk</a>
+              <a href={`mailto:${siteSettings.email}`}>{siteSettings.email}</a>
             </div>
           </div>
         </Reveal>
