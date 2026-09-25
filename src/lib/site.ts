@@ -1,7 +1,8 @@
 import { visualAssets } from "./visualAssets";
 
-const pmsBookingUrl = process.env.NEXT_PUBLIC_LUPA_BOOKING_URL || process.env.NEXT_PUBLIC_PMS_BOOKING_URL || "/book";
-const pmsRegistrationUrl = process.env.NEXT_PUBLIC_LUPA_REGISTRATION_URL || process.env.NEXT_PUBLIC_PMS_REGISTRATION_URL || "/register";
+// Registration and booking now run through the website's live Lupa API forms.
+const pmsBookingUrl = "/book";
+const pmsRegistrationUrl = "/register";
 const pmsHealthPlanUrl = process.env.NEXT_PUBLIC_LUPA_HEALTHPLAN_URL || process.env.NEXT_PUBLIC_PMS_HEALTH_PLAN_URL || "/health-plan";
 
 export const siteConfig = {

@@ -187,7 +187,12 @@ function buildWhatsappHref(number: string, message: string) {
 }
 
 function resolvePmsUrl(value: string | undefined, fallback: string) {
-  if (!value || value === "/contact#book" || value === "/contact#register") {
+  if (
+    !value ||
+    value === "/contact#book" ||
+    value === "/contact#register" ||
+    value.startsWith("/pms-integration")
+  ) {
     return fallback;
   }
 

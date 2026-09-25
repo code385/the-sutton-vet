@@ -1,5 +1,9 @@
 const defaultLupaApiBaseUrl = "https://api.lupapets.com/api/external";
 
+function resolveJourneyUrl(value: string | undefined, fallback: string) {
+  return !value || value.startsWith("/pms-integration") ? fallback : value;
+}
+
 export type LupaIntegrationStatus = {
   apiBaseUrl: string;
   hasApiKey: boolean;
@@ -45,8 +49,8 @@ export const lupaConfig = {
   apiKey: process.env.LUPA_API_KEY || "",
   companyId: process.env.LUPA_COMPANY_ID || "",
   storeId: process.env.LUPA_STORE_ID || "",
-  bookingUrl: process.env.NEXT_PUBLIC_LUPA_BOOKING_URL || process.env.NEXT_PUBLIC_PMS_BOOKING_URL || "/pms-integration?flow=book",
-  registrationUrl: process.env.NEXT_PUBLIC_LUPA_REGISTRATION_URL || process.env.NEXT_PUBLIC_PMS_REGISTRATION_URL || "/pms-integration?flow=register",
+  bookingUrl: resolveJourneyUrl(process.env.NEXT_PUBLIC_LUPA_BOOKING_URL || process.env.NEXT_PUBLIC_PMS_BOOKING_URL, "/book"),
+  registrationUrl: resolveJourneyUrl(process.env.NEXT_PUBLIC_LUPA_REGISTRATION_URL || process.env.NEXT_PUBLIC_PMS_REGISTRATION_URL, "/register"),
   healthPlanUrl: process.env.NEXT_PUBLIC_LUPA_HEALTHPLAN_URL || process.env.NEXT_PUBLIC_PMS_HEALTH_PLAN_URL || "/health-plan",
   paymentsEnabled: process.env.LUPA_PAY_ENABLED === "true",
   healthPlanEnabled: process.env.LUPA_HEALTH_PLAN_ENABLED === "true",
