@@ -277,39 +277,41 @@ export function ChatWidget({ siteSettings, emergencyKeywords }: ChatWidgetProps)
             ))}
           </div>
 
-          {hasStartedConversation ? (
-            <button className="chat-reset" type="button" onClick={restartConversation}>
-              Choose another topic
-            </button>
-          ) : null}
+          <div className="chat-panel-controls">
+            {hasStartedConversation ? (
+              <button className="chat-reset" type="button" onClick={restartConversation}>
+                Choose another topic
+              </button>
+            ) : null}
 
-          <form
-            className="chat-form"
-            onSubmit={(event) => {
-              event.preventDefault();
-              submitQuery(draft);
-            }}
-          >
-            <label className="sr-only" htmlFor="chat-query">
-              Ask a question
-            </label>
-            <input
-              id="chat-query"
-              value={draft}
-              onChange={(event) => setDraft(event.target.value)}
-              placeholder={siteSettings.chatSettings.inputPlaceholder}
-            />
-            <button className="button button-primary" type="submit">
-              Send
-            </button>
-          </form>
+            <form
+              className="chat-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                submitQuery(draft);
+              }}
+            >
+              <label className="sr-only" htmlFor="chat-query">
+                Ask a question
+              </label>
+              <input
+                id="chat-query"
+                value={draft}
+                onChange={(event) => setDraft(event.target.value)}
+                placeholder={siteSettings.chatSettings.inputPlaceholder}
+              />
+              <button className="button button-primary" type="submit">
+                Send
+              </button>
+            </form>
 
-          <div className="chat-static-actions">
-            {quickActions.map((action) => (
-              <a key={action.label} className={`button ${action.variant}`} href={action.href} target="_blank" rel="noreferrer">
-                {action.label}
-              </a>
-            ))}
+            <div className="chat-static-actions">
+              {quickActions.map((action) => (
+                <a key={action.label} className={`button ${action.variant}`} href={action.href} target="_blank" rel="noreferrer">
+                  {action.label}
+                </a>
+              ))}
+            </div>
           </div>
         </section>
       ) : null}
