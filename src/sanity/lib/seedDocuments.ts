@@ -631,7 +631,7 @@ export const allSeedDocuments: SanitySeedDocument[] = [
     heroEyebrow: "About The Sutton Vet",
     heroTitle: "Independent, family-owned, and rooted in Sutton.",
     heroDescription: "A small independent practice offering gentle, advanced veterinary care at fair prices.",
-    heroImageUrl: visualAssets.gingerSpanielHero,
+    heroImageUrl: visualAssets.aboutClinicCare,
     introEyebrow: "Our Approach",
     introTitle: "Care that feels warm, thoughtful, and clear.",
     introParagraphs: ["We offer a personalised, friendly, and caring service with objective options explained clearly.", "Our decisions are guided by kindness, clinical standards, and fairness."],

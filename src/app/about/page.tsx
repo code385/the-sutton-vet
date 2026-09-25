@@ -43,6 +43,10 @@ const visitDetails = [
 export default async function AboutPage() {
   const [siteSettingsDocument, aboutPage] = await Promise.all([getSiteSettingsDocument(), getAboutPageDocument()]);
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
+  const configuredHeroImage = aboutPage?.heroImageUrl;
+  const heroImage = !configuredHeroImage || configuredHeroImage === visualAssets.gingerSpanielHero
+    ? visualAssets.aboutClinicCare
+    : configuredHeroImage;
   const pillars = aboutPage?.carePillars?.length ? aboutPage.carePillars : carePillars;
   const differences = aboutPage?.differencePoints?.length ? aboutPage.differencePoints : differencePoints;
   const visits = aboutPage?.visitDetails?.length ? aboutPage.visitDetails.map((item) => ({ label: item.label || "Detail", value: item.text || "" })) : visitDetails;
@@ -71,7 +75,7 @@ export default async function AboutPage() {
         </Reveal>
 
         <Reveal variant="right" delayMs={40}>
-          <div className="about-page-hero-media about-page-hero-image" style={{ backgroundImage: `url(${aboutPage?.heroImageUrl || visualAssets.gingerSpanielHero})` }} aria-hidden="true" />
+          <div className="about-page-hero-media about-page-hero-image" style={{ backgroundImage: `url(${heroImage})` }} aria-hidden="true" />
         </Reveal>
       </section>
 

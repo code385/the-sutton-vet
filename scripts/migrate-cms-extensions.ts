@@ -39,6 +39,7 @@ async function run() {
 
   await client.createIfNotExists(job);
   await client.createIfNotExists(about);
+  await client.patch("aboutPage").set({ heroImageUrl: about.heroImageUrl }).commit();
 
   const chatSettings = siteSettings.chatSettings as Record<string, unknown>;
   await client.createIfNotExists(siteSettings);
