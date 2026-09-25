@@ -19863,24 +19863,6 @@ small,
   text-transform: uppercase;
 }
 
-.chat-reset {
-  justify-self: start;
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid currentColor;
-  background: transparent;
-  color: var(--client-purple);
-  font: inherit;
-  font-size: 0.82rem;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.chat-reset:hover,
-.chat-reset:focus-visible {
-  color: var(--client-gold);
-}
-
 /* Compact chat layout keeps the conversation readable above persistent actions. */
 .chat-panel {
   top: auto;
@@ -19896,23 +19878,95 @@ small,
 .chat-panel-header {
   flex: 0 0 auto;
   align-items: center;
+  margin: -0.9rem -0.9rem 0;
+  padding: 0.72rem 0.82rem;
+  border-radius: 17px 17px 0 0;
+  color: #ffffff;
+  background: var(--client-purple);
 }
 
-.chat-panel-header .eyebrow {
+.chat-assistant-identity,
+.chat-panel-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.chat-assistant-identity {
+  min-width: 0;
+  gap: 0.65rem;
+}
+
+.chat-assistant-avatar {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  color: var(--client-purple);
+  background: var(--client-gold);
+  font-size: 0.67rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.chat-assistant-identity h2 {
   margin: 0;
-  font-size: 0.68rem;
+  overflow: hidden;
+  color: #ffffff !important;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.chat-panel-header h2 {
-  margin-top: 0.12rem;
-  font-size: 1.08rem;
+.chat-assistant-identity p {
+  margin: 0.16rem 0 0;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.67rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-panel-header-actions {
+  flex: 0 0 auto;
+  gap: 0.4rem;
+}
+
+.chat-restart {
+  min-height: 1.85rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  color: #ffffff;
+  background: transparent;
+  font: inherit;
+  font-size: 0.66rem;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .chat-close {
   flex: 0 0 auto;
   width: 1.9rem;
   height: 1.9rem;
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.1);
   cursor: pointer;
+}
+
+.chat-close span {
+  background: #ffffff;
+}
+
+.chat-restart:hover,
+.chat-restart:focus-visible,
+.chat-close:hover,
+.chat-close:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .chat-approved-strip {
@@ -19968,6 +20022,24 @@ small,
   font-size: 0.65rem;
 }
 
+.chat-message.is-intro {
+  width: 100%;
+  max-width: none;
+  justify-items: center;
+  padding: 0.85rem 0.6rem;
+  border: 0;
+  text-align: center;
+  background: transparent;
+}
+
+.chat-message.is-intro .chat-message-label {
+  color: var(--client-purple);
+}
+
+.chat-message.is-intro > p:last-child {
+  max-width: 31rem;
+}
+
 .chat-panel-controls {
   flex: 0 0 auto;
   display: grid;
@@ -19976,17 +20048,19 @@ small,
   border-top: 1px solid rgba(77, 24, 111, 0.12);
 }
 
-.chat-reset {
-  width: fit-content;
-  justify-self: start;
-  align-self: start;
-  padding: 0.3rem 0.58rem;
-  border: 1px solid rgba(77, 24, 111, 0.16);
-  border-radius: 999px;
+.chat-suggestions {
+  display: grid;
+  min-width: 0;
+  gap: 0.32rem;
+}
+
+.chat-suggestions > p {
+  margin: 0;
   color: var(--client-purple);
-  background: #f8f5f1;
-  font-size: 0.7rem;
-  line-height: 1.2;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .chat-form {
@@ -20046,8 +20120,38 @@ small,
     border-radius: 16px;
   }
 
-  .chat-panel-header h2 {
-    font-size: 1rem;
+  .chat-panel-header {
+    margin: -0.75rem -0.75rem 0;
+    padding: 0.68rem 0.72rem;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .chat-assistant-avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .chat-assistant-identity h2 {
+    max-width: 12rem;
+    font-size: 0.82rem;
+  }
+
+  .chat-assistant-identity p {
+    max-width: 11rem;
+    font-size: 0.62rem;
+  }
+
+  .chat-restart {
+    width: 1.9rem;
+    padding: 0;
+    overflow: hidden;
+    color: transparent;
+  }
+
+  .chat-restart::before {
+    content: "New";
+    color: #ffffff;
+    font-size: 0.6rem;
   }
 
   .chat-message {

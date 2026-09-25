@@ -199,7 +199,7 @@ const siteSettingsSeedDocument: SanitySeedDocument = {
     { day: "Saturday", hours: "9:00am - 12.00pm" },
     { day: "Sunday", hours: "Closed" },
   ],
-  whatsappNumber: "923063892101",
+  whatsappNumber: "447440278373",
   whatsappPrefillMessage: "Hi The Sutton Vet, I have a question about registering my pet.",
   lupaBookingUrl: siteConfig.ctas.book,
   lupaRegistrationUrl: siteConfig.ctas.register,

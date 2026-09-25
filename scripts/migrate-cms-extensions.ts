@@ -48,6 +48,7 @@ async function run() {
     .set({
       phone: siteSettings.phone,
       emergencyPhone: siteSettings.emergencyPhone,
+      whatsappNumber: siteSettings.whatsappNumber,
       "chatSettings.contactReply": chatSettings.contactReply,
     })
     .commit();

@@ -204,6 +204,7 @@ const canonicalContactDetails = {
   phone: "0203 603 0298",
   email: "info@thesuttonvet.co.uk",
 };
+const canonicalWhatsappNumber = "447440278373";
 const canonicalSocialLinks: Record<string, string> = {
   facebook: "https://www.facebook.com/profile.php?id=61587599521550",
   instagram: "https://www.instagram.com/thesuttonvet/",
@@ -252,6 +253,11 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
   const whatsappMessage =
     document?.whatsappPrefillMessage ||
     "Hi The Sutton Vet, I have a question about registering my pet.";
+  const configuredWhatsappNumber = document?.whatsappNumber?.replace(/\D/g, "");
+  const whatsappNumber =
+    configuredWhatsappNumber && configuredWhatsappNumber !== "923063892101"
+      ? configuredWhatsappNumber
+      : canonicalWhatsappNumber;
   const chat = document?.chatSettings || {};
   const fallbackChat = fallbackChatSettings();
 
@@ -354,7 +360,7 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
       book: resolvePmsUrl(document?.lupaBookingUrl, siteConfig.ctas.book),
       register: resolvePmsUrl(document?.lupaRegistrationUrl, siteConfig.ctas.register),
       healthPlan: resolvePmsUrl(document?.healthPlanUrl, siteConfig.ctas.healthPlan),
-      whatsapp: buildWhatsappHref(document?.whatsappNumber || "923063892101", whatsappMessage),
+      whatsapp: buildWhatsappHref(whatsappNumber, whatsappMessage),
     },
     chatSettings: {
       eyebrow: chat.eyebrow || fallbackChat.eyebrow,

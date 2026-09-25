@@ -16,6 +16,21 @@ type ChatWidgetProps = {
   emergencyKeywords: string[];
 };
 
+const chatHistoryKey = "sutton-vet-chat-history-v1";
+const maxStoredMessages = 40;
+
+function isChatMessage(value: unknown): value is ChatMessage {
+  if (!value || typeof value !== "object") return false;
+  const message = value as Partial<ChatMessage>;
+  return (
+    typeof message.id === "string" &&
+    (message.role === "bot" || message.role === "user") &&
+    typeof message.text === "string" &&
+    (!message.type || message.type === "standard" || message.type === "emergency") &&
+    (!message.topicLabel || typeof message.topicLabel === "string")
+  );
+}
+
 function buildEmergencyMessage(siteSettings: ResolvedSiteSettings): ChatMessage {
   return {
     id: `bot-emergency-${Date.now()}`,
@@ -171,12 +186,34 @@ export function ChatWidget({ siteSettings, emergencyKeywords }: ChatWidgetProps)
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [draft, setDraft] = useState("");
+  const [historyReady, setHistoryReady] = useState(false);
   const messageListRef = useRef<HTMLDivElement | null>(null);
-  const hasStartedConversation = messages.some((message) => message.role === "user");
 
   useEffect(() => {
-    setMessages(initialMessages);
-  }, [initialMessages]);
+    try {
+      const stored = window.sessionStorage.getItem(chatHistoryKey);
+      if (stored) {
+        const parsed: unknown = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          const restored = parsed.filter(isChatMessage).slice(-maxStoredMessages);
+          if (restored.length) setMessages(restored);
+        }
+      }
+    } catch {
+      window.sessionStorage.removeItem(chatHistoryKey);
+    } finally {
+      setHistoryReady(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!historyReady) return;
+    try {
+      window.sessionStorage.setItem(chatHistoryKey, JSON.stringify(messages.slice(-maxStoredMessages)));
+    } catch {
+      // The chat still works when private browsing or storage policies block persistence.
+    }
+  }, [historyReady, messages]);
 
   const quickActions = useMemo(
     () => [
@@ -200,17 +237,12 @@ export function ChatWidget({ siteSettings, emergencyKeywords }: ChatWidgetProps)
 
     const botReply = resolveTopic(trimmed, siteSettings, emergencyKeywords);
 
-    setMessages((current) => {
-      if (current.length === 1 && current[0]?.id === "bot-intro") {
-        return [userMessage, botReply];
-      }
-
-      return [...current, userMessage, botReply];
-    });
+    setMessages((current) => [...current, userMessage, botReply].slice(-maxStoredMessages));
     setDraft("");
   }
 
   function restartConversation() {
+    window.sessionStorage.removeItem(chatHistoryKey);
     setMessages(initialMessages);
     setDraft("");
   }
@@ -240,31 +272,29 @@ export function ChatWidget({ siteSettings, emergencyKeywords }: ChatWidgetProps)
       {isOpen ? (
         <section className="chat-panel" aria-label="Chat help widget">
           <div className="chat-panel-header">
-            <div>
-              <p className="eyebrow">{siteSettings.chatSettings.eyebrow}</p>
-              <h2>{siteSettings.chatSettings.title}</h2>
+            <div className="chat-assistant-identity">
+              <span className="chat-assistant-avatar" aria-hidden="true">SV</span>
+              <div>
+                <h2>{siteSettings.practiceName} Assistant</h2>
+                <p>Practice information and quick help</p>
+              </div>
             </div>
-            <button className="chat-close" type="button" onClick={() => setIsOpen(false)} aria-label="Close chat">
-              <span />
-              <span />
-            </button>
+            <div className="chat-panel-header-actions">
+              <button className="chat-restart" type="button" onClick={restartConversation}>
+                New chat
+              </button>
+              <button className="chat-close" type="button" onClick={() => setIsOpen(false)} aria-label="Close chat">
+                <span />
+                <span />
+              </button>
+            </div>
           </div>
-
-          {!hasStartedConversation ? (
-            <div className="chat-approved-strip">
-              {siteSettings.chatSettings.topicButtons.map((topic) => (
-                <button key={topic.label} type="button" className="chat-chip" onClick={() => submitQuery(topic.query)}>
-                  {topic.label}
-                </button>
-              ))}
-            </div>
-          ) : null}
 
           <div ref={messageListRef} className="chat-message-list">
             {messages.map((message) => (
               <article
                 key={message.id}
-                className={`chat-message chat-message-${message.role}${message.type === "emergency" ? " is-emergency" : ""}`}
+                className={`chat-message chat-message-${message.role}${message.type === "emergency" ? " is-emergency" : ""}${message.id === "bot-intro" ? " is-intro" : ""}`}
               >
                 {message.topicLabel ? <p className="chat-message-label">{message.topicLabel}</p> : null}
                 <p>{message.text}</p>
@@ -278,11 +308,16 @@ export function ChatWidget({ siteSettings, emergencyKeywords }: ChatWidgetProps)
           </div>
 
           <div className="chat-panel-controls">
-            {hasStartedConversation ? (
-              <button className="chat-reset" type="button" onClick={restartConversation}>
-                Choose another topic
-              </button>
-            ) : null}
+            <div className="chat-suggestions">
+              <p>Suggested questions</p>
+              <div className="chat-approved-strip">
+                {siteSettings.chatSettings.topicButtons.map((topic) => (
+                  <button key={topic.label} type="button" className="chat-chip" onClick={() => submitQuery(topic.query)}>
+                    {topic.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <form
               className="chat-form"
