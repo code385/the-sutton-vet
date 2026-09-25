@@ -19798,6 +19798,116 @@ small,
   .lupa-form .button { width: 100%; justify-content: center; }
 }
 
+.lupa-existing-client {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.1rem;
+  border: 1px solid rgba(75, 20, 95, 0.14);
+  border-left: 4px solid var(--client-gold);
+  background: #faf7f1;
+}
+
+.lupa-existing-client .eyebrow,
+.lupa-existing-client h2,
+.lupa-existing-client p,
+.lupa-new-client-label {
+  margin: 0;
+}
+
+.lupa-existing-client h2 {
+  margin-top: 0.25rem;
+  color: var(--client-purple);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: 1.15;
+}
+
+.lupa-existing-client p:not(.eyebrow) {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.lupa-new-client-label {
+  padding-top: 0.25rem;
+  color: var(--client-purple);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.chat-reset {
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--client-purple);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.chat-reset:hover,
+.chat-reset:focus-visible {
+  color: var(--client-gold);
+}
+
+@media (max-width: 720px) {
+  .lupa-existing-client {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1181px) and (max-width: 1480px) {
+  .sv-header-main-clean {
+    grid-template-columns: minmax(11rem, 13rem) minmax(0, 1fr) auto !important;
+    column-gap: clamp(0.7rem, 1.25vw, 1.15rem) !important;
+  }
+
+  .sv-nav-clean {
+    justify-content: flex-end !important;
+    gap: clamp(0.65rem, 0.9vw, 0.95rem) !important;
+  }
+
+  .sv-nav-link-clean,
+  .sv-nav-trigger-clean {
+    font-size: clamp(0.82rem, 0.86vw, 0.92rem) !important;
+  }
+
+  .sv-header-actions-clean {
+    gap: 0.55rem !important;
+  }
+
+  .sv-header-actions-clean .button {
+    min-height: 50px !important;
+    padding: 0.78rem 1rem !important;
+    font-size: 0.86rem !important;
+  }
+}
+
+@media (min-width: 1081px) and (max-width: 1180px) {
+  .sv-header-main-clean {
+    display: flex !important;
+    justify-content: space-between !important;
+    min-height: 92px !important;
+  }
+
+  .sv-nav-clean,
+  .sv-header-actions-clean {
+    display: none !important;
+  }
+
+  .sv-menu-toggle {
+    display: grid !important;
+    flex: 0 0 auto;
+  }
+}
+
 /* Service directory and detail collections. */
 .services-master-heading-wide {
   display: grid;

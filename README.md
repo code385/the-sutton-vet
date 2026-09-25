@@ -78,6 +78,7 @@ Never expose read/write tokens with a `NEXT_PUBLIC_` prefix.
 - `NEXT_PUBLIC_LUPA_BOOKING_URL`: public booking URL from Lupa.
 - `NEXT_PUBLIC_LUPA_REGISTRATION_URL`: public registration URL from Lupa.
 - `NEXT_PUBLIC_LUPA_HEALTHPLAN_URL`: optional public Health Plan URL.
+- `NEXT_PUBLIC_LUPA_CLIENT_PORTAL_URL`: secure Lupa login/portal URL for existing clients. The external API does not provide login, OTP, or session endpoints.
 
 The `NEXT_PUBLIC_PMS_*` variables are legacy fallbacks. Prefer `NEXT_PUBLIC_LUPA_*`.
 
@@ -157,6 +158,7 @@ Before live Lupa activation, obtain:
 4. Permissions for services, appointment types, slots, clients, pets, and booking requests.
 5. Approved test payloads and end-to-end test procedure.
 6. Public booking and registration URLs if Lupa expects hosted redirects.
+7. A hosted client-portal/login URL for existing clients; do not build login from the server API key.
 
 A Vercel HTTP `200` only means the website endpoint responded. Check the JSON `status` and `state`; an upstream `403` still means Lupa denied the request.
 
@@ -165,6 +167,8 @@ A Vercel HTTP `200` only means the website endpoint responded. Check the JSON `s
 - Book/Register buttons use public Lupa URLs when configured.
 - Without them, the temporary handover page and contact fallback remain.
 - API booking should activate only after appointment types and slots are accessible and test writes are approved.
+- Sutton currently needs active appointment types in Lupa before the website can request a valid slot and submit its required `visitTypeId`.
+- The Lupa API accepts breed as text and does not expose a breed catalogue. The website therefore uses a controlled common-breed list with `Unknown` and `Other` fallbacks.
 - Do not enable Lupa Pay.
 - Keep Health Plan informational in Sanity until an approved provider/API or hosted URL exists.
 - Services can be listed without prices; use quote messaging where assessment affects cost.

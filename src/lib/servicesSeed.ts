@@ -561,8 +561,8 @@ seededServices.push(
     slug: { current: "nurse-clinics" },
     shortDescription: "Nurse-led support for routine checks, preventative care, nail trims, anal glands, and practical follow-up guidance.",
     lead: "Nurse clinics help owners access smaller but important care moments without making the journey feel complicated.",
-    imageUrl: visualAssets.warmPetOwner,
-    alt: "Veterinary nurse supporting a pet owner during a calm clinic appointment",
+    imageUrl: visualAssets.friendlyDogPortrait,
+    alt: "Friendly dog ready for a calm nurse clinic appointment",
     ctaLabel: "Book a nurse clinic",
     ctaHref: siteConfig.ctas.book,
     content: [

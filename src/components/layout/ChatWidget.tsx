@@ -210,6 +210,11 @@ export function ChatWidget({ siteSettings, emergencyKeywords }: ChatWidgetProps)
     setDraft("");
   }
 
+  function restartConversation() {
+    setMessages(initialMessages);
+    setDraft("");
+  }
+
   useEffect(() => {
     if (!isOpen || !messageListRef.current) {
       return;
@@ -271,6 +276,12 @@ export function ChatWidget({ siteSettings, emergencyKeywords }: ChatWidgetProps)
               </article>
             ))}
           </div>
+
+          {hasStartedConversation ? (
+            <button className="chat-reset" type="button" onClick={restartConversation}>
+              Choose another topic
+            </button>
+          ) : null}
 
           <form
             className="chat-form"

@@ -34,9 +34,31 @@ async function run() {
   const home = seedDocument("homePage");
   const cookiePolicy = seedDocument("legal-cookie-policy");
   const privacyPolicy = seedDocument("legal-privacy-policy");
+  const siteSettings = seedDocument("siteSettings");
+  const nurseClinics = seedDocument("service-nurse-clinics");
 
   await client.createIfNotExists(job);
   await client.createIfNotExists(about);
+
+  const chatSettings = siteSettings.chatSettings as Record<string, unknown>;
+  await client.createIfNotExists(siteSettings);
+  await client
+    .patch("siteSettings")
+    .set({
+      phone: siteSettings.phone,
+      emergencyPhone: siteSettings.emergencyPhone,
+      "chatSettings.contactReply": chatSettings.contactReply,
+    })
+    .commit();
+
+  await client.createIfNotExists(nurseClinics);
+  await client
+    .patch("service-nurse-clinics")
+    .set({
+      imageUrl: nurseClinics.imageUrl,
+      alt: nurseClinics.alt,
+    })
+    .commit();
 
   for (const category of serviceCategorySeedDocuments) {
     await client.createIfNotExists(category);

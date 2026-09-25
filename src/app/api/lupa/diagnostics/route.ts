@@ -5,9 +5,8 @@ import { diagnoseLupaRequest, getLupaIntegrationStatus, lupaConfig } from "@/lib
 export const dynamic = "force-dynamic";
 
 const configuredPostCalls = [
-  { method: "POST", endpoint: "/v1/clients/create", purpose: "Create an owner", scopeLocation: "JSON body" },
-  { method: "POST", endpoint: "/v1/pets/create", purpose: "Create the owner's pet", scopeLocation: "JSON body" },
-  { method: "POST", endpoint: "/v1/request-booking", purpose: "Send an appointment request", scopeLocation: "JSON body" },
+  { method: "POST", endpoint: "/v1/clients/create", purpose: "Create a new owner and pet", scopeLocation: "JSON body" },
+  { method: "POST", endpoint: "/v1/appointments", purpose: "Send the new client's appointment request", scopeLocation: "JSON body" },
 ];
 
 export async function GET(request: NextRequest) {
@@ -23,7 +22,7 @@ export async function GET(request: NextRequest) {
     diagnoseLupaRequest("/v1/services?limit=1&direction=asc"),
     diagnoseLupaRequest("/v1/appointment-types?limit=1&direction=asc"),
     diagnoseLupaRequest("/v1/health-plans?limit=1&direction=asc"),
-    diagnoseLupaRequest(`/v1/companies/store/${lupaConfig.storeId}/available-slots?month=${month}&duration=30`),
+    diagnoseLupaRequest(`/v2/get-available-slots?month=${month}&duration=30&storeId=${lupaConfig.storeId}`),
   ]);
   const status = getLupaIntegrationStatus();
 

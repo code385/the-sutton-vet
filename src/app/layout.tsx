@@ -9,6 +9,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "The Sutton Vet",
   description: "Independent veterinary care in Sutton with a mindful, gentle, and clearly structured digital experience.",
+  icons: {
+    icon: "/Sutton_vet_logo_aw.png",
+    shortcut: "/Sutton_vet_logo_aw.png",
+    apple: "/Sutton_vet_logo_aw.png",
+  },
 };
 
 export default async function RootLayout({

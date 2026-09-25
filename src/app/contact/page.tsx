@@ -21,7 +21,7 @@ const clinicHours = [
 ];
 
 const contactDetails = [
-  { label: "Telephone", value: "07440278373", href: "tel:07440278373" },
+  { label: "Telephone", value: "0203 603 0298", href: "tel:02036030298" },
   { label: "Email", value: "info@thesuttonvet.co.uk", href: "mailto:info@thesuttonvet.co.uk" },
   { label: "Online Booking", value: "24/7 online portal available via our website." },
 ];

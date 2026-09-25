@@ -12,9 +12,9 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const params = new URLSearchParams({ month, duration: String(duration) });
+    const params = new URLSearchParams({ month, duration: String(duration), storeId: lupaConfig.storeId });
     if (visitTypeId) params.set("visitTypeId", visitTypeId);
-    const data = await lupaFetch<Record<string, unknown>>(`/v1/companies/store/${lupaConfig.storeId}/available-slots?${params}`);
+    const data = await lupaFetch<Record<string, unknown>>(`/v2/get-available-slots?${params}`);
     return NextResponse.json({ available: true, source: "lupa", data });
   } catch (error) {
     return NextResponse.json({

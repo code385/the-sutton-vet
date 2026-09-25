@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getLupaErrorState, getLupaRecordId, LupaIntegrationError, lupaFetch, withLupaScope } from "@/lib/lupa";
 
 const clean = (value: unknown, maxLength: number) => typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+const titleOptions = ["Mr", "Mrs", "Miss", "Ms", "Mx", "Dr", "Prof"];
 
 export async function POST(request: NextRequest) {
   let input: Record<string, unknown>;
@@ -16,14 +17,15 @@ export async function POST(request: NextRequest) {
 
   const firstName = clean(input.firstName, 80);
   const lastName = clean(input.lastName, 80);
+  const title = clean(input.title, 20);
   const email = clean(input.email, 160);
   const phone = clean(input.phone, 40);
   const name = clean(input.petName, 80);
   const species = clean(input.species, 50) || "Dog";
   const breed = clean(input.breed, 100) || "Unknown";
   const sex = clean(input.sex, 20) || "Unknown";
-  if (!firstName || !lastName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || !name) {
-    return NextResponse.json({ ok: false, error: "Please provide your name, a valid email, phone number, and your pet's name." }, { status: 400 });
+  if (!titleOptions.includes(title) || !firstName || !lastName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !phone || !name) {
+    return NextResponse.json({ ok: false, error: "Please provide your title, name, a valid email, phone number, and your pet's name." }, { status: 400 });
   }
   if (!["Dog", "Cat", "Rabbit", "Other"].includes(species) || !["Male", "Female", "Unknown"].includes(sex)) {
     return NextResponse.json({ ok: false, error: "Please choose a species and sex from the available options." }, { status: 400 });
@@ -36,7 +38,7 @@ export async function POST(request: NextRequest) {
     const client = await lupaFetch<Record<string, unknown>>("/v1/clients/create", {
       method: "POST",
       body: JSON.stringify(withLupaScope({
-        firstName, lastName, email, phone,
+        title, firstName, lastName, email, phone,
         marketingCommsPreferences: [],
         essentialCommsPreferences: allowContact ? ["email", "sms"] : [],
         newPets: [{ name, species, breed, sex }],

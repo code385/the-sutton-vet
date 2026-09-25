@@ -201,7 +201,7 @@ function resolvePmsUrl(value: string | undefined, fallback: string) {
 
 
 const canonicalContactDetails = {
-  phone: "07440278373",
+  phone: "0203 603 0298",
   email: "info@thesuttonvet.co.uk",
 };
 const canonicalSocialLinks: Record<string, string> = {
@@ -237,7 +237,7 @@ function fallbackChatSettings(): ResolvedSiteSettings["chatSettings"] {
     bookingReply: "Online registration and booking are being connected through Lupa. If the online journey is unavailable, please call or message the practice and the team will help directly.",
     servicesReply: "The practice offers consultations, daytime urgent care, preventative care, vaccinations, dentistry, diagnostics, surgery, orthopaedic procedures, endoscopy, home visits, and sensitive end-of-life support. Open the Services menu for full details.",
     careersReply: "The Sutton Vet is currently advertising a Veterinary Nurse opportunity. Visit the Careers page for the role overview and application email.",
-    contactReply: "Call 07440 278373 or email info@thesuttonvet.co.uk. You can also use the Contact page for directions, parking, and opening times.",
+    contactReply: "Call 0203 603 0298 or email info@thesuttonvet.co.uk. You can also use the Contact page for directions, parking, and opening times.",
     paymentsReply: "There is no Lupa Pay integration planned. Please contact the practice for current payment arrangements and any available options.",
     fallbackReply: "I can help with practice information only. Ask about services, hours, location, pricing, Health Plans, careers, registration, or booking. For clinical advice or urgent concerns, please call the practice.",
     emergencyLabel: "Urgent help",
