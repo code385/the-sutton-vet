@@ -11382,6 +11382,15 @@ span {
   box-shadow: 0 20px 44px rgba(24, 32, 45, 0.1);
 }
 
+.about-page-hero-image {
+  aspect-ratio: 3 / 2;
+  min-height: 0;
+  background-color: #f7f3ed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .about-page-hero-media video {
   width: 100%;
   height: 100%;
@@ -11561,6 +11570,10 @@ span {
   .about-page-hero-media,
   .about-page-hero-media video {
     min-height: 17rem;
+  }
+
+  .about-page-hero-image {
+    min-height: 0;
   }
 
   .about-page-intro,
