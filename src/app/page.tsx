@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Reveal } from "@/components/shared/Reveal";
+import { ConsentManagedMap } from "@/components/shared/ConsentManagedMap";
 import { seededServices } from "@/lib/servicesSeed";
 import { visualAssets } from "@/lib/visualAssets";
 import { getHomePageDocument } from "@/sanity/lib/homePage";
@@ -211,12 +212,10 @@ export default async function Home() {
 
         <Reveal variant="up" delayMs={50}>
           <div className="sv-home-location-map">
-            <iframe
+            <ConsentManagedMap
               src={siteSettings.googleMapEmbedUrl}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
               title={`${siteSettings.practiceName} map`}
+              actionHref={siteSettings.hasMapUrl}
             />
           </div>
         </Reveal>

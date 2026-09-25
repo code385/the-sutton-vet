@@ -62,7 +62,7 @@ export function HomeSocialShowcase({
     return () => window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, handleConsentUpdate);
   }, []);
 
-  if (!hasLoadedConsent || !preferences.marketing) {
+  if (!hasLoadedConsent || !preferences.externalMedia) {
     return null;
   }
 

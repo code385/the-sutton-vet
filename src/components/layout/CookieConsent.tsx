@@ -38,7 +38,7 @@ export function CookieConsent() {
   const optionalSummary = useMemo(() => {
     const enabled = Object.entries(preferences)
       .filter(([key, value]) => key !== "necessary" && value)
-      .map(([key]) => key);
+      .map(([key]) => key === "externalMedia" ? "external media" : key);
 
     if (enabled.length === 0) {
       return "Optional cookies are currently disabled.";
@@ -54,14 +54,12 @@ export function CookieConsent() {
     setIsOpen(false);
   }
 
-  function togglePreference(key: "preferences" | "analytics" | "marketing") {
+  function togglePreference(key: "analytics" | "externalMedia") {
     setPreferences((current) => ({
       ...current,
       [key]: !current[key],
     }));
   }
-
-  const canDismiss = hasSavedChoice;
 
   return (
     <>
@@ -70,22 +68,18 @@ export function CookieConsent() {
         <span className="sr-only">Manage cookie settings</span>
       </button>
 
-      {isOpen ? <div className="cookie-backdrop" aria-hidden="true" onClick={() => (canDismiss ? setIsOpen(false) : undefined)} /> : null}
+      {isOpen ? <div className="cookie-backdrop" aria-hidden="true" onClick={() => hasSavedChoice ? setIsOpen(false) : applyConsent(defaultCookiePreferences)} /> : null}
 
       <aside className={`cookie-drawer${isOpen ? " is-open" : ""}`} aria-label="Cookie consent panel">
         <div className="cookie-drawer-scroll">
           <div className="cookie-drawer-header">
-            <p className="eyebrow">Cookie Consent</p>
-            <h2>Privacy choices should be clear, balanced, and easy to change.</h2>
+            <p className="eyebrow">Privacy Choices</p>
+            <h2>Your cookie settings.</h2>
             <p>
-              We use necessary technologies to keep the site secure and accessible. Optional analytics, marketing, and
-              embedded media stay blocked until you choose to allow them.
+              We use essential technologies to run this website. With your permission, we also use analytics and
+              external media to improve your experience.
             </p>
-            <p>
-              Under the project scope, <strong>Accept</strong> and <strong>Reject</strong> must be presented with equal
-              prominence, and no optional category should be pre-enabled.
-            </p>
-            {!hasSavedChoice ? <p className="cookie-required-note">A choice is required before optional technologies can load.</p> : null}
+            {!hasSavedChoice ? <p className="cookie-required-note">Optional technologies are off unless you choose to allow them.</p> : null}
           </div>
 
           <div className="cookie-actions">
@@ -95,9 +89,8 @@ export function CookieConsent() {
               onClick={() =>
                 applyConsent({
                   necessary: true,
-                  preferences: true,
                   analytics: true,
-                  marketing: true,
+                  externalMedia: true,
                 })
               }
             >
@@ -109,21 +102,18 @@ export function CookieConsent() {
               onClick={() =>
                 applyConsent({
                   necessary: true,
-                  preferences: false,
                   analytics: false,
-                  marketing: false,
+                  externalMedia: false,
                 })
               }
             >
-              Reject all
+              Reject optional
             </button>
           </div>
 
           <div className="cookie-policy-link">
             <Link href="/cookie-policy">Read the Cookie Policy</Link>
             <Link href="/privacy-policy">Read the Privacy Policy</Link>
-            <Link href="/accessibility">Read the Accessibility Statement</Link>
-            <Link href="/terms">Read the Terms of Business</Link>
           </div>
 
           <div className="cookie-category-list">
@@ -138,25 +128,6 @@ export function CookieConsent() {
                 These support security, accessibility, network management, and storage of your consent choice. They
                 are required for the site to function properly.
               </p>
-            </section>
-
-            <section className="cookie-category">
-              <div className="cookie-category-head">
-                <div>
-                  <h3>Preference cookies</h3>
-                  <span className="cookie-status">Optional</span>
-                </div>
-                <button
-                  className={`cookie-toggle${preferences.preferences ? " is-on" : ""}`}
-                  type="button"
-                  onClick={() => togglePreference("preferences")}
-                  aria-pressed={preferences.preferences}
-                >
-                  <span />
-                  {preferences.preferences ? "On" : "Off"}
-                </button>
-              </div>
-              <p>These remember optional interface choices and similar convenience settings for returning visitors.</p>
             </section>
 
             <section className="cookie-category">
@@ -184,22 +155,22 @@ export function CookieConsent() {
             <section className="cookie-category">
               <div className="cookie-category-head">
                 <div>
-                  <h3>Marketing and embedded media</h3>
+                  <h3>External media</h3>
                   <span className="cookie-status">Optional</span>
                 </div>
                 <button
-                  className={`cookie-toggle${preferences.marketing ? " is-on" : ""}`}
+                  className={`cookie-toggle${preferences.externalMedia ? " is-on" : ""}`}
                   type="button"
-                  onClick={() => togglePreference("marketing")}
-                  aria-pressed={preferences.marketing}
+                  onClick={() => togglePreference("externalMedia")}
+                  aria-pressed={preferences.externalMedia}
                 >
                   <span />
-                  {preferences.marketing ? "On" : "Off"}
+                  {preferences.externalMedia ? "On" : "Off"}
                 </button>
               </div>
               <p>
-                This category covers marketing pixels plus social or video embeds that may place tracking technologies.
-                They stay off until you opt in.
+                This allows embedded Google Maps, YouTube, and similar third-party media. Direct external links remain
+                available when this category is off.
               </p>
             </section>
           </div>

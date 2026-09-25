@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Reveal } from "@/components/shared/Reveal";
+import { ConsentManagedMap } from "@/components/shared/ConsentManagedMap";
 import { visualAssets } from "@/lib/visualAssets";
 import { getAboutPageDocument } from "@/sanity/lib/contentPages";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
@@ -172,12 +173,10 @@ export default async function AboutPage() {
               Get Directions
             </a>
           </div>
-          <iframe
+          <ConsentManagedMap
             src={siteSettings.googleMapEmbedUrl}
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
             title={`${siteSettings.practiceName} map`}
+            actionHref={siteSettings.hasMapUrl}
           />
         </Reveal>
       </section>

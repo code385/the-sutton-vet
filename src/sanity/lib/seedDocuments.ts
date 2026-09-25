@@ -502,7 +502,7 @@ const legalPageSeedDocuments: SanitySeedDocument[] = [
         title: "Consent principles",
         status: "Mandatory",
         body: [
-          "Optional analytics, marketing pixels, and embedded social or video technologies must remain blocked until the visitor actively opts in.",
+          "Optional analytics and external-media technologies must remain blocked until the visitor actively opts in.",
           "Accept and Reject should remain equally prominent, with no pre-ticked boxes and no background loading of optional scripts before consent.",
           "On this site, optional categories default to off and third-party embeds should remain blocked until the visitor opts in.",
         ],

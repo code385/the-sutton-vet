@@ -32,6 +32,8 @@ async function run() {
   const about = seedDocument("aboutPage");
   const careers = seedDocument("careersPage");
   const home = seedDocument("homePage");
+  const cookiePolicy = seedDocument("legal-cookie-policy");
+  const privacyPolicy = seedDocument("legal-privacy-policy");
 
   await client.createIfNotExists(job);
   await client.createIfNotExists(about);
@@ -75,6 +77,25 @@ async function run() {
       servicesEyebrow: home.servicesEyebrow,
       servicesTitle: home.servicesTitle,
       servicesDescription: home.servicesDescription,
+    })
+    .commit();
+
+  await client.createIfNotExists(cookiePolicy);
+  await client
+    .patch("legal-cookie-policy")
+    .set({
+      description: cookiePolicy.description,
+      sections: cookiePolicy.sections,
+      inventoryItems: cookiePolicy.inventoryItems,
+    })
+    .commit();
+
+  await client.createIfNotExists(privacyPolicy);
+  await client
+    .patch("legal-privacy-policy")
+    .set({
+      description: privacyPolicy.description,
+      sections: privacyPolicy.sections,
     })
     .commit();
 

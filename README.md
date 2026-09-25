@@ -214,6 +214,14 @@ Publish changes in Studio. With the revalidation webhook configured, the relevan
 11. Deploy and complete booking, registration, contact, CMS, and mobile smoke tests.
 12. Remove diagnostics access and rotate temporary credentials.
 
+## Cookie consent
+
+- Consent is stored in the browser for 180 days with a version number, saved date, expiry date, and separate choices for analytics and external media.
+- Optional categories default to off. Accept all, Reject optional, and Manage settings remain equally accessible from the consent panel.
+- Google Maps, YouTube, and similar third-party embeds must use the consent-managed wrapper and stay blocked until external-media consent is granted. Direct map and media links should remain available without consent.
+- Analytics is not currently active. Any future analytics or tag-manager script must load only after analytics consent and must respect later withdrawal.
+- Visitors can reopen the panel from the persistent Cookie settings control in the footer. Update the Cookie Policy inventory whenever a vendor or cookie changes.
+
 ## Security
 
 - Never commit `.env.local`, API keys, tokens, passwords, or diagnostics links.

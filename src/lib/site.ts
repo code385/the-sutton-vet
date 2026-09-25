@@ -397,7 +397,7 @@ export const privacySections = [
     title: "Why the information is used",
     body: [
       "Information is used to respond to enquiries, support registration and booking journeys, maintain security, improve site performance where consent has been provided, and meet applicable legal or regulatory obligations.",
-      "Non-essential analytics, marketing tools, and embedded social or video technologies must remain blocked until the visitor actively opts in.",
+      "Non-essential analytics and external-media technologies must remain blocked until the visitor actively opts in.",
     ],
   },
   {
@@ -436,40 +436,35 @@ export const cookieSections = [
     status: "Always active",
   },
   {
-    title: "Preference cookies",
-    body: "These remember optional interface choices and similar convenience settings. They should remain off unless the visitor actively enables them.",
-    status: "Optional",
-  },
-  {
     title: "Analytics cookies",
-    body: "These measure website usage, performance, and CTA activity. Under the scope, tools such as Google Analytics must not load until the visitor has given clear consent.",
+    body: "No analytics service is currently active. If an analytics tool such as Google Analytics is enabled later, it must remain blocked until the visitor has actively allowed this category.",
     status: "Optional",
   },
   {
-    title: "Marketing and embedded media",
-    body: "This category covers marketing pixels and third-party embeds such as social feeds or future video widgets that may place cookies or similar tracking technologies. They must remain blocked until the visitor opts in.",
+    title: "External media",
+    body: "This category covers embedded Google Maps, YouTube, and similar third-party content. These embeds remain blocked until the visitor opts in, while direct links remain available without consent.",
     status: "Optional",
   },
 ];
 
 export const cookieInventory = [
   {
-    name: "cookie_consent",
+    name: "cookie_consent (local storage)",
     provider: "The Sutton Vet website",
-    purpose: "Stores the visitor's consent preferences for necessary, preferences, analytics, and marketing categories.",
-    duration: "Up to 6 months or until changed",
+    purpose: "Stores the consent version, category choices, saved date, and expiry date.",
+    duration: "180 days or until changed or cleared",
   },
   {
-    name: "Future analytics cookies",
-    provider: "To be confirmed if analytics is enabled",
-    purpose: "Would measure visits, page performance, and CTA events only after consent has been granted.",
-    duration: "To be confirmed before launch",
+    name: "Google Maps storage and cookies",
+    provider: "Google",
+    purpose: "May be set only after external-media consent when an embedded map is loaded.",
+    duration: "Controlled by Google",
   },
   {
-    name: "Future embedded media cookies",
-    provider: "YouTube, Instagram, TikTok, or other approved providers",
-    purpose: "Would support embedded video or social content if those features are activated and the visitor has opted in.",
-    duration: "Controlled by the relevant third party",
+    name: "YouTube storage and cookies",
+    provider: "YouTube / Google",
+    purpose: "May be set only after external-media consent if an embedded practice video is enabled.",
+    duration: "Controlled by YouTube / Google",
   },
 ];
 

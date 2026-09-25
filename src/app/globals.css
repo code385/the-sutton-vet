@@ -4893,6 +4893,21 @@ img {
   gap: 0.8rem;
 }
 
+.consent-map-placeholder {
+  min-height: inherit;
+  border-radius: inherit;
+}
+
+.sv-home-location-map > .consent-map-placeholder,
+.contact-page-v2-map > .consent-map-placeholder {
+  min-height: 100%;
+}
+
+.about-page-map .consent-map-placeholder {
+  min-height: 24rem;
+  border-radius: 8px;
+}
+
 .contact-map-placeholder {
   min-height: clamp(22rem, 46vw, 30rem);
 }
@@ -10002,6 +10017,23 @@ span {
   display: flex;
   flex-wrap: wrap;
   gap: 0.95rem 1.8rem;
+}
+
+.sv-footer-cookie-settings {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--navy);
+  font: inherit;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.sv-footer-cookie-settings:hover,
+.sv-footer-cookie-settings:focus-visible {
+  color: var(--plum);
 }
 
 .sv-footer-copyright-v2 {

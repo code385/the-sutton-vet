@@ -1,4 +1,5 @@
 ﻿import { Reveal } from "@/components/shared/Reveal";
+import { ConsentManagedMap } from "@/components/shared/ConsentManagedMap";
 import { getContactPageDocument } from "@/sanity/lib/contentPages";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 
@@ -151,12 +152,10 @@ export default async function ContactPage() {
 
         <Reveal variant="up" delayMs={50}>
           <div className="contact-page-v2-map">
-            <iframe
+            <ConsentManagedMap
               src={contactPage?.locationMapEmbedUrl || siteSettings.googleMapEmbedUrl}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
               title={`${siteSettings.practiceName} map`}
+              actionHref={siteSettings.hasMapUrl}
             />
           </div>
         </Reveal>

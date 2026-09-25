@@ -100,7 +100,7 @@ export function HomeTrustCommunity({
       {embedUrl ? (
         <Reveal variant="scale" delayMs={80}>
           <ConsentManagedEmbed
-            category="marketing"
+            category="externalMedia"
             title="Practice tour available after consent."
             description="YouTube embeds only load when optional embedded-media cookies are accepted."
             actionHref={homepageVideoUrl || youtubeHref || siteConfig.socials[3]?.href || "https://www.youtube.com/"}

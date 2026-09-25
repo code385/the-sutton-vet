@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CookieSettingsButton } from "@/components/layout/CookieSettingsButton";
 import type { ResolvedSiteSettings } from "@/sanity/lib/siteSettings";
 
 type SiteFooterProps = {
@@ -162,6 +163,7 @@ export function SiteFooter({ siteSettings }: SiteFooterProps) {
               {item.label}
             </Link>
           ))}
+          <CookieSettingsButton />
         </div>
         <p className="sv-footer-copyright-v2">(c) {new Date().getFullYear()} {siteSettings.practiceName}. All rights reserved.</p>
       </div>

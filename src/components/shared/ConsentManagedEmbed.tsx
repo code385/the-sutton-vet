@@ -11,7 +11,7 @@ import {
 } from "@/lib/cookie-consent";
 
 type ConsentManagedEmbedProps = {
-  category: "preferences" | "marketing";
+  category: "analytics" | "externalMedia";
   title: string;
   description: string;
   actionHref: string;
