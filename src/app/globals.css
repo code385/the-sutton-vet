@@ -20416,7 +20416,7 @@ small,
   }
 }
 
-@media (min-width: 1181px) and (max-width: 1480px) {
+@media (min-width: 1321px) and (max-width: 1480px) {
   .sv-header-main-clean {
     grid-template-columns: minmax(11rem, 13rem) minmax(0, 1fr) auto !important;
     column-gap: clamp(0.7rem, 1.25vw, 1.15rem) !important;
@@ -20443,7 +20443,7 @@ small,
   }
 }
 
-@media (min-width: 1081px) and (max-width: 1180px) {
+@media (min-width: 1081px) and (max-width: 1320px) {
   .sv-header-main-clean {
     display: flex !important;
     justify-content: space-between !important;
