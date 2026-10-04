@@ -357,7 +357,7 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
     ctas: {
       call: buildTelHref(canonicalContactDetails.phone),
       emergency: buildTelHref(canonicalContactDetails.phone),
-      book: resolvePmsUrl(document?.lupaBookingUrl, siteConfig.ctas.book),
+      book: siteConfig.ctas.book,
       register: resolvePmsUrl(document?.lupaRegistrationUrl, siteConfig.ctas.register),
       healthPlan: resolvePmsUrl(document?.healthPlanUrl, siteConfig.ctas.healthPlan),
       whatsapp: buildWhatsappHref(whatsappNumber, whatsappMessage),

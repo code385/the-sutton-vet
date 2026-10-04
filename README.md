@@ -68,17 +68,18 @@ Never expose read/write tokens with a `NEXT_PUBLIC_` prefix.
 
 ### Lupa
 
-- `LUPA_API_BASE_URL`: sandbox is `https://api.dev.lupapets.com/api/external`.
+- `LUPA_API_BASE_URL`: production is `https://api.lupapets.com/api/external`. Do not use Lupa's internal dev host for Sutton production data.
 - `LUPA_API_KEY`: server-only API key.
 - `LUPA_COMPANY_ID`: company scope supplied by Lupa.
 - `LUPA_STORE_ID`: Sutton practice/store scope supplied by Lupa.
 - `LUPA_DIAGNOSTICS_KEY`: temporary password protecting diagnostics.
 - `LUPA_PAY_ENABLED`: keep `false`.
 - `LUPA_HEALTH_PLAN_ENABLED`: keep `false` until supported and approved.
-- `NEXT_PUBLIC_LUPA_BOOKING_URL`: public booking URL from Lupa.
+- `NEXT_PUBLIC_LUPA_BOOKING_URL`: optional hosted booking URL override. When empty, `/book` embeds `https://store.lupapets.com/booking/{LUPA_STORE_ID}`.
 - `NEXT_PUBLIC_LUPA_REGISTRATION_URL`: public registration URL from Lupa.
 - `NEXT_PUBLIC_LUPA_HEALTHPLAN_URL`: optional public Health Plan URL.
-- `NEXT_PUBLIC_LUPA_CLIENT_PORTAL_URL`: secure Lupa login/portal URL for existing clients. The external API does not provide login, OTP, or session endpoints.
+
+The `/book` page uses Lupa's hosted booking journey so existing clients can sign in and new clients can register without the website exposing client records. A direct new-tab link is always shown in case browser privacy settings prevent the embedded journey from loading. The external API still does not provide login, OTP, or session endpoints; a future fully custom booking flow would need its own identity verification service.
 
 The `NEXT_PUBLIC_PMS_*` variables are legacy fallbacks. Prefer `NEXT_PUBLIC_LUPA_*`.
 

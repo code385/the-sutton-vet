@@ -19854,6 +19854,225 @@ small,
   line-height: 1.55;
 }
 
+/* Hosted Lupa journey keeps login, registration and booking inside the practice system. */
+.hosted-booking {
+  width: min(1180px, calc(100% - 2rem));
+  margin: clamp(1.75rem, 4vw, 3.5rem) auto clamp(3rem, 7vw, 6rem);
+}
+
+.hosted-booking-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.hosted-booking-header h1,
+.hosted-booking-unavailable h1 {
+  max-width: 15ch;
+  margin: 0.55rem 0 0.75rem;
+  color: var(--client-purple);
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.35rem, 5vw, 4.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.hosted-booking-header > div:first-child > p:last-child,
+.hosted-booking-unavailable > p:not(.eyebrow) {
+  max-width: 43rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+  line-height: 1.7;
+}
+
+.hosted-booking-summary {
+  display: grid;
+  border-top: 1px solid rgba(77, 24, 111, 0.16);
+}
+
+.hosted-booking-summary p {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.65fr) minmax(0, 1.35fr);
+  gap: 1rem;
+  margin: 0;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(77, 24, 111, 0.16);
+}
+
+.hosted-booking-summary strong {
+  color: var(--client-purple);
+  font-size: 0.86rem;
+}
+
+.hosted-booking-summary span {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.hosted-booking-success {
+  margin-bottom: 1rem;
+  padding: 0.9rem 1rem;
+  border-left: 4px solid var(--client-gold);
+  color: var(--client-purple);
+  background: #faf7f1;
+  font-weight: 750;
+  line-height: 1.55;
+}
+
+.hosted-booking-frame-shell {
+  overflow: hidden;
+  border: 1px solid rgba(77, 24, 111, 0.2);
+  border-radius: 1.1rem;
+  background: #ffffff;
+  box-shadow: 0 1.5rem 4rem rgba(33, 27, 43, 0.08);
+}
+
+.hosted-booking-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  min-height: 3.2rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(77, 24, 111, 0.13);
+  color: var(--client-purple);
+  background: #fbf9f5;
+  font-size: 0.79rem;
+}
+
+.hosted-booking-toolbar > div {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.hosted-booking-toolbar a,
+.hosted-booking-help a:not(.button) {
+  color: var(--client-purple);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.hosted-booking-status {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #4d9a66;
+  box-shadow: 0 0 0 0.25rem rgba(77, 154, 102, 0.12);
+}
+
+.hosted-booking-frame-wrap {
+  position: relative;
+  min-height: 760px;
+  background: #ffffff;
+}
+
+.hosted-booking-frame-wrap iframe {
+  display: block;
+  width: 100%;
+  height: 760px;
+  border: 0;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.hosted-booking-frame-wrap iframe.is-loaded {
+  opacity: 1;
+}
+
+.hosted-booking-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--muted);
+  background: #ffffff;
+  font-weight: 750;
+  pointer-events: none;
+}
+
+.hosted-booking-help {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.15rem 0;
+}
+
+.hosted-booking-help p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.hosted-booking-help .button {
+  flex: 0 0 auto;
+  min-height: 2.7rem;
+  padding: 0.65rem 1rem;
+}
+
+.hosted-booking-unavailable {
+  min-height: 55vh;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+}
+
+.hosted-booking-unavailable .button {
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 760px) {
+  .hosted-booking {
+    width: min(100% - 1rem, 640px);
+    margin-top: 1.25rem;
+  }
+
+  .hosted-booking-header {
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+  }
+
+  .hosted-booking-header h1,
+  .hosted-booking-unavailable h1 {
+    max-width: 13ch;
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
+  }
+
+  .hosted-booking-summary p {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .hosted-booking-toolbar {
+    align-items: flex-start;
+    font-size: 0.72rem;
+  }
+
+  .hosted-booking-frame-wrap,
+  .hosted-booking-frame-wrap iframe {
+    min-height: 720px;
+    height: 78dvh;
+  }
+
+  .hosted-booking-help {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .hosted-booking-help .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .lupa-new-client-label {
   padding-top: 0.25rem;
   color: var(--client-purple);
