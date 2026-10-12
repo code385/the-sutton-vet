@@ -7,6 +7,9 @@ import { masterServiceGroups } from "@/lib/servicesSeed";
 import { getFeeCategories, getPricingPageDocument } from "@/sanity/lib/pricing";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 
+// Published fees must not stay frozen in a build-time page or route cache.
+export const dynamic = "force-dynamic";
+
 const fallbackQuoteSections = masterServiceGroups.map((group, index) => ({
   id: group.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
   number: String(index + 1).padStart(2, "0"),

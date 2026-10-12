@@ -99,9 +99,9 @@ const feeCategoriesQuery = groq`
 `;
 
 export async function getPricingPageDocument() {
-  return safeSanityFetch<PricingPageDocument | null>(pricingPageQuery, undefined, null);
+  return safeSanityFetch<PricingPageDocument | null>(pricingPageQuery, undefined, null, { cache: "no-store", perspective: "published" });
 }
 
 export async function getFeeCategories() {
-  return safeSanityFetch<FeeCategoryDocument[]>(feeCategoriesQuery, undefined, []);
+  return safeSanityFetch<FeeCategoryDocument[]>(feeCategoriesQuery, undefined, [], { cache: "no-store", perspective: "published" });
 }

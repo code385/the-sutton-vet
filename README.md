@@ -542,7 +542,7 @@ Use **Careers Page** for the careers introduction and **Job Vacancy** for roles.
 
 Use **Service** for service descriptions, subservices, and procedure galleries. Add images with alternative text, publish, and check the service detail page.
 
-To publish a service price, open **Fee Category > the relevant category > Fee Items > the service > Display Price**. Enter the complete display value, including the currency (for example GBP 65 or From GBP 120), then click **Publish**. The website replaces that item's Quote link with non-clickable price text. Leave the field blank to restore the Quote link. Existing Quote values continue to work. Optional notes appear beneath the service name. Use the publishing webhook from section 11 to refresh the page after changes.
+To publish a service price, open **Fee Category > the relevant category > Fee Items > the service > Display Price**. Enter the complete display value, including the currency (for example GBP 65 or From GBP 120), then click **Publish**. The website replaces that item's Quote link with non-clickable price text. Leave the field blank to restore the Quote link. Existing Quote values continue to work. Optional notes appear beneath the service name. The pricing page reads fresh published prices on each page request; reload an already open page after publishing. Draft edits are not shown publicly. Other pages still use the publishing webhook from section 11.
 
 Normal text/image edits use the existing Studio fields. New layouts, navigation structures, or functionality require code changes; adding a document does not automatically add a new navigation item.
 

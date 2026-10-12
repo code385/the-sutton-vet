@@ -9,8 +9,17 @@ export const sanityClient = createClient({
   useCdn: false,
 });
 
-export async function safeSanityFetch<T>(query: string, params?: Record<string, unknown>, fallback?: T) {
+type SanityFetchOptions = {
+  cache?: "no-store";
+  perspective?: "published";
+};
+
+export async function safeSanityFetch<T>(query: string, params?: Record<string, unknown>, fallback?: T, options?: SanityFetchOptions) {
   try {
+    if (options) {
+      return await sanityClient.fetch<T>(query, params || {}, options);
+    }
+
     if (params) {
       return await sanityClient.fetch<T>(query, params);
     }
