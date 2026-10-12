@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { getLupaErrorState, getLupaRecordId, LupaIntegrationError, lupaFetch, withLupaScope } from "@/lib/lupa";
+import { sendRegistrationConfirmation } from "@/lib/transactionalEmail";
 
 const clean = (value: unknown, maxLength: number) => typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 const titleOptions = ["Mr", "Mrs", "Miss", "Ms", "Mx", "Dr", "Prof"];
@@ -44,12 +45,26 @@ export async function POST(request: NextRequest) {
         newPets: [{ name, species, breed, sex }],
       }, "client")),
     });
-    if (!getLupaRecordId(client) || !Array.isArray(client.pets) || !client.pets.some((pet) => getLupaRecordId(pet))) {
+    const clientId = getLupaRecordId(client);
+    const petId = Array.isArray(client.pets) ? client.pets.map((pet) => getLupaRecordId(pet)).find(Boolean) : undefined;
+    if (!clientId || !petId) {
       // A successful write with an unexpected response must not invite another submission.
       console.error("[Lupa registration] Could not confirm the owner and pet IDs in the create response.");
       return NextResponse.json({ ok: false, retryable: false, error: "Your details may have been received. Please call the clinic to confirm your registration before submitting again." }, { status: 502 });
     }
-    return NextResponse.json({ ok: true, message: "Thank you. You and your pet have been registered with The Sutton Vet." });
+    const emailResult = await sendRegistrationConfirmation({
+      email,
+      firstName,
+      petName: name,
+      reference: `${clientId}/${petId}`,
+    });
+    return NextResponse.json({
+      ok: true,
+      emailSent: emailResult.sent,
+      message: emailResult.sent
+        ? "Thank you. You and your pet have been registered. We have sent a confirmation email to your inbox."
+        : "Thank you. You and your pet have been registered with The Sutton Vet.",
+    });
   } catch (error) {
     if (error instanceof LupaIntegrationError && error.validationFields.length) {
       const message = error.validationFields.includes("phone")

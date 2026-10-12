@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { getLupaErrorState, getLupaRecordId, LupaIntegrationError, lupaFetch, withLupaScope } from "@/lib/lupa";
+import { sendBookingConfirmation } from "@/lib/transactionalEmail";
 
 type BookingInput = {
   title?: string;
@@ -72,7 +73,7 @@ export async function POST(request: NextRequest) {
     if (!clientId || !petId) throw new Error("Lupa did not return the new client and pet IDs.");
     clientCreated = true;
 
-    await lupaFetch<string>("/v1/appointments", {
+    const appointment = await lupaFetch<unknown>("/v1/appointments", {
       method: "POST",
       body: JSON.stringify(withLupaScope({
         petId,
@@ -85,7 +86,21 @@ export async function POST(request: NextRequest) {
       }, "booking")),
     });
 
-    return NextResponse.json({ ok: true, message: "Thank you. Your registration and appointment request have been sent to The Sutton Vet." });
+    const appointmentId = getLupaRecordId(appointment) || `${clientId}/${petId}/${start}`;
+    const emailResult = await sendBookingConfirmation({
+      email,
+      firstName,
+      petName,
+      appointmentStart: start,
+      reference: appointmentId,
+    });
+    return NextResponse.json({
+      ok: true,
+      emailSent: emailResult.sent,
+      message: emailResult.sent
+        ? "Thank you. Your registration and appointment request have been sent. We have emailed you a confirmation."
+        : "Thank you. Your registration and appointment request have been sent to The Sutton Vet.",
+    });
   } catch (error) {
     const upstreamStatus = error instanceof LupaIntegrationError ? error.status : undefined;
     console.error("[Lupa booking]", { state: getLupaErrorState(error), upstreamStatus: upstreamStatus ?? null, clientCreated });
