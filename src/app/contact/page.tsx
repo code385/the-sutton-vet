@@ -1,5 +1,6 @@
 ﻿import { Reveal } from "@/components/shared/Reveal";
 import { ConsentManagedMap } from "@/components/shared/ConsentManagedMap";
+import { externalLinkProps } from "@/lib/linkTarget";
 import { getContactPageDocument } from "@/sanity/lib/contentPages";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 
@@ -101,7 +102,7 @@ export default async function ContactPage() {
         <Reveal variant="right" delayMs={40}>
           <div className="contact-page-v2-social-links">
             {siteSettings.socialLinks.map((item) => (
-              <a key={item.label} href={item.href} target="_blank" rel="noreferrer">
+              <a key={item.label} href={item.href} {...externalLinkProps(item.href)}>
                 {item.label}
               </a>
             ))}
@@ -119,7 +120,7 @@ export default async function ContactPage() {
                 <div key={item.label}>
                   <span>{item.label}</span>
                   {item.href ? (
-                    <a href={item.href}>{item.value}</a>
+                    <a href={item.href} {...externalLinkProps(item.href)}>{item.value}</a>
                   ) : (
                     <strong>{item.value}</strong>
                   )}
@@ -137,10 +138,10 @@ export default async function ContactPage() {
             <h2>{contactPage?.locationTitle || siteSettings.address}</h2>
             <p>{contactPage?.locationDescription || "Located near Hackbridge Rail Station, with nearby parking and step-free access."}</p>
             <div className="contact-page-v2-actions">
-              <a className="button button-primary" href={siteSettings.hasMapUrl}>
+              <a className="button button-primary" href={siteSettings.hasMapUrl} {...externalLinkProps(siteSettings.hasMapUrl)}>
                 {contactPage?.locationButtonLabel || "Get Directions"}
               </a>
-              <a className="button button-muted" href={siteSettings.googleBusinessProfileUrl} target="_blank" rel="noreferrer">
+              <a className="button button-muted" href={siteSettings.googleBusinessProfileUrl} {...externalLinkProps(siteSettings.googleBusinessProfileUrl)}>
                 Google Profile
               </a>
               <a className="button button-muted" href={siteSettings.ctas.call}>

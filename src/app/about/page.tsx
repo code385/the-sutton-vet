@@ -169,7 +169,7 @@ export default async function AboutPage() {
             <a className="button button-primary" href={siteSettings.googleBusinessProfileUrl} target="_blank" rel="noreferrer">
               View Google Profile
             </a>
-            <a className="button button-muted" href={siteSettings.hasMapUrl}>
+            <a className="button button-muted" href={siteSettings.hasMapUrl} target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
               Get Directions
             </a>
           </div>

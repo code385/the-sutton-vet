@@ -4,6 +4,8 @@ node_modules
 .env
 .env.local
 .env.production
+.env.*
+!.env.example
 dist
 tsconfig.tsbuildinfo
 
@@ -15,3 +17,6 @@ pnpm-debug.log*
 .vercel
 .sanity/
 dev-server.log
+
+# Local client-delivery archives are not source files.
+/handover/

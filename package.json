@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test:pricing": "node --experimental-strip-types --test scripts/test-fee-price.mjs",
+    "test:links": "node --experimental-strip-types --test scripts/test-contact-links.mjs",
     "seed:services": "node scripts/seed-services.mjs",
     "seed:cms": "sanity exec scripts/seed-cms.ts --with-user-token",
     "migrate:cms-extensions": "sanity exec scripts/migrate-cms-extensions.ts"

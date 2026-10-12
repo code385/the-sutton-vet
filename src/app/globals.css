@@ -19534,6 +19534,21 @@ small,
   letter-spacing: 0.01em !important;
   line-height: 1.18 !important;
   transition: border-color 180ms ease, transform 180ms ease, color 180ms ease !important;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.pricing-fee-copy {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.pricing-fee-copy small {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 .pricing-quote-item span {
@@ -19554,10 +19569,28 @@ small,
   text-transform: uppercase !important;
 }
 
-.pricing-quote-item:hover {
+a.pricing-quote-item:hover {
   border-color: var(--client-gold) !important;
   color: var(--client-purple) !important;
   transform: translateY(-1px) !important;
+}
+
+a.pricing-quote-item:focus-visible {
+  outline: 2px solid var(--client-purple);
+  outline-offset: 3px;
+}
+
+.pricing-fee-priced strong {
+  flex-shrink: 0;
+  max-width: 50%;
+  overflow-wrap: anywhere;
+  text-align: right;
+  padding: 0 !important;
+  border: 0 !important;
+  font-size: 1rem !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: normal !important;
+  text-transform: none !important;
 }
 
 .sv-home-expert-card-media,

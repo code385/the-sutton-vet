@@ -18,7 +18,12 @@ export const feeCategory = defineType({
           type: "object",
           fields: [
             defineField({ name: "label", title: "Label", type: "string" }),
-            defineField({ name: "price", title: "Price", type: "string" }),
+            defineField({
+              name: "price",
+              title: "Display Price",
+              type: "string",
+              description: "Enter the full price as it should appear, including the currency, e.g. GBP 65, From GBP 120, or a price range. Publishing replaces the Quote link with this price. Leave blank to show a Quote link instead. Existing Quote entries also keep the link.",
+            }),
             defineField({ name: "note", title: "Note", type: "string" }),
           ],
         }),
