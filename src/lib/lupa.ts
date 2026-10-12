@@ -56,6 +56,22 @@ export const lupaConfig = {
   healthPlanEnabled: process.env.LUPA_HEALTH_PLAN_ENABLED === "true",
 };
 
+export function getLupaHostedBookingUrl() {
+  const configuredUrl = process.env.NEXT_PUBLIC_LUPA_BOOKING_URL || process.env.NEXT_PUBLIC_PMS_BOOKING_URL;
+
+  if (configuredUrl && !configuredUrl.startsWith("/")) {
+    try {
+      const url = new URL(configuredUrl);
+      if (url.protocol === "https:" && url.hostname === "store.lupapets.com") return url.toString();
+    } catch {
+      // Fall through to the store-scoped hosted journey.
+    }
+  }
+
+  const storeId = lupaConfig.storeId.trim();
+  return storeId ? `https://store.lupapets.com/booking/${encodeURIComponent(storeId)}` : "";
+}
+
 export function getLupaIntegrationStatus(): LupaIntegrationStatus {
   return {
     apiBaseUrl: lupaConfig.apiBaseUrl,

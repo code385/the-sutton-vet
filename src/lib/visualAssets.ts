@@ -1,4 +1,5 @@
 export const visualAssets = {
+  aboutClinicCare: "/images/about/about-clinic-care.webp",
   homeHeroClient: "/health-plan-routine-care.png",
   warmGpConsult: "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1800&q=82",
   gingerSpanielHero:

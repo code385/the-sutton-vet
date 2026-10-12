@@ -389,7 +389,7 @@ Use your own verified sender domain and monitored reply address.
 
 Add the same variables to Vercel's **Production** environment, without enclosing quotes in the value fields, and redeploy.
 
-The code uses Resend's HTTP API, so no additional email package needs to be installed. This configuration enables the implemented registration/booking-request emails; it does not add an OTP/login feature.
+The code uses Resend's HTTP API, so no additional email package needs to be installed. This configuration enables emails for the website's custom registration/booking API routes; it does not add an OTP/login feature. The hosted Lupa booking journey manages its own notifications separately.
 
 ### Test Delivery
 
@@ -436,10 +436,11 @@ If Lupa supplies approved visitor-facing URLs, add the relevant values:
 NEXT_PUBLIC_LUPA_BOOKING_URL=
 NEXT_PUBLIC_LUPA_REGISTRATION_URL=
 NEXT_PUBLIC_LUPA_HEALTHPLAN_URL=
-NEXT_PUBLIC_LUPA_CLIENT_PORTAL_URL=
 ~~~
 
 These are public page URLs, not API endpoints. Check the corresponding Sanity link fields and test where the actual website buttons go after deployment.
+
+The current `/book` page embeds Lupa's hosted booking journey. Set `NEXT_PUBLIC_LUPA_BOOKING_URL` to the approved hosted URL if supplied; otherwise the page derives `https://store.lupapets.com/booking/{LUPA_STORE_ID}`. Verify this destination with Lupa. The page also offers a new-tab link if embedding is blocked. Secure existing-client pet lookup and booking entirely through a custom website API flow require separate implementation, not an environment-variable change.
 
 ### Test the Connection
 
