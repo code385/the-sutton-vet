@@ -38,7 +38,7 @@ export const siteSettings = defineType({
     defineField({ name: "whatsappPrefillMessage", title: "WhatsApp Prefill Message", type: "text", rows: 2 }),
     defineField({ name: "lupaBookingUrl", title: "PMS Booking URL", type: "url" }),
     defineField({ name: "lupaRegistrationUrl", title: "PMS Registration URL", type: "url" }),
-    defineField({ name: "healthPlanUrl", title: "Health Plan URL", type: "url" }),
+    defineField({ name: "healthPlanUrl", title: "Health Plan Signup URL", type: "url", description: "Use the approved provider signup URL, not this website's /health-plan page. Leave blank until enrolment is available; visitors can contact the practice to register interest." }),
     defineField({ name: "googleBusinessProfileUrl", title: "Google Business Profile URL", type: "url" }),
     defineField({ name: "googleMapEmbedUrl", title: "Google Map Embed URL", type: "url" }),
     defineField({ name: "hasMapUrl", title: "Public Map URL", type: "url" }),

@@ -1,4 +1,5 @@
 import { groq } from "next-sanity";
+import { resolveHomeLocationCopy } from "@/lib/homeLocation";
 
 import { safeSanityFetch } from "./client";
 
@@ -291,7 +292,8 @@ const homePageQuery = groq`
 `;
 
 export async function getHomePageDocument() {
-  return safeSanityFetch<HomePageDocument | null>(homePageQuery, undefined, null);
+  const document = await safeSanityFetch<HomePageDocument | null>(homePageQuery, undefined, null);
+  return document ? { ...document, ...resolveHomeLocationCopy(document.locationTitle, document.locationPoints) } : null;
 }
 
 export function portableTextToParagraphs(blocks?: PortableTextBlock[]) {

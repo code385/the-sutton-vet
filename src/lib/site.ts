@@ -1,4 +1,5 @@
 import { visualAssets } from "./visualAssets";
+import { defaultLocationPoints } from "./homeLocation";
 
 // Registration and booking now run through the website's live Lupa API forms.
 const pmsBookingUrl = "/book";
@@ -356,11 +357,7 @@ export const faqPreview = [
   },
 ];
 
-export const locationPoints = [
-  "Hyper-local reassurance near Sutton and Hackbridge",
-  "Google map and local travel guidance built into the contact journey",
-  "Google Business Profile alignment required before go-live",
-];
+export const locationPoints = defaultLocationPoints;
 
 export const practiceTourPreview = {
   title: "Future practice tour video slot",

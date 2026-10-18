@@ -2,6 +2,8 @@
 
 import { Reveal } from "@/components/shared/Reveal";
 import { healthPlanPageSeed } from "@/lib/healthPlanSeed";
+import { resolveHealthPlanSignup } from "@/lib/healthPlanSignup";
+import { externalLinkProps } from "@/lib/linkTarget";
 import { visualAssets } from "@/lib/visualAssets";
 import { getHealthPlanPageDocument } from "@/sanity/lib/healthPlan";
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
@@ -118,7 +120,8 @@ export default async function HealthPlanPage() {
   const [healthPlanPage, siteSettingsDocument] = await Promise.all([getHealthPlanPageDocument(), getSiteSettingsDocument()]);
   const page = healthPlanPage || healthPlanPageSeed;
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
-  const healthPlanSignupUrl = siteSettings.ctas.healthPlan || siteSettings.ctas.book;
+  const signup = resolveHealthPlanSignup(siteSettings.ctas.healthPlan, process.env.NEXT_PUBLIC_SITE_URL);
+  const healthPlanSignupUrl = signup.href;
   const faqItems = page.faqItems?.filter((item) => item.question && item.answer) || healthPlanPageSeed.faqItems;
 
   return (
@@ -133,8 +136,8 @@ export default async function HealthPlanPage() {
                 Spread the cost of routine preventative care for dogs and cats, with clear monthly pricing, year-round reminders, and support that feels calm rather than complicated.
               </p>
               <div className="hp-v2-actions">
-                <a className="button button-primary" href={healthPlanSignupUrl}>
-                  Join or Ask Online
+                <a className="button button-primary" href={healthPlanSignupUrl} {...externalLinkProps(healthPlanSignupUrl)}>
+                  {signup.canJoin ? "Join Health Plan" : "Enquire About the Plan"}
                 </a>
                 <Link className="button button-muted" href="#health-plan-pricing">
                   See Monthly Prices
@@ -259,7 +262,7 @@ export default async function HealthPlanPage() {
               <strong>Puppies and growing dogs</strong>
               <p>If you are registering a puppy, choose the plan that aligns with their expected adult weight. If you are unsure, the team can advise before sign-up.</p>
             </div>
-            <a className="button button-primary" href={healthPlanSignupUrl}>Register Interest</a>
+            <a className="button button-primary" href={healthPlanSignupUrl} {...externalLinkProps(healthPlanSignupUrl)}>Register Interest</a>
           </div>
         </Reveal>
       </section>
@@ -294,10 +297,14 @@ export default async function HealthPlanPage() {
             <div>
               <p className="eyebrow">Join the plan</p>
               <h2>Ready to make routine care feel more settled?</h2>
-              <p>Register interest online or contact the team if you want help choosing the right plan for your pet.</p>
+              <p>{signup.canJoin
+                ? "Join online or contact the team for help choosing the right plan for your pet."
+                : "Contact the team to register your interest and confirm current plan details. Online enrolment is not yet available."}</p>
             </div>
             <div className="hp-v2-actions">
-              <a className="button button-primary" href={healthPlanSignupUrl}>Join Health Plan</a>
+              <a className="button button-primary" href={healthPlanSignupUrl} {...externalLinkProps(healthPlanSignupUrl)}>
+                {signup.canJoin ? "Join Health Plan" : "Register Interest"}
+              </a>
               <Link className="button button-muted" href="/contact">Contact Us</Link>
             </div>
           </div>

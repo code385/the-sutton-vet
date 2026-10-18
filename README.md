@@ -440,6 +440,10 @@ NEXT_PUBLIC_LUPA_HEALTHPLAN_URL=
 
 These are public page URLs, not API endpoints. Check the corresponding Sanity link fields and test where the actual website buttons go after deployment.
 
+For Health Plans, set **Sanity > Site Settings > Health Plan Signup URL** to the approved enrolment URL when it is available. This takes priority over `NEXT_PUBLIC_LUPA_HEALTHPLAN_URL`. Do not enter the website's own `/health-plan` address. Without a valid signup destination, all signup/interest buttons lead to `/contact#health-plan-enquiry`, where visitors can email or call the practice. This fallback does not create a subscription or take payment.
+
+Update the home location text under **Sanity > Home Page > Location Title / Location Points**, then publish. Known old seed placeholders are replaced on the website with visitor-facing copy; your own edited text is preserved.
+
 The current `/book` page embeds Lupa's hosted booking journey. Set `NEXT_PUBLIC_LUPA_BOOKING_URL` to the approved hosted URL if supplied; otherwise the page derives `https://store.lupapets.com/booking/{LUPA_STORE_ID}`. Verify this destination with Lupa. The page also offers a new-tab link if embedding is blocked. Secure existing-client pet lookup and booking entirely through a custom website API flow require separate implementation, not an environment-variable change.
 
 ### Test the Connection

@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/shared/Reveal";
+import { resolveHomeLocationCopy } from "@/lib/homeLocation";
 import { ConsentManagedEmbed } from "@/components/shared/ConsentManagedEmbed";
 import { getYouTubeEmbedUrl } from "@/lib/youtube";
 import { homeMedia, locationPoints, practiceTourPreview, siteConfig, trustHighlights, trustIntro, trustModules } from "@/lib/site";
@@ -54,7 +55,8 @@ export function HomeTrustCommunity({
   const launchPills = (trustPills?.filter(Boolean).length ? trustPills.filter(Boolean) : ["Founder-led", "Registrations open", "CMS swappable content"]).slice(0, 2);
   const modules = trustModuleItems?.filter((item) => item.tag && item.title && item.text) || trustModules;
   const primaryModule = modules[0];
-  const locationList = locationPointItems?.filter(Boolean).length ? locationPointItems.filter(Boolean) : locationPoints;
+  const locationCopy = resolveHomeLocationCopy(locationTitle, locationPointItems || locationPoints);
+  const locationList = locationCopy.locationPoints;
   const resolvedAddress = locationAddress || defaultAddress || siteConfig.address;
 
   return (
@@ -156,7 +158,7 @@ export function HomeTrustCommunity({
             </div>
             <div className="trust-card-copy">
               <p className="eyebrow">{locationEyebrow || "Find Us"}</p>
-              <h2>{locationTitle || "Exact location and directions should be clear early."}</h2>
+              <h2>{locationCopy.locationTitle}</h2>
               <p className="trust-location-address">{resolvedAddress}</p>
               <div className="stack-list">
                 {locationList.map((item) => (

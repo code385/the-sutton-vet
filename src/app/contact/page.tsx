@@ -110,7 +110,16 @@ export default async function ContactPage() {
         </Reveal>
       </section>
 
-      <section className="shell contact-page-v2-details">
+      <section className="shell contact-page-v2-details" id="health-plan-enquiry" style={{ scrollMarginTop: "8rem" }}>
+        <div className="contact-page-v2-panel">
+          <p className="eyebrow">Health Plan Enquiries</p>
+          <h2>Interested in a Health Plan?</h2>
+          <p>Contact the team with your pet's name and species to ask about current plans, prices, and how to join. An enquiry does not enrol your pet or take a payment.</p>
+          <div className="contact-page-v2-actions">
+            <a className="button button-primary" href={`mailto:${siteSettings.email}?subject=Health%20Plan%20Enquiry`}>Email About a Health Plan</a>
+            <a className="button button-muted" href={siteSettings.ctas.call}>Call {siteSettings.phone}</a>
+          </div>
+        </div>
         <Reveal variant="left">
           <div className="contact-page-v2-panel">
             <p className="eyebrow">{contactPage?.detailsEyebrow || "Contact Details"}</p>

@@ -130,7 +130,7 @@ const homePageSeedDocument: SanitySeedDocument = {
     text: item.text,
   })),
   locationEyebrow: "Find us",
-  locationTitle: "Exact location and directions should be clear early.",
+  locationTitle: "Find The Sutton Vet in Hackbridge",
   locationAddress: siteConfig.address,
   locationDirectionsLabel: "Get directions",
   locationDirectionsHref: "https://maps.google.com/?q=4%20Spinning%20Wheel%20Way%2C%20Sutton%2C%20SM6%207DS",

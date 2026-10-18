@@ -126,145 +126,147 @@ export function SiteHeader({ siteSettings }: SiteHeaderProps) {
 
   return (
     <header className="sv-header sv-header-clean">
-      <div className="shell sv-header-main sv-header-main-clean">
-        <Link className="sv-header-brand sv-header-brand-clean" href="/" aria-label="The Sutton Vet home" onClick={closeAll}>
-          <Image src="/Sutton_vet_logo_aw.png" alt="The Sutton Vet logo" width={1269} height={698} priority />
-        </Link>
+      <div className="shell sv-header-container">
+        <div className="sv-header-main sv-header-main-clean">
+          <Link className="sv-header-brand sv-header-brand-clean" href="/" aria-label="The Sutton Vet home" onClick={closeAll}>
+            <Image src="/Sutton_vet_logo_aw.png" alt="The Sutton Vet logo" width={1269} height={698} priority />
+          </Link>
 
-        <nav ref={navRef} className="sv-nav sv-nav-clean" aria-label="Primary">
-          {navGroups.map((group) => {
-            const isOpen = openGroup === group.label;
-            const hasChildren = Boolean(group.children?.length);
-            const dropdownStyle = hasChildren
-              ? ({ "--dropdown-anchor": `${dropdownOffsets[group.label] ?? 0}px` } as CSSProperties)
-              : undefined;
+          <nav ref={navRef} className="sv-nav sv-nav-clean" aria-label="Primary">
+            {navGroups.map((group) => {
+              const isOpen = openGroup === group.label;
+              const hasChildren = Boolean(group.children?.length);
+              const dropdownStyle = hasChildren
+                ? ({ "--dropdown-anchor": `${dropdownOffsets[group.label] ?? 0}px` } as CSSProperties)
+                : undefined;
 
-            return (
-              <div
-                key={group.label}
-                className={`sv-nav-group${isOpen ? " is-open" : ""}`}
-                data-nav-group={group.label}
-                onMouseEnter={() => hasChildren && openDropdown(group.label)}
-                onMouseLeave={() => hasChildren && scheduleDropdownClose()}
-              >
-                {hasChildren ? (
-                  <button
-                    ref={(node) => {
-                      triggerRefs.current[group.label] = node;
-                    }}
-                    type="button"
-                    className="sv-nav-trigger sv-nav-trigger-clean"
-                    aria-expanded={isOpen}
-                    onClick={() => (isOpen ? setOpenGroup(null) : openDropdown(group.label))}
-                  >
-                    <span>{group.label}</span>
-                  </button>
-                ) : (
-                  <Link className="sv-nav-link sv-nav-link-clean" href={group.href || "/"} aria-current={pathname === group.href ? "page" : undefined} onClick={closeAll}>
-                    {group.label}
-                  </Link>
-                )}
-
-                {hasChildren ? (
-                  <div
-                    className="sv-nav-dropdown-wrap"
-                    style={dropdownStyle}
-                    onMouseEnter={() => openDropdown(group.label)}
-                    onMouseLeave={scheduleDropdownClose}
-                  >
-                    <div className={`sv-nav-dropdown sv-nav-dropdown-${group.illustration || "pets"}`}>
-                      <div className="sv-nav-dropdown-feature">
-                        <div className="sv-nav-dropdown-copy">
-                          <p className="eyebrow">{group.label}</p>
-                          <h3>{group.menuTitle}</h3>
-                          <p>{group.menuCopy}</p>
-                        </div>
-                        <div className="sv-nav-dropdown-art" aria-hidden="true">
-                          <Image className="sv-nav-pets-art" src="/dropdown-pets-art.png" alt="" width={420} height={250} />
-                        </div>
-                      </div>
-
-                      <div className="sv-nav-dropdown-links">
-                        {group.children?.map((item) => (
-                          <Link key={item.label} href={item.href} onClick={closeAll}>
-                            <strong>{item.label}</strong>
-                            <span>{item.description}</span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            );
-          })}
-        </nav>
-
-        <div className="sv-header-actions sv-header-actions-clean">
-          <a className="button button-muted" href={siteSettings.ctas.book}>
-            {siteSettings.headerCtas.bookLabel}
-          </a>
-          <a className="button button-primary" href={siteSettings.ctas.register}>
-            {siteSettings.headerCtas.registerLabel}
-          </a>
-        </div>
-
-        <button
-          type="button"
-          className={`sv-menu-toggle${menuOpen ? " is-open" : ""}`}
-          aria-expanded={menuOpen}
-          aria-controls="sv-mobile-menu"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-          onClick={() => setMenuOpen((value) => !value)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
-
-      <div id="sv-mobile-menu" className={`shell sv-mobile-menu${menuOpen ? " is-open" : ""}`}>
-        <div className="sv-mobile-menu-inner sv-mobile-menu-inner-simple">
-          {navGroups.map((group) => {
-            const hasChildren = Boolean(group.children?.length);
-            const isMobileOpen = mobileOpenGroup === group.label;
-
-            return (
-              <div key={group.label} className="sv-mobile-group sv-mobile-group-simple">
-                {hasChildren ? (
-                  <>
+              return (
+                <div
+                  key={group.label}
+                  className={`sv-nav-group${isOpen ? " is-open" : ""}`}
+                  data-nav-group={group.label}
+                  onMouseEnter={() => hasChildren && openDropdown(group.label)}
+                  onMouseLeave={() => hasChildren && scheduleDropdownClose()}
+                >
+                  {hasChildren ? (
                     <button
+                      ref={(node) => {
+                        triggerRefs.current[group.label] = node;
+                      }}
                       type="button"
-                      className={`sv-mobile-group-link sv-mobile-group-link-simple sv-mobile-group-trigger${isMobileOpen ? " is-open" : ""}`}
-                      aria-expanded={isMobileOpen}
-                      onClick={() => setMobileOpenGroup(isMobileOpen ? null : group.label)}
+                      className="sv-nav-trigger sv-nav-trigger-clean"
+                      aria-expanded={isOpen}
+                      onClick={() => (isOpen ? setOpenGroup(null) : openDropdown(group.label))}
                     >
                       <span>{group.label}</span>
                     </button>
-                    <div className={`sv-mobile-submenu sv-mobile-submenu-simple${isMobileOpen ? " is-open" : ""}`}>
-                      {group.children?.map((item) => (
-                        <Link key={item.label} href={item.href} onClick={closeAll}>
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <Link className="sv-mobile-group-link sv-mobile-group-link-simple" href={group.href || "/"} aria-current={pathname === group.href ? "page" : undefined} onClick={closeAll}>
-                    {group.label}
-                  </Link>
-                )}
-              </div>
-            );
-          })}
+                  ) : (
+                    <Link className="sv-nav-link sv-nav-link-clean" href={group.href || "/"} aria-current={pathname === group.href ? "page" : undefined} onClick={closeAll}>
+                      {group.label}
+                    </Link>
+                  )}
 
-          <div className="sv-mobile-actions sv-mobile-actions-simple">
-            <a className="button button-primary" href={siteSettings.ctas.register}>
-              {siteSettings.headerCtas.registerLabel}
-            </a>
+                  {hasChildren ? (
+                    <div
+                      className="sv-nav-dropdown-wrap"
+                      style={dropdownStyle}
+                      onMouseEnter={() => openDropdown(group.label)}
+                      onMouseLeave={scheduleDropdownClose}
+                    >
+                      <div className={`sv-nav-dropdown sv-nav-dropdown-${group.illustration || "pets"}`}>
+                        <div className="sv-nav-dropdown-feature">
+                          <div className="sv-nav-dropdown-copy">
+                            <p className="eyebrow">{group.label}</p>
+                            <h3>{group.menuTitle}</h3>
+                            <p>{group.menuCopy}</p>
+                          </div>
+                          <div className="sv-nav-dropdown-art" aria-hidden="true">
+                            <Image className="sv-nav-pets-art" src="/dropdown-pets-art.png" alt="" width={420} height={250} />
+                          </div>
+                        </div>
+
+                        <div className="sv-nav-dropdown-links">
+                          {group.children?.map((item) => (
+                            <Link key={item.label} href={item.href} onClick={closeAll}>
+                              <strong>{item.label}</strong>
+                              <span>{item.description}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </nav>
+
+          <div className="sv-header-actions sv-header-actions-clean">
             <a className="button button-muted" href={siteSettings.ctas.book}>
               {siteSettings.headerCtas.bookLabel}
             </a>
+            <a className="button button-primary" href={siteSettings.ctas.register}>
+              {siteSettings.headerCtas.registerLabel}
+            </a>
+          </div>
+
+          <button
+            type="button"
+            className={`sv-menu-toggle${menuOpen ? " is-open" : ""}`}
+            aria-expanded={menuOpen}
+            aria-controls="sv-mobile-menu"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setMenuOpen((value) => !value)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+
+        <div id="sv-mobile-menu" className={`sv-mobile-menu${menuOpen ? " is-open" : ""}`}>
+          <div className="sv-mobile-menu-inner sv-mobile-menu-inner-simple">
+            {navGroups.map((group) => {
+              const hasChildren = Boolean(group.children?.length);
+              const isMobileOpen = mobileOpenGroup === group.label;
+
+              return (
+                <div key={group.label} className="sv-mobile-group sv-mobile-group-simple">
+                  {hasChildren ? (
+                    <>
+                      <button
+                        type="button"
+                        className={`sv-mobile-group-link sv-mobile-group-link-simple sv-mobile-group-trigger${isMobileOpen ? " is-open" : ""}`}
+                        aria-expanded={isMobileOpen}
+                        onClick={() => setMobileOpenGroup(isMobileOpen ? null : group.label)}
+                      >
+                        <span>{group.label}</span>
+                      </button>
+                      <div className={`sv-mobile-submenu sv-mobile-submenu-simple${isMobileOpen ? " is-open" : ""}`}>
+                        {group.children?.map((item) => (
+                          <Link key={item.label} href={item.href} onClick={closeAll}>
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <Link className="sv-mobile-group-link sv-mobile-group-link-simple" href={group.href || "/"} aria-current={pathname === group.href ? "page" : undefined} onClick={closeAll}>
+                      {group.label}
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+
+            <div className="sv-mobile-actions sv-mobile-actions-simple">
+              <a className="button button-primary" href={siteSettings.ctas.register}>
+                {siteSettings.headerCtas.registerLabel}
+              </a>
+              <a className="button button-muted" href={siteSettings.ctas.book}>
+                {siteSettings.headerCtas.bookLabel}
+              </a>
+            </div>
           </div>
         </div>
       </div>
