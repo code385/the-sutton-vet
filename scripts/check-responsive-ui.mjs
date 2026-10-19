@@ -117,6 +117,11 @@ try {
     await page.waitForURL("**/contact#health-plan-enquiry");
     const enquiry = page.locator("#health-plan-enquiry");
     await enquiry.getByRole("link", { name: "Email About a Health Plan" }).waitFor();
+    await page.waitForFunction(() => {
+      const top = document.querySelector("#health-plan-enquiry").getBoundingClientRect().top;
+      const headerBottom = document.querySelector(".sv-header").getBoundingClientRect().bottom;
+      return top >= headerBottom - 2 && top < innerHeight / 2;
+    });
     assert.match(await enquiry.getByRole("link", { name: "Email About a Health Plan" }).getAttribute("href"), /^mailto:.+\?subject=Health%20Plan%20Enquiry$/);
     assert.ok(await enquiry.getByRole("link", { name: /^Call / }).isVisible());
     if (process.env.UI_SCREENSHOT) await page.screenshot({ path: process.env.UI_SCREENSHOT.replace(/\.png$/, "-enquiry.png") });

@@ -81,3 +81,40 @@ test("all three configured signup links open the approved provider separately", 
   }
   assert.doesNotMatch(html, /Online enrolment is not yet available/);
 });
+
+test("page chrome does not reset native anchor navigation to the top", () => {
+  const compiled = ts.transpileModule(readFileSync(new URL("../src/components/layout/SiteChrome.tsx", import.meta.url), "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX },
+  }).outputText;
+  const effects = [];
+  const dependencies = {
+    "react/jsx-runtime": jsxRuntime,
+    "next/navigation": { usePathname: () => "/contact" },
+    react: { useEffect: (effect) => effects.push(effect) },
+    "@/components/layout/ChatWidget": { ChatWidget: () => null },
+    "@/components/layout/CookieConsent": { CookieConsent: () => null },
+    "@/components/layout/SiteFooter": { SiteFooter: () => null },
+    "@/components/layout/SiteHeader": { SiteHeader: () => null },
+  };
+  const componentModule = { exports: {} };
+  new Function("require", "module", "exports", compiled)((name) => dependencies[name], componentModule, componentModule.exports);
+  componentModule.exports.SiteChrome({ children: null, siteSettings: {}, emergencyKeywords: [] });
+  const originalWindow = globalThis.window;
+  const scrollCalls = [];
+  try {
+    globalThis.window = {
+      location: { hash: "#health-plan-enquiry" },
+      requestAnimationFrame: (callback) => { callback(); return 1; },
+      cancelAnimationFrame: () => {},
+      scrollTo: (options) => scrollCalls.push(options),
+    };
+    effects[0]();
+    assert.equal(scrollCalls.length, 0);
+    window.location.hash = "";
+    effects[0]();
+    assert.deepEqual(scrollCalls, [{ top: 0, left: 0, behavior: "auto" }]);
+  } finally {
+    if (originalWindow === undefined) delete globalThis.window;
+    else globalThis.window = originalWindow;
+  }
+});

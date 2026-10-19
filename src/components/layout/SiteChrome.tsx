@@ -22,6 +22,8 @@ export function SiteChrome({ children, siteSettings, emergencyKeywords }: SiteCh
     }
 
     const frame = window.requestAnimationFrame(() => {
+      // Let browser/Next.js anchor navigation keep its intended section position.
+      if (window.location.hash) return;
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     });
 
