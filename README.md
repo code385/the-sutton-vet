@@ -389,7 +389,47 @@ Use your own verified sender domain and monitored reply address.
 
 Add the same variables to Vercel's **Production** environment, without enclosing quotes in the value fields, and redeploy.
 
-The code uses Resend's HTTP API, so no additional email package needs to be installed. This configuration enables emails for the website's custom registration/booking API routes; it does not add an OTP/login feature. The hosted Lupa booking journey manages its own notifications separately.
+The code uses Resend's HTTP API, so no additional email package needs to be installed. These settings support registration/booking confirmations and the optional email-code verification flow below. The hosted Lupa booking journey manages its own notifications separately.
+
+### Enable Email Verification and Existing-Client Booking
+
+Leave `LUPA_CLIENT_BOOKING_ENABLED=false` until this setup is complete. When false, `/book` keeps the existing hosted Lupa journey. When true, `/book` uses the website's own email-code verification, pet lookup, available times, and appointment-request form, without embedding the portal. Changing the flag or other environment variables requires a redeploy.
+
+1. Configure the Resend settings above with the client's sending key, verified sender email (including the display name if desired), and monitored reply-to email. Replace `YOUR_VERIFIED_DOMAIN`; it is not a real sender. No Resend template ID or webhook is required for this implementation.
+2. Create a **client-owned Upstash Redis** database and copy its HTTPS REST URL and full read/write REST token. Use separate databases/secrets for test and production. Redis is required to enforce code expiry, one-time use, attempt limits, and sessions across Vercel workers. Do not replace it with in-memory storage on Vercel. See [Upstash REST setup](https://upstash.com/docs/redis/features/restapi).
+3. Generate a secret with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. Keep the generated value private and use a different secret for each deployment environment.
+4. In the client's Vercel Production environment (or server environment), set:
+
+~~~dotenv
+NEXT_PUBLIC_SITE_URL=https://YOUR_EXACT_WEBSITE_DOMAIN
+RESEND_API_KEY=YOUR_RESEND_SENDING_KEY
+RESEND_FROM_EMAIL="The Sutton Vet <booking@YOUR_VERIFIED_DOMAIN>"
+RESEND_REPLY_TO=YOUR_MONITORED_REPLY_ADDRESS
+BOOKING_AUTH_SECRET=YOUR_GENERATED_RANDOM_SECRET
+UPSTASH_REDIS_REST_URL=https://YOUR_REDIS_REST_HOST
+UPSTASH_REDIS_REST_TOKEN=YOUR_REDIS_READ_WRITE_TOKEN
+LUPA_CLIENT_BOOKING_ENABLED=true
+~~~
+
+Use the exact origin visitors use, with no path, query, or hash. Redirect alternate domains to this origin. Production must use HTTPS. Keep the existing `LUPA_API_BASE_URL`, `LUPA_API_KEY`, `LUPA_COMPANY_ID`, and `LUPA_STORE_ID` configured server-side as described in section 13. Do not change them to Resend credentials. In Vercel value fields, omit the enclosing quote characters.
+
+5. Confirm the dedicated Lupa website employee can create appointments, public appointment types have durations and `isPublic=true`/`isArchived=false`, and qualified staff have suitable rota availability. This flow submits `requested` appointments, not confirmed bookings. It does not implement Lupa passwords, payments, deposits, questionnaires, cancellations, or booking-policy collection. Do not enable it if the clinic requires those hosted-portal features without a separate implementation.
+6. Redeploy, then run the acceptance tests below with clinic-approved test records and email addresses you control. Real sender delivery and real Lupa responses must be checked on the client's environment before inviting customers.
+
+**Security behavior:** six-digit codes expire after 10 minutes, allow five failed attempts and one successful use, and have a 60-second resend cooldown. Requests are limited to five sends per email/hour, 20 per IP/hour, and 200 globally/hour. Sessions expire after 30 minutes and use HttpOnly/Secure/SameSite cookies; sign-out revokes them. No client lookup happens before email verification, so send-code responses do not reveal whether an address is registered. An unregistered but verified address is offered registration. Email matches are checked exactly and pet ownership is rechecked before booking. Slot choices are signed and expire after 10 minutes. Write attempts are deduplicated for 24 hours; uncertain outcomes instruct the visitor to call rather than automatically resubmit.
+
+On Vercel, the IP limit uses its platform-provided forwarded IP header. On other hosts the conservative default shares the IP bucket across all visitors; configure trusted-proxy IP handling and review rate limits before public launch. Apply appropriate edge/WAF rate limiting too. Redis stores verified emails temporarily for the code/session TTLs, hashed rate-limit identifiers for up to one hour, cached appointment types for one minute, and minimal booking receipts for 24 hours. Do not log codes, tokens, or client details. Update the clinic's privacy/cookie information and agree provider data-processing arrangements before launch.
+
+### Verification Acceptance Tests
+
+1. Open `/book`: it should show email verification when enabled, not an iframe.
+2. Request a code using a controlled email already on a Lupa record. Confirm the code arrives, and no pet details appear before verification.
+3. Try an incorrect code, an expired code, and a previously used code. All must fail. Confirm resend cooldown and attempt limits.
+4. Verify with a fresh code, check only that owner's pets are listed, select a public appointment type, then check available times (displayed in London time).
+5. With the clinic's permission, send one clearly labelled test appointment request. Check it in Lupa and check the Resend receipt. Do not resend after an uncertain result; call/check the backend first. Clean up the approved test record through the clinic.
+6. Sign out and confirm protected pet/booking requests require verification again. Test session expiry and an email that is not registered. Returning owners with a different email should contact the practice rather than create duplicates.
+
+Offline regression tests: `node --experimental-strip-types --test scripts/test-client-booking.mjs`. These stub all outbound services and never send real emails or create Lupa records. They do not replace provider-side acceptance tests. Browser UI tests are in `scripts/check-verified-booking-ui.mjs` and require a local server with the feature flag enabled and separately installed Playwright; the test intercepts the booking API so no live requests are made.
 
 ### Test Delivery
 
@@ -444,7 +484,7 @@ For Health Plans, set **Sanity > Site Settings > Health Plan Signup URL** to the
 
 Update the home location text under **Sanity > Home Page > Location Title / Location Points**, then publish. Known old seed placeholders are replaced on the website with visitor-facing copy; your own edited text is preserved.
 
-The current `/book` page embeds Lupa's hosted booking journey. Set `NEXT_PUBLIC_LUPA_BOOKING_URL` to the approved hosted URL if supplied; otherwise the page derives `https://store.lupapets.com/booking/{LUPA_STORE_ID}`. Verify this destination with Lupa. The page also offers a new-tab link if embedding is blocked. Secure existing-client pet lookup and booking entirely through a custom website API flow require separate implementation, not an environment-variable change.
+By default `/book` embeds Lupa's hosted booking journey. Set `NEXT_PUBLIC_LUPA_BOOKING_URL` to the approved hosted URL if supplied; otherwise the page derives `https://store.lupapets.com/booking/{LUPA_STORE_ID}`. The page also offers a new-tab link if embedding is blocked. To use the custom verified-email/pet-lookup API flow instead, complete the Resend/Redis setup in section 12 and enable `LUPA_CLIENT_BOOKING_ENABLED` before redeploying.
 
 ### Test the Connection
 

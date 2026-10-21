@@ -80,24 +80,32 @@ async function sendEmail({
         text,
       }),
       cache: "no-store",
+      signal: AbortSignal.timeout(10000),
     });
 
     const payload = await response.json().catch(() => null) as { id?: string; message?: string } | null;
     if (!response.ok || !payload?.id) {
       console.error("[Transactional email] Resend rejected the message.", {
         status: response.status,
-        message: payload?.message || "Unknown provider response",
       });
       return { sent: false, reason: "provider_error" };
     }
 
     return { sent: true, id: payload.id };
-  } catch (error) {
-    console.error("[Transactional email] Could not reach Resend.", {
-      message: error instanceof Error ? error.message : "Unknown error",
-    });
+  } catch {
+    console.error("[Transactional email] Could not reach Resend.");
     return { sent: false, reason: "provider_error" };
   }
+}
+
+export async function sendVerificationCode(input: { email: string; code: string; reference: string }): Promise<EmailResult> {
+  return sendEmail({
+    to: input.email,
+    subject: "Your Sutton Vet verification code",
+    html: emailShell("Your email verification code expires in 10 minutes.", "Verify your email", `<p>Your code is:</p><p style="font-size:32px;font-weight:700;letter-spacing:6px">${escapeHtml(input.code)}</p><p>This code expires in 10 minutes and can only be used once. Do not share it. If you did not request it, you can ignore this email.</p>`),
+    text: `Your Sutton Vet verification code is ${input.code}. It expires in 10 minutes and can only be used once. Do not share it. If you did not request it, ignore this email.`,
+    idempotencyKey: `booking-verification/${input.reference}`,
+  });
 }
 
 export async function sendRegistrationConfirmation(input: RegistrationConfirmation): Promise<EmailResult> {
@@ -135,14 +143,14 @@ export async function sendBookingConfirmation(input: BookingConfirmation): Promi
     `<p style="margin:0 0 16px">Hello ${firstName},</p>
      <p style="margin:0 0 16px">We have received your appointment request for <strong>${petName}</strong>.</p>
      <p style="margin:0 0 16px;padding:16px;border-radius:12px;background:#f5f1f7;color:#4d186f"><strong>Requested time:</strong><br>${safeAppointment}</p>
-     <p style="margin:0">The practice team will contact you if anything about this request needs to change.</p>`,
+     <p style="margin:0">This is a request, not a confirmed appointment. The practice team will contact you to confirm your booking.</p>`,
   );
 
   return sendEmail({
     to: input.email,
     subject: `Appointment request received for ${input.petName}`,
     html,
-    text: `Hello ${input.firstName},\n\nWe have received your appointment request for ${input.petName}.\n\nRequested time: ${appointment}\n\nThe practice team will contact you if anything about this request needs to change.\n\nNeed help? Reply to this email or call 0203 603 0298.`,
+    text: `Hello ${input.firstName},\n\nWe have received your appointment request for ${input.petName}.\n\nRequested time: ${appointment}\n\nThis is a request, not a confirmed appointment. The practice team will contact you to confirm your booking.\n\nNeed help? Reply to this email or call 0203 603 0298.`,
     idempotencyKey: `lupa-booking/${input.reference}`,
   });
 }

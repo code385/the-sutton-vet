@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HostedLupaBooking } from "@/components/pms/HostedLupaBooking";
+import { VerifiedClientBooking } from "@/components/pms/VerifiedClientBooking";
 import { getLupaHostedBookingUrl } from "@/lib/lupa";
 import { siteConfig } from "@/lib/site";
 
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function BookPage() {
+  if (process.env.LUPA_CLIENT_BOOKING_ENABLED === "true") return <VerifiedClientBooking clinicPhone={siteConfig.phone} />;
   const bookingUrl = getLupaHostedBookingUrl();
 
   return (
