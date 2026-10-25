@@ -20468,25 +20468,28 @@ a.pricing-quote-item:focus-visible {
 }
 
 .sv-header-clean .sv-header-brand-clean {
-  flex: 0 1 12rem;
-  width: 12rem !important;
+  flex: 0 0 auto;
+  width: auto !important;
   min-width: 0 !important;
   max-width: calc(100% - 4rem);
   padding: 0 !important;
 }
 
 .sv-header-clean .sv-header-brand-clean img {
+  width: auto !important;
+  height: 4.75rem !important;
+  max-width: 12rem;
   max-height: 4.75rem !important;
 }
 
 .sv-header-clean .sv-nav-clean {
   display: flex !important;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   flex-wrap: wrap;
-  width: max-content;
+  width: auto;
   max-width: 100%;
-  margin-left: auto;
-  justify-content: flex-end !important;
+  margin: 0;
+  justify-content: center !important;
   gap: 1.1rem !important;
 }
 

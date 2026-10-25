@@ -70,12 +70,24 @@ try {
 
   await page.evaluate(() => { document.documentElement.style.fontSize = "16px"; });
   await page.setViewportSize({ width: 1440, height: 900 });
+  const spacing = await page.evaluate(() => {
+    const brand = document.querySelector(".sv-header-brand-clean img").getBoundingClientRect();
+    const items = document.querySelectorAll(".sv-nav-clean > .sv-nav-group");
+    const first = items[0].getBoundingClientRect();
+    const last = items[items.length - 1].getBoundingClientRect();
+    const actions = document.querySelector(".sv-header-actions-clean").getBoundingClientRect();
+    return { left: first.left - brand.right, right: actions.left - last.right };
+  });
+  assert.ok(Math.abs(spacing.left - spacing.right) < 3, `Balanced navigation gaps: ${JSON.stringify(spacing)}`);
+  assert.equal(await page.locator('.sv-nav-group[data-nav-group="Services"] a[href="/fees"], .sv-nav-group[data-nav-group="Services"] a[href="/health-plan"]').count(), 0);
+  assert.equal(await page.locator('footer a[href="/terms"]').count(), 1);
   await page.locator('.sv-nav-group[data-nav-group="Services"] > button').hover();
   await page.locator('.sv-nav-group[data-nav-group="Services"] .sv-nav-dropdown').waitFor({ state: "visible" });
   const dropdownBounds = await page.locator('.sv-nav-group[data-nav-group="Services"] .sv-nav-dropdown').boundingBox();
   assert.ok(dropdownBounds.x >= 0 && dropdownBounds.x + dropdownBounds.width <= 1441, "Services dropdown stays inside the viewport");
   await page.mouse.move(0, 500);
   await page.locator('.sv-nav-group[data-nav-group="Services"].is-open').waitFor({ state: "hidden" });
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('.sv-nav-group[data-nav-group="Services"] .sv-nav-dropdown-wrap')).opacity === "0");
   if (process.env.UI_SCREENSHOT) {
     await page.screenshot({ path: process.env.UI_SCREENSHOT.replace(/\.png$/, "-header.png") });
   }

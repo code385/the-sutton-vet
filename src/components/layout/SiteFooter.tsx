@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CookieSettingsButton } from "@/components/layout/CookieSettingsButton";
 import type { ResolvedSiteSettings } from "@/sanity/lib/siteSettings";
+import { resolveFooterLinks } from "@/lib/footerLinks";
 
 type SiteFooterProps = {
   siteSettings: ResolvedSiteSettings;
@@ -15,8 +16,6 @@ const careLinks = [
 
 const resourceLinks = [
   { label: "Contact Us", href: "/contact" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms of Business", href: "/terms" },
 ];
 
 function SocialIcon({ label }: { label: string }) {
@@ -97,6 +96,7 @@ function SocialIcon({ label }: { label: string }) {
 }
 
 export function SiteFooter({ siteSettings }: SiteFooterProps) {
+  const legalLinks = resolveFooterLinks(siteSettings.legalLinks);
   return (
     <footer className="sv-footer sv-footer-expanded">
       <div className="shell sv-footer-top-v2">
@@ -133,7 +133,6 @@ export function SiteFooter({ siteSettings }: SiteFooterProps) {
           <Link href="/about">About Us</Link>
           <Link href="/meet-the-team">Meet The Team</Link>
           <Link href="/careers">Careers</Link>
-          <Link href="/terms">Terms</Link>
           <a href={siteSettings.ctas.register}>Register Now</a>
         </div>
 
@@ -158,8 +157,8 @@ export function SiteFooter({ siteSettings }: SiteFooterProps) {
 
       <div className="shell sv-footer-bottom-v2">
         <div className="sv-footer-legal-links-v2">
-          {siteSettings.legalLinks.map((item) => (
-            <Link key={item.label} href={item.href}>
+          {legalLinks.map((item) => (
+            <Link key={item.href} href={item.href}>
               {item.label}
             </Link>
           ))}

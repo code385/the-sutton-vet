@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { bodyFont, headingFont } from "@/lib/brand";
 import { getEmergencySettingsDocument, resolveEmergencyKeywords } from "@/sanity/lib/emergency";
@@ -21,6 +22,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Published footer links must be read at request time, not frozen during a build.
+  await connection();
   const [siteSettingsDocument, emergencySettingsDocument] = await Promise.all([
     getSiteSettingsDocument(),
     getEmergencySettingsDocument(),

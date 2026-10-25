@@ -170,7 +170,9 @@ const siteSettingsQuery = groq`
 `;
 
 export async function getSiteSettingsDocument() {
-  return safeSanityFetch<SiteSettingsDocument | null>(siteSettingsQuery, undefined, null);
+  return safeSanityFetch<SiteSettingsDocument | null>(siteSettingsQuery, undefined, null, {
+    cache: "no-store", perspective: "published",
+  });
 }
 
 function cleanPhoneNumber(value: string) {

@@ -95,6 +95,7 @@ export const siteSettings = defineType({
       name: "legalLinks",
       title: "Legal Links",
       type: "array",
+      description: "Links shown once in the footer. To add a compliance page, first publish it under Legal Page with Page Type Additional Compliance Page, then add its label and /legal/your-slug here. Drag links to reorder them and publish Site Settings.",
       of: [
         defineArrayMember({
           type: "object",

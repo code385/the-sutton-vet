@@ -45,7 +45,7 @@ const navGroups: NavGroup[] = [
     label: "Services",
     href: "/services",
     menuTitle: "Clinical care and advanced services",
-    menuCopy: "Everyday care, daytime urgent support, procedures, diagnostics, pricing, soft tissue surgery, orthopaedic surgery, and endoscopy pathways.",
+    menuCopy: "Everyday care, daytime urgent support, procedures, diagnostics, soft tissue surgery, orthopaedic surgery, and endoscopy pathways.",
     illustration: "pets",
     children: [
       { label: "Pet Club and preventative care", href: "/services/pet-club-preventative-care", description: "Vaccines, parasite support, and routine planning." },
@@ -54,8 +54,6 @@ const navGroups: NavGroup[] = [
       { label: "Soft tissue procedures", href: "/services/soft-tissue-surgery", description: "Selected soft tissue surgical services." },
       { label: "Orthopaedic procedures", href: "/services/orthopaedic-surgery", description: "Orthopaedic services assessed case by case." },
       { label: "Endoscopy and sensitive care", href: "/services/endoscopy", description: "Endoscopy, aftercare, and careful conversations." },
-      { label: "Services & pricing", href: "/fees", description: "Pricing will be finalised and published here." },
-      { label: "Health Plan", href: "/health-plan", description: "Preventative care plans." },
     ],
   },
   { label: "Pricing", href: "/fees" },

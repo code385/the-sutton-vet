@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
+import { londonDateKey } from "@/lib/bookingCalendar";
+import { AppointmentCalendar } from "./AppointmentCalendar";
 import styles from "./VerifiedClientBooking.module.css";
 
 type Pet = { id: string; name: string; species: string };
@@ -20,7 +22,8 @@ export function VerifiedClientBooking({ clinicPhone }: { clinicPhone: string }) 
   const [petId, setPetId] = useState("");
   const [visitTypeId, setVisitTypeId] = useState("");
   const [choice, setChoice] = useState("");
-  const [month, setMonth] = useState(() => new Date().toISOString().slice(0, 7));
+  const [month, setMonth] = useState(() => londonDateKey(new Date()).slice(0, 7));
+  const [selectedDate, setSelectedDate] = useState("");
   const [notes, setNotes] = useState("");
   const [busy, setBusy] = useState(true);
   const [message, setMessage] = useState("");
@@ -29,13 +32,17 @@ export function VerifiedClientBooking({ clinicPhone }: { clinicPhone: string }) 
   const [locked, setLocked] = useState(false);
   const [slotsChecked, setSlotsChecked] = useState(false);
 
+  function clearAvailability() {
+    setSlots([]); setChoice(""); setSelectedDate(""); setSlotsChecked(false);
+  }
+
   async function api(query: string, body?: Record<string, unknown>): Promise<Payload> {
     const response = await fetch(`/api/client-booking${query}`, {
       method: body ? "POST" : "GET", credentials: "same-origin", cache: "no-store",
       ...(body ? { headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {}),
     });
     const data = await response.json() as Payload;
-    if (response.status === 401) { setStage("email"); setPets([]); setSlots([]); setChoice(""); }
+    if (response.status === 401) { setStage("email"); setPets([]); clearAvailability(); }
     if (!response.ok || !data.ok) throw new Error(data.error || "Please call the practice for help.");
     return data;
   }
@@ -97,6 +104,7 @@ export function VerifiedClientBooking({ clinicPhone }: { clinicPhone: string }) 
       await api("", { action: "logout" });
       setStage("email"); setEmail(""); setCode(""); setPets([]); setTypes([]); setSlots([]);
       setPetId(""); setVisitTypeId(""); setChoice(""); setNotes(""); setLocked(false); setNotRegistered(false);
+      clearAvailability();
     });
   }
 
@@ -110,8 +118,6 @@ export function VerifiedClientBooking({ clinicPhone }: { clinicPhone: string }) 
       setStage("done"); setMessage(result.message || "Your request has been sent to the practice.");
     });
   }
-
-  const formatTime = (value: string) => new Date(value).toLocaleString("en-GB", { timeZone: "Europe/London", dateStyle: "medium", timeStyle: "short" });
 
   return (
     <section className={styles.layout} aria-labelledby="verified-booking-title">
@@ -151,17 +157,19 @@ export function VerifiedClientBooking({ clinicPhone }: { clinicPhone: string }) 
             {notRegistered && <Link className="button button-primary" href="/register">Register with the practice</Link>}
             <button className="button button-muted" disabled={busy} onClick={() => run(loadPets)}>Reload details</button>
           </div> : <form className={styles.form} onSubmit={submit}>
-            <label><span id="booking-pet-label">Your pet</span><select aria-labelledby="booking-pet-label" required value={petId} onChange={(event) => setPetId(event.target.value)} disabled={busy || locked}><option value="">Choose your pet</option>{pets.map((pet) => <option key={pet.id} value={pet.id}>{pet.name}{pet.species ? ` (${pet.species})` : ""}</option>)}</select></label>
-            <label><span id="booking-type-label">Appointment type</span><select aria-labelledby="booking-type-label" required value={visitTypeId} disabled={busy || locked} onChange={(event) => { setVisitTypeId(event.target.value); setSlots([]); setChoice(""); setSlotsChecked(false); }}><option value="">Choose appointment type</option>{types.map((type) => <option key={type.id} value={type.id}>{type.name} ({type.duration} minutes)</option>)}</select></label>
+            <label><span id="booking-pet-label">Your pet</span><select aria-labelledby="booking-pet-label" required value={petId} onChange={(event) => { setPetId(event.target.value); clearAvailability(); }} disabled={busy || locked}><option value="">Choose your pet</option>{pets.map((pet) => <option key={pet.id} value={pet.id}>{pet.name}{pet.species ? ` (${pet.species})` : ""}</option>)}</select></label>
+            <label><span id="booking-type-label">Appointment type</span><select aria-labelledby="booking-type-label" required value={visitTypeId} disabled={busy || locked} onChange={(event) => { setVisitTypeId(event.target.value); clearAvailability(); }}><option value="">Choose appointment type</option>{types.map((type) => <option key={type.id} value={type.id}>{type.name} ({type.duration} minutes)</option>)}</select></label>
             {!types.length && <><p>No online appointment types are available. Please call the practice or reload your details.</p><button type="button" disabled={busy} onClick={() => run(loadPets)}>Reload details</button></>}
-            <label>Month<input type="month" required value={month} disabled={busy || locked} onChange={(event) => { setMonth(event.target.value); setSlots([]); setChoice(""); setSlotsChecked(false); }} /></label>
-            <button type="button" className="button button-muted" disabled={busy || locked || !visitTypeId || !petId} onClick={() => run(async () => {
-              setSlots([]); setChoice(""); setSlotsChecked(false);
-              const result = await api(`?action=slots&visitTypeId=${encodeURIComponent(visitTypeId)}&month=${encodeURIComponent(month)}`);
-              setSlots(result.slots || []); setSlotsChecked(true);
-            })}>Check available times</button>
-            {slotsChecked && !slots.length && <p>No available times were returned. Try another month or call us.</p>}
-            {!!slots.length && <label><span id="booking-time-label">Available time (London time)</span><select aria-labelledby="booking-time-label" required value={choice} disabled={busy || locked} onChange={(event) => setChoice(event.target.value)}><option value="">Choose a time</option>{slots.map((slot) => <option key={slot.choice} value={slot.choice}>{formatTime(slot.start)}</option>)}</select></label>}
+            <AppointmentCalendar month={month} slots={slots} selectedDate={selectedDate} choice={choice}
+              checked={slotsChecked} disabled={busy || locked} canCheck={Boolean(visitTypeId && petId)}
+              onMonthChange={(value) => { setMonth(value); clearAvailability(); }}
+              onDateChange={(value) => { setSelectedDate(value); setChoice(""); }}
+              onChoiceChange={setChoice}
+              onCheck={() => run(async () => {
+                clearAvailability();
+                const result = await api(`?action=slots&visitTypeId=${encodeURIComponent(visitTypeId)}&month=${encodeURIComponent(month)}`);
+                setSlots(result.slots || []); setSlotsChecked(true);
+              })} />
             <label>Reason for your visit (optional)<textarea value={notes} maxLength={1000} rows={3} disabled={busy || locked} onChange={(event) => setNotes(event.target.value)} /></label>
             <p>This sends a request to the practice. Your appointment is not confirmed until the team confirms it.</p>
             <button className="button button-primary" disabled={busy || locked || !choice || !petId}>Send appointment request</button>

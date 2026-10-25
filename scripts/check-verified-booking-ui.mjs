@@ -10,14 +10,16 @@ const { chromium } = await import(process.env.PLAYWRIGHT_MODULE
 const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL || "msedge", headless: true });
 
 try {
-  for (const width of [375, 1440]) {
-    const context = await browser.newContext({ viewport: { width, height: 1000 }, reducedMotion: "reduce" });
+  for (const width of [320, 375, 1440]) {
+    const context = await browser.newContext({ viewport: { width, height: 1000 }, reducedMotion: "reduce", timezoneId: "Asia/Karachi" });
     const page = await context.newPage();
+    await page.clock.setFixedTime(new Date("2026-10-01T12:00:00Z"));
     page.setDefaultTimeout(20000);
     let verified = false;
     let missing = false;
     let sendFailure = false;
     let bookingFailure = false;
+    let emptySlots = false;
     const writes = [];
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
@@ -36,7 +38,14 @@ try {
       else if (!verified) { status = 401; body = { ok: false, error: "Please verify your email to continue." }; }
       else if (action === "pets") body = { ok: true, state: missing ? "not_registered" : "ready", pets: missing ? [] : [{ id: "pet-1", name: "Test pet", species: "Dog" }] };
       else if (action === "types") body = { ok: true, types: [{ id: "type-1", name: "Consultation", duration: 30 }] };
-      else if (action === "slots") body = { ok: true, slots: [{ start: "2027-01-10T10:00:00Z", end: "2027-01-10T10:30:00Z", choice: "signed-test-choice" }] };
+      else if (action === "slots") {
+        const month = new URL(request.url()).searchParams.get("month");
+        body = { ok: true, slots: emptySlots ? [] : [
+          { start: `${month}-15T10:00:00Z`, end: `${month}-15T10:30:00Z`, choice: "signed-test-choice" },
+          { start: `${month}-15T10:00:00Z`, end: `${month}-15T10:30:00Z`, choice: "same-time-other-staff" },
+          { start: `${month}-16T14:00:00Z`, end: `${month}-16T14:30:00Z`, choice: "signed-other-day" },
+        ] };
+      }
       else if (action === "book") {
         writes.push(input);
         if (bookingFailure) { status = 409; body = { ok: false, error: "We could not confirm whether this request reached the clinic." }; }
@@ -57,12 +66,16 @@ try {
       await page.getByLabel("Verification code", { exact: true }).fill("123456");
       await (await enabled("Verify email")).click();
       await page.getByRole("heading", { name: "Your appointment request" }).waitFor();
+      await enabled("Sign out");
     }
     async function selectSlot() {
       await page.getByLabel("Your pet", { exact: true }).selectOption("pet-1");
       await page.getByLabel("Appointment type", { exact: true }).selectOption("type-1");
       await (await enabled("Check available times")).click();
-      await page.getByLabel("Available time (London time)", { exact: true }).selectOption("signed-test-choice");
+      await page.getByRole("button", { name: /15 .*2026, available$/ }).click();
+      assert.equal(await page.getByRole("radio").count(), 1, "Duplicate staff choices show one time");
+      await page.getByRole("radio").check();
+      assert.equal(await page.locator('input[name="appointment-time"]:checked + span').evaluate((element) => getComputedStyle(element).color), "rgb(255, 255, 255)", "Selected time remains readable on its purple background");
     }
     async function noOverflow() {
       assert.equal(await page.locator("main").evaluate((element) => element.scrollWidth > element.clientWidth + 1), false, `${width}px page overflow`);
@@ -89,6 +102,17 @@ try {
     assert.equal(await page.getByRole("button", { name: /^Resend in/ }).isDisabled(), true);
     await page.getByLabel("Verification code", { exact: true }).fill("123456");
     await (await enabled("Verify email")).click();
+    await selectSlot();
+    await page.getByRole("button", { name: /16 .*2026, available$/ }).click();
+    assert.equal(await page.getByRole("button", { name: "Send appointment request", exact: true }).isDisabled(), true);
+    await page.getByRole("radio").check();
+    await page.getByRole("button", { name: "Next month", exact: true }).click();
+    assert.equal(await page.getByRole("radio").count(), 0, "Month change clears stale selection");
+    assert.equal(await page.getByRole("button", { name: "Send appointment request", exact: true }).isDisabled(), true);
+    emptySlots = true;
+    await (await enabled("Check available times")).click();
+    await page.getByRole("status").filter({ hasText: "No available times for this month" }).waitFor();
+    emptySlots = false;
     await selectSlot();
     console.log(`${width}px: verified pet and slot selected`);
     await noOverflow();

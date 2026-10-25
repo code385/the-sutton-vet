@@ -222,3 +222,14 @@ export async function getFaqItems() {
 export async function getLegalPageByType(pageType: string) {
   return safeSanityFetch<LegalPageDocument | null>(legalPageByTypeQuery, { pageType }, null);
 }
+
+export async function getLegalPageBySlug(slug: string) {
+  return safeSanityFetch<LegalPageDocument | null>(
+    groq`*[_type == "legalPage" && pageType == "Additional Compliance Page" && slug.current == $slug][0]{
+      title, eyebrow, description, sections
+    }`,
+    { slug },
+    null,
+    { cache: "no-store", perspective: "published" },
+  );
+}

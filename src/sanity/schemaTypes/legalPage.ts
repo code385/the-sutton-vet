@@ -5,16 +5,28 @@ export const legalPage = defineType({
   title: "Legal Page",
   type: "document",
   fields: [
-    defineField({ name: "title", title: "Title", type: "string" }),
+    defineField({ name: "title", title: "Title", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "eyebrow", title: "Eyebrow", type: "string" }),
-    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title", maxLength: 96 } }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "title", maxLength: 96 },
+      description: "For additional compliance pages, click Generate. The website address will be /legal/your-slug. Add that address in Site Settings > Legal Links after publishing.",
+      validation: (Rule) => Rule.custom((value, context) => {
+        if (context.document?.pageType !== "Additional Compliance Page") return true;
+        return value?.current && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.current)
+          ? true : "Generate a slug using lowercase letters, numbers, and hyphens.";
+      }),
+    }),
     defineField({
       name: "pageType",
       title: "Page Type",
       type: "string",
       options: {
-        list: ["Privacy Policy", "Cookie Policy", "Accessibility Statement", "Terms of Business"],
+        list: ["Privacy Policy", "Cookie Policy", "Accessibility Statement", "Terms of Business", "Additional Compliance Page"],
       },
+      description: "Choose Additional Compliance Page for a new policy. Existing policy types keep their current website addresses.",
     }),
     defineField({ name: "description", title: "Description", type: "text", rows: 3 }),
     defineField({
