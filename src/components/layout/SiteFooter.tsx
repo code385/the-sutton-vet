@@ -16,6 +16,7 @@ const careLinks = [
 
 const resourceLinks = [
   { label: "Contact Us", href: "/contact" },
+  { label: "Client Reviews", href: "/reviews" },
 ];
 
 function SocialIcon({ label }: { label: string }) {

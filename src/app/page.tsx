@@ -108,7 +108,7 @@ export default async function Home() {
         </Reveal>
       </section>
 
-      <Reveal variant="mask" className="sv-home-expert-reveal"><section className="shell sv-home-expert-v3">
+      <div className="sv-home-expert-reveal"><section className="shell sv-home-expert-v3">
         <Reveal variant="left">
           <div className="sv-home-expert-heading">
             <p className="eyebrow">{homePage?.servicesEyebrow || "Care Overview"}</p>
@@ -146,7 +146,7 @@ export default async function Home() {
             </Link>
           </div>
         </Reveal>
-      </section></Reveal>
+      </section></div>
 
       <section className="shell sv-home-why-v4">
         <Reveal variant="left">

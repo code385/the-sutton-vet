@@ -31,6 +31,28 @@
   border-bottom-color: var(--brand-line);
   box-shadow: 0 4px 22px #4b176105;
 }
+
+/* One family for all public-site text, including native form controls.
+   Studio is outside these surfaces and keeps its own editor typography. */
+:is(.page-shell, .sv-header, .sv-footer, .chat-panel, .cookie-panel, .chat-launcher),
+:is(.page-shell, .sv-header, .sv-footer, .chat-panel, .cookie-panel, .chat-launcher) * {
+  font-family: var(--font-body) !important;
+}
+
+/* The services grid already reveals its children. An outer mask clipped
+   the heading permanently and could never fully intersect on small screens. */
+.page-shell .sv-home-expert-reveal,
+.page-shell .sv-home-expert-v3 {
+  overflow: visible !important;
+}
+.page-shell .sv-home-expert-reveal {
+  margin-top: 0 !important;
+  clip-path: none !important;
+  transform: none !important;
+}
+.page-shell .sv-home-expert-heading .eyebrow {
+  line-height: 1.5 !important;
+}
 .sv-header-clean .sv-nav-clean > .sv-nav-group > :is(a, button) {
   color: var(--brand-charcoal) !important;
 }

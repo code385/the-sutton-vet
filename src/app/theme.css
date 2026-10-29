@@ -1,6 +1,7 @@
 :root {
   --font-body: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-heading: Georgia, "Times New Roman", serif;
+  --font-heading: var(--font-body);
+  --font-display: var(--font-body);
 
   --bg: #f7f2ea;
   --bg-soft: #efe6da;

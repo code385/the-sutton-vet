@@ -13,6 +13,6 @@ Verified from the public CSS and computed styles at https://www.vet-er.co.uk/ an
 
 `src/app/reference-theme.css` is the final shared colour layer. It is imported after the legacy global stylesheet. The reference values are brand tokens; lighter supporting tints are derived design choices, not claimed as exact reference colours.
 
-Gold primary buttons use charcoal text for legibility rather than copying the reference's lower-contrast white labels. Secondary actions use purple outlines. The footer is deep purple, with light links and a white logo plate so the original logo remains legible. Existing navigation, imagery and typography are retained.
+Gold primary buttons use charcoal text for legibility rather than copying the reference's lower-contrast white labels. Secondary actions use purple outlines. The footer is deep purple, with light links and a white logo plate so the original logo remains legible. Navigation structure and imagery are retained. All public-site headings, body text and controls use the existing body font family consistently; the Sanity editor keeps its own typography.
 
 To inspect colours in a browser: inspect the element, open **Computed**, then read **color** and **background-color**. Inspect inner text spans separately if they override their parent. RGB values can be converted to hex in the DevTools colour picker. DevTools selection highlights and shadows are not the underlying element's colour.
