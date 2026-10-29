@@ -12,6 +12,7 @@ function load(relative, dependencies = {}) {
   const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
   const styles = new Proxy({}, { get: (_, key) => String(key) });
   const defaults = {
+    react,
     "react/jsx-runtime": jsxRuntime,
     "next/link": { default: ({ children, ...props }) => react.createElement("a", props, children) },
     "./Reviews.module.css": { default: styles },
@@ -28,7 +29,8 @@ function load(relative, dependencies = {}) {
 }
 
 const cards = load("../src/components/reviews/ReviewCards.tsx");
-const { HomeReviews } = load("../src/components/reviews/HomeReviews.tsx", { "./ReviewCards": cards });
+const carousel = load("../src/components/reviews/ReviewCarousel.tsx", { "./ReviewCards": cards });
+const { HomeReviews } = load("../src/components/reviews/HomeReviews.tsx", { "./ReviewCarousel": carousel });
 const review = (id, extra = {}) => ({ _id: id, reviewerName: "Test reviewer", text: "Test feedback", active: true, ...extra });
 const html = (Component, props) => renderToStaticMarkup(react.createElement(Component, props));
 
@@ -60,6 +62,14 @@ test("cards show supplied rating, attribution and optional date, with safe text"
   assert.match(output, /Client feedback/);
   assert.match(output, /October 2026/);
   assert.doesNotMatch(html(cards.ReviewCards, { reviews: [review("2", { rating: 8, reviewDate: "invalid" })] }), /out of 5 stars|<time/);
+});
+
+test("homepage carousel exposes only its first slide and omits controls for one review", () => {
+  const output = html(HomeReviews, { reviews: [review("1"), review("2")] });
+  assert.match(output, /aria-roledescription="carousel"/);
+  assert.equal((output.match(/aria-hidden="false"/g) || []).length, 1);
+  assert.match(output, /Next review/);
+  assert.doesNotMatch(html(HomeReviews, { reviews: [review("1")] }), /Next review|Previous review|Pause review/);
 });
 
 function page(reviews) {

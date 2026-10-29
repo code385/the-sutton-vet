@@ -12,6 +12,8 @@ The bottom of the homepage shows up to three visible reviews, prioritising featu
 
 To edit, update the document and publish again. To hide a review, turn off **Show On Website** and publish, or unpublish the document. Drafts are never displayed. Published updates appear on the next page load without a redeploy.
 
+The homepage displays these reviews one at a time, advancing every 3 seconds while the section is visible. Hover or keyboard focus pauses rotation; previous/next and pause/play controls are available. Manual navigation pauses the slideshow until Play is selected and focus leaves the controls. Reduced-motion preferences disable autoplay and transitions. A single review remains static, and the separate reviews page keeps its full list.
+
 If there are no visible reviews, the entire homepage section and its link are hidden. Direct visits to `/reviews` show a friendly empty message, and the empty page requests no indexing. A temporary CMS fetch failure also hides reviews rather than showing invented fallback content.
 
 Only publish genuine feedback with permission to share the review and display name. Do not add private contact information or medical details. These are manually managed text reviews, not an automatic Google or social-media feed. No sample reviews are added to the live dataset.

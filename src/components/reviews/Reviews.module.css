@@ -33,5 +33,20 @@
 .section .avatar { display: grid; place-items: center; flex: 0 0 42px; height: 42px; border-radius: 50%; color: var(--review-plum); background: #f3edf7; font-size: .85rem; font-weight: 700; }
 .section .source, .section .date { display: block; margin-top: .2rem; font-size: .8rem; line-height: 1.5; color: #696171; }
 .empty { padding: 1rem 0; max-width: 42rem; }
+.carousel { min-width: 0; max-width: 54rem; margin-inline: auto; }
+.carouselControls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1rem; }
+.carouselCount { color: var(--review-plum); font-size: .85rem; font-weight: 700; }
+.carouselButtons { display: flex; gap: .5rem; }
+.carouselButtons button { min-width: 44px; min-height: 44px; padding: .5rem .8rem; border: 1px solid var(--review-line); border-radius: 999px; background: #fff; color: var(--review-plum); font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
+.carouselButtons button:hover { background: var(--brand-purple-soft, #f2edf6); border-color: var(--review-plum); }
+.carouselButtons button:focus-visible { outline: 3px solid var(--review-plum); outline-offset: 3px; }
+/* Overlapping grid cells reserve the tallest card's space, preventing page jumps. */
+.carouselSlides { display: grid; }
+.slide { grid-area: 1 / 1; min-width: 0; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(.4rem); transition: opacity 400ms ease, transform 400ms ease, visibility 400ms; }
+.activeSlide { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+.carousel .grid { grid-template-columns: minmax(0, 1fr); height: 100%; }
+.carousel .card { border-top: 3px solid var(--review-gold); }
+.carousel .text { font-size: clamp(1rem, 1.5vw, 1.2rem); }
+@media (prefers-reduced-motion: reduce) { .slide { transition: none; transform: none; } }
 @media (max-width: 1050px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .heading { align-items: start; flex-direction: column; gap: 1rem; } }
 @media (max-width: 640px) { .grid { grid-template-columns: minmax(0, 1fr); } .section { border-radius: 16px; } }
