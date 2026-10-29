@@ -20452,6 +20452,8 @@ a.pricing-quote-item:focus-visible {
 /* Size navigation against the capped shell, not the zoomed viewport. */
 .sv-header-clean > .sv-header-container {
   container: header-layout / inline-size;
+  width: min(calc(100% - 2rem), var(--shell, 1160px)) !important;
+  margin-inline: auto !important;
   padding-inline: 0 !important;
 }
 

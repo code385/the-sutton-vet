@@ -196,3 +196,32 @@
   outline: 2px solid #fff;
   outline-offset: 5px;
 }
+
+/* Keep the no-consent map state readable under the public-site palette. */
+.page-shell .consent-map-placeholder {
+  align-content: center;
+  background: var(--brand-paper) !important;
+  border: 1px solid var(--brand-line);
+  border-top: 3px solid var(--brand-gold);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.page-shell .consent-map-placeholder .consent-embed-copy :is(h3, .eyebrow) {
+  color: var(--brand-purple) !important;
+}
+
+.page-shell .consent-map-placeholder .consent-embed-copy p:not(.eyebrow) {
+  color: var(--brand-charcoal) !important;
+  line-height: 1.6;
+}
+
+.page-shell .consent-map-placeholder .consent-embed-actions {
+  gap: 0.65rem;
+}
+
+.page-shell .consent-map-placeholder .consent-embed-actions .button {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}

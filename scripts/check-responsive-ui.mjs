@@ -54,6 +54,12 @@ try {
       assert.deepEqual(result.problems, [], `${width}px / ${fontSize}px text`);
       if (fontSize === 16 && width >= 1200) assert.equal(result.compact, false, "Desktop navigation should remain visible");
       if (result.compact) {
+        const headerInsets = await page.evaluate(() => ({
+          left: document.querySelector(".sv-header-brand-clean").getBoundingClientRect().left,
+          right: innerWidth - document.querySelector(".sv-menu-toggle").getBoundingClientRect().right,
+        }));
+        assert.ok(headerInsets.left >= 15 && headerInsets.right >= 15,
+          `Mobile header needs balanced edge spacing at ${width}px: ${JSON.stringify(headerInsets)}`);
         await page.evaluate(() => window.scrollTo(0, 0));
         await page.locator(".sv-menu-toggle").click();
         assert.equal(await page.locator(".sv-menu-toggle").getAttribute("aria-expanded"), "true");

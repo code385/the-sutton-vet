@@ -12,9 +12,9 @@ export function ConsentManagedMap({ src, title, actionHref }: ConsentManagedMapP
   return (
     <ConsentManagedEmbed
       category="externalMedia"
-      placeholderLabel="Map privacy"
-      title="Map available after consent."
-      description="Allow external media to load Google Maps here, or open directions directly without changing your website cookie settings."
+      placeholderLabel="Google Maps"
+      title="View our location"
+      description="Google Maps is paused until you allow external media. You can still open directions in a new tab."
       actionHref={actionHref}
       actionLabel="Open in Google Maps"
       className="consent-map-placeholder"
