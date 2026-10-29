@@ -1,0 +1,76 @@
+.widget:global(.chat-widget) {
+  z-index: 70;
+}
+
+.panel:global(.chat-panel) {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.panel :global(.chat-assistant-identity) p {
+  color: #f5eff9 !important;
+}
+
+@media (max-height: 600px) {
+  .panel :global(.chat-message-list) {
+    flex: 0 0 auto;
+    max-height: 8rem;
+  }
+}
+
+.launcherRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.floatingWhatsapp {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #147d46;
+  color: white;
+  box-shadow: 0 5px 18px #143d2526;
+  transition: background 160ms ease;
+}
+
+.floatingWhatsapp:hover {
+  background: #0d6034;
+}
+
+.floatingWhatsapp:focus-visible,
+.phoneLink:focus-visible {
+  outline: 3px solid var(--plum);
+  outline-offset: 3px;
+}
+
+.phoneLink {
+  grid-column: 1 / -1;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--plum);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.whatsappAction:global(.button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.whatsappAction svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+}

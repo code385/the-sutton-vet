@@ -10,7 +10,7 @@ export const clientReview = defineType({
     defineField({ name: "rating", title: "Star Rating (Optional)", type: "number", description: "Only enter a rating if the reviewer supplied one. Leave blank for text-only reviews.", validation: (rule) => rule.integer().min(1).max(5) }),
     defineField({ name: "source", title: "Source (Optional)", type: "string", description: "For example, Google or Client feedback. Only name the actual source.", validation: (rule) => rule.max(100) }),
     defineField({ name: "reviewDate", title: "Review Date (Optional)", type: "date" }),
-    defineField({ name: "active", title: "Show On Website", type: "boolean", initialValue: true, description: "Switch off and publish to hide this review from both pages." }),
+    defineField({ name: "active", title: "Show On Website", type: "boolean", initialValue: true, description: "Turn ON and Publish to show this review on the website. Publishing while OFF keeps it hidden from both the homepage and reviews page. Replace any sample text with genuine feedback first." }),
     defineField({ name: "featured", title: "Prioritise On Homepage", type: "boolean", initialValue: false, description: "The homepage shows up to 3 reviews, with these first. Remaining spaces use other visible reviews." }),
     defineField({ name: "displayOrder", title: "Display Order", type: "number", initialValue: 10, description: "Lower numbers appear first. Homepage priority takes precedence on the homepage.", validation: (rule) => rule.integer().min(0) }),
   ],
