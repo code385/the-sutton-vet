@@ -49,6 +49,7 @@ const navGroups: NavGroup[] = [
     menuCopy: "Everyday care, daytime urgent support, procedures, diagnostics, soft tissue surgery, orthopaedic surgery, and endoscopy pathways.",
     illustration: "pets",
     children: [
+      { label: "All Services", href: "/services", description: "Start here for our complete care overview." },
       { label: "Pet Club and preventative care", href: "/services/pet-club-preventative-care", description: "Vaccines, parasite support, and routine planning." },
       { label: "Vaccinations and routine procedures", href: "/services/vaccinations", description: "Everyday cat and dog services." },
       { label: "Dentistry, imaging, and diagnostics", href: "/services/in-house-diagnostics", description: "Dental care, X-rays, ultrasound, and tests." },

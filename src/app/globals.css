@@ -8611,7 +8611,7 @@ span {
   }
 
   .sv-mobile-submenu-simple.is-open {
-    max-height: 18rem;
+    max-height: none;
     opacity: 1;
     padding: 0.2rem 0 0.8rem 0.9rem;
   }
@@ -18342,12 +18342,12 @@ body,
   gap: 0.55rem 0.85rem !important;
 }
 
-.sv-nav-dropdown-pets .sv-nav-dropdown-links a:nth-child(-n + 6) {
+.sv-nav-dropdown-pets .sv-nav-dropdown-links a {
   background: #fff !important;
   border-left: 2px solid var(--gold) !important;
 }
 
-.sv-nav-dropdown-pets .sv-nav-dropdown-links a:nth-child(-n + 6) strong {
+.sv-nav-dropdown-pets .sv-nav-dropdown-links a strong {
   color: var(--plum) !important;
 }
 

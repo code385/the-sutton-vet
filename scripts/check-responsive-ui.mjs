@@ -54,13 +54,23 @@ try {
       assert.deepEqual(result.problems, [], `${width}px / ${fontSize}px text`);
       if (fontSize === 16 && width >= 1200) assert.equal(result.compact, false, "Desktop navigation should remain visible");
       if (result.compact) {
+        await page.evaluate(() => window.scrollTo(0, 0));
         await page.locator(".sv-menu-toggle").click();
         assert.equal(await page.locator(".sv-menu-toggle").getAttribute("aria-expanded"), "true");
         assert.ok(await page.locator('#sv-mobile-menu a[href="/careers"]').isVisible());
         assert.equal(await page.locator("#sv-mobile-menu .sv-mobile-actions-simple a").count(), 2);
+        const servicesToggle = page.locator("#sv-mobile-menu").getByRole("button", { name: /^Services/ });
+        await servicesToggle.click();
+        const allServices = page.locator("#sv-mobile-menu").getByRole("link", { name: "All Services", exact: true });
+        assert.ok(await allServices.isVisible());
+        assert.equal(await allServices.getAttribute("href"), "/services");
+        const submenu = page.locator("#sv-mobile-menu .sv-mobile-submenu.is-open");
+        assert.equal(await submenu.evaluate((element) => element.scrollHeight > element.clientHeight + 1), false,
+          `All service categories must fit at ${width}px / ${fontSize}px text`);
         const overflow = await page.locator("#sv-mobile-menu").evaluate((menu) =>
           menu.scrollWidth > menu.clientWidth + 1);
         assert.equal(overflow, false, `Mobile menu overflow at ${width}px / ${fontSize}px text`);
+        await servicesToggle.click();
         await page.locator(".sv-menu-toggle").click();
       }
       checked++;
@@ -85,6 +95,9 @@ try {
   await page.locator('.sv-nav-group[data-nav-group="Services"] .sv-nav-dropdown').waitFor({ state: "visible" });
   const dropdownBounds = await page.locator('.sv-nav-group[data-nav-group="Services"] .sv-nav-dropdown').boundingBox();
   assert.ok(dropdownBounds.x >= 0 && dropdownBounds.x + dropdownBounds.width <= 1441, "Services dropdown stays inside the viewport");
+  const overview = page.locator('.sv-nav-group[data-nav-group="Services"] .sv-nav-dropdown-links a').first();
+  assert.equal(await overview.locator("strong").innerText(), "All Services");
+  assert.equal(await overview.getAttribute("href"), "/services");
   await page.mouse.move(0, 500);
   await page.locator('.sv-nav-group[data-nav-group="Services"].is-open').waitFor({ state: "hidden" });
   await page.waitForFunction(() => getComputedStyle(document.querySelector('.sv-nav-group[data-nav-group="Services"] .sv-nav-dropdown-wrap')).opacity === "0");
@@ -140,6 +153,7 @@ try {
   }
   await page.goto(`${process.env.TEST_BASE_URL || "http://localhost:3000"}/`, { waitUntil: "domcontentloaded" });
   const location = await page.locator(".sv-home-location-copy").innerText();
+  assert.equal(await page.locator(".sv-home-expert-cta-link").getAttribute("href"), "/services", "Homepage and navigation must share the services overview");
   assert.doesNotMatch(location, /Exact location and directions should be clear early|Hyper-local reassurance|Google Business Profile alignment required/);
   console.log("PASS: health-plan button destinations, enquiry actions, and published home location copy.");
 } finally {
