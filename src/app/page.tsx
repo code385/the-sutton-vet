@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { HomeReviews } from "@/components/reviews/HomeReviews";
+import { getClientReviews } from "@/sanity/lib/reviews";
 
 import { Reveal } from "@/components/shared/Reveal";
 import { ConsentManagedMap } from "@/components/shared/ConsentManagedMap";
@@ -45,7 +47,7 @@ const whyChoosePoints = [
 ];
 
 export default async function Home() {
-  const [siteSettingsDocument, homePage, cmsServices] = await Promise.all([getSiteSettingsDocument(), getHomePageDocument(), getServiceDocuments()]);
+  const [siteSettingsDocument, homePage, cmsServices, reviews] = await Promise.all([getSiteSettingsDocument(), getHomePageDocument(), getServiceDocuments(), getClientReviews()]);
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
   const selectedCmsServices = homeCardIds.map((id) => cmsServices.find((service) => service._id === id)).filter((service): service is NonNullable<typeof service> => Boolean(service));
   const homeCards = selectedCmsServices.length ? selectedCmsServices : fallbackHomeCards;
@@ -220,6 +222,7 @@ export default async function Home() {
           </div>
         </Reveal>
       </section>
+      <HomeReviews reviews={reviews} />
     </>
   );
 }

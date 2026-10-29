@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { calendarDays, groupSlotsByDate, londonDateKey, shiftMonth } from "../src/lib/bookingCalendar.ts";
+import { calendarDays, groupSlotsByDate, groupSlotsByPeriod, londonDateKey, londonTime, shiftMonth } from "../src/lib/bookingCalendar.ts";
 
 test("London dates remain correct around midnight and DST changes", () => {
   assert.equal(londonDateKey("2026-06-30T23:30:00Z"), "2026-07-01");
@@ -38,4 +38,14 @@ test("the two 01:30 times at the autumn clock change remain distinct slots", () 
     { start: "2026-10-25T01:30:00Z", end: "2026-10-25T02:00:00Z", choice: "gmt" },
   ];
   assert.deepEqual(groupSlotsByDate(slots, "2026-10").get("2026-10-25"), slots);
+  assert.deepEqual(londonTime(slots[0].start), { time: "01:30", zone: "BST", hour: 1 });
+  assert.deepEqual(londonTime(slots[1].start), { time: "01:30", zone: "GMT", hour: 1 });
+});
+
+test("time groups follow London local noon and evening, not the visitor timezone", () => {
+  const slots = [10, 11, 15, 16].map((hour) => ({ start: `2026-07-01T${hour}:00:00Z`, end: `2026-07-01T${hour}:30:00Z`, choice: String(hour) }));
+  assert.deepEqual(groupSlotsByPeriod(slots).map((group) => [group.label, group.slots.map((slot) => slot.choice)]), [
+    ["Morning", ["10"]], ["Afternoon", ["11", "15"]], ["Evening", ["16"]],
+  ]);
+  assert.deepEqual(groupSlotsByPeriod([]), []);
 });

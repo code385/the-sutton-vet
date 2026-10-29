@@ -1,4 +1,5 @@
 import { aboutPage } from "./aboutPage";
+import { clientReview } from "./clientReview";
 import { careersPage } from "./careersPage";
 import { contactPage } from "./contactPage";
 import { emergencySettings } from "./emergencySettings";
@@ -18,6 +19,7 @@ import { teamPage } from "./teamPage";
 export const schemaTypes = [
   siteSettings,
   homePage,
+  clientReview,
   aboutPage,
   contactPage,
   careersPage,

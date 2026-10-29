@@ -6,6 +6,7 @@ import { getEmergencySettingsDocument, resolveEmergencyKeywords } from "@/sanity
 import { getSiteSettingsDocument, resolveSiteSettings } from "@/sanity/lib/siteSettings";
 import "./theme.css";
 import "./globals.css";
+import "./reference-theme.css";
 
 export const metadata: Metadata = {
   title: "The Sutton Vet",

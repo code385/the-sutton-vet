@@ -1,0 +1,176 @@
+/* Palette sampled from vet-er.co.uk on 2026-10-29. This file is the final
+   colour layer over the legacy stylesheet; layout and imagery stay intact. */
+:root {
+  --brand-purple: #4b1761;
+  --brand-gold: #af822f;
+  --brand-lavender: #b2a0c5;
+  --brand-paper: #f8f8f8;
+  --brand-charcoal: #0c0c0c;
+  --brand-purple-soft: #f2edf6;
+  --brand-gold-soft: #f5eddd;
+  --brand-line: #dfd5e6;
+  --client-purple: var(--brand-purple);
+  --client-purple-dark: #351044;
+  --client-gold: var(--brand-gold);
+  --plum: var(--brand-purple);
+  --purple: var(--brand-purple);
+  --gold: var(--brand-gold);
+  --gold-soft: var(--brand-gold-soft);
+  --plum-soft: var(--brand-purple-soft);
+  --ink: var(--brand-charcoal);
+  --muted: #474747;
+  --cream: var(--brand-paper);
+  --off-white: var(--brand-paper);
+  --sand: var(--brand-paper);
+  --warm-cream: var(--brand-paper);
+  --line: var(--brand-line);
+}
+
+.sv-header.sv-header-clean {
+  background: #fff !important;
+  border-bottom-color: var(--brand-line);
+  box-shadow: 0 4px 22px #4b176105;
+}
+.sv-header-clean .sv-nav-clean > .sv-nav-group > :is(a, button) {
+  color: var(--brand-charcoal) !important;
+}
+.sv-header-clean .sv-nav-clean > .sv-nav-group > :is(a, button):is(:hover, [aria-current="page"], [aria-expanded="true"]) {
+  color: var(--brand-purple) !important;
+}
+.sv-header .sv-nav-dropdown, .sv-header .sv-mobile-panel {
+  border-color: var(--brand-line) !important;
+  box-shadow: 0 18px 45px #4b176114;
+}
+
+/* Dark text on the exact reference gold has stronger contrast than white. */
+.page-shell .button.button-primary,
+.sv-header .sv-header-actions-clean .button-primary,
+.sv-header .sv-mobile-actions-simple .button-primary,
+.cookie-panel .cookie-action-button,
+.chat-panel .button,
+.chat-launcher,
+.cookie-fab {
+  background: var(--brand-gold) !important;
+  border-color: var(--brand-gold) !important;
+  color: var(--brand-charcoal) !important;
+}
+.page-shell .button.button-muted,
+.sv-header .sv-header-actions-clean .button-muted,
+.sv-header .sv-mobile-actions-simple .button-muted {
+  background: #fff !important;
+  border: 1px solid var(--brand-purple) !important;
+  color: var(--brand-purple) !important;
+}
+.page-shell .button.button-primary:hover,
+.page-shell .button.button-muted:hover,
+.sv-header .sv-header-actions-clean .button:hover,
+.sv-header .sv-mobile-actions-simple .button:hover,
+.chat-launcher:hover,
+.cookie-fab:hover {
+  background: var(--brand-purple) !important;
+  border-color: var(--brand-purple) !important;
+  color: #fff !important;
+}
+.page-shell .button:focus-visible,
+.sv-header .button:focus-visible {
+  outline: 3px solid var(--brand-purple);
+  outline-offset: 4px;
+}
+.sv-home-expert-card .sv-home-expert-card-button {
+  background: var(--brand-gold) !important;
+  color: var(--brand-charcoal) !important;
+}
+
+.page-shell .sv-home-intro-panel,
+.page-shell .sv-home-location-v1,
+.page-shell .hp-v2-puppy-note,
+.page-shell .service-detail-next {
+  background: var(--brand-paper) !important;
+  border-color: var(--brand-line) !important;
+  border-radius: 20px;
+}
+.page-shell .sv-home-location-v1 {
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+.page-shell .sv-home-intro-note {
+  border-left: 3px solid var(--brand-gold);
+  background: var(--brand-gold-soft) !important;
+  padding: 1.1rem 1.25rem;
+  border-radius: 0 12px 12px 0;
+}
+.page-shell .sv-home-intro-note span {
+  color: var(--brand-purple) !important;
+}
+.page-shell :is(.services-master-flow-group, .contact-card, .about-card, .hp-v2-card, .pricing-quote-panel) {
+  border-color: var(--brand-line) !important;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px #4b176105;
+}
+.page-shell .pricing-quote-panel {
+  border-top: 3px solid var(--brand-lavender) !important;
+}
+.page-shell .pricing-quote-item {
+  background: var(--brand-purple-soft) !important;
+  border-color: var(--brand-line) !important;
+  border-radius: 10px;
+}
+.page-shell .pricing-quote-item:hover {
+  border-color: var(--brand-purple) !important;
+  background: #e8dfef !important;
+}
+.page-shell .pricing-quote-item :is(span, small) {
+  color: var(--brand-charcoal) !important;
+}
+.page-shell .pricing-v3-route-map {
+  background: var(--brand-paper) !important;
+  border-color: var(--brand-line) !important;
+}
+.page-shell .pricing-v3-mini-link {
+  background: transparent !important;
+  color: var(--brand-purple) !important;
+}
+
+.sv-footer.sv-footer-expanded {
+  background: var(--brand-purple) !important;
+  border-top: 4px solid var(--brand-gold);
+}
+.sv-footer-expanded .shell,
+.sv-footer-expanded .sv-footer-top-v2,
+.sv-footer-expanded .sv-footer-bottom-v2 {
+  background: transparent !important;
+}
+.sv-footer.sv-footer-expanded :is(p, a, span, button, small) {
+  color: #f5eff9 !important;
+}
+.sv-footer.sv-footer-expanded :is(h3, strong) {
+  color: #fff !important;
+}
+.sv-footer.sv-footer-expanded a:hover,
+.sv-footer.sv-footer-expanded button:hover {
+  color: #f3dba8 !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sv-footer-expanded .sv-footer-brand {
+  display: inline-flex;
+  padding: .75rem 1rem;
+  background: #fff;
+  border-radius: 14px;
+}
+.sv-footer-expanded .sv-footer-bottom-v2 {
+  border-top-color: #ffffff30;
+}
+.sv-footer.sv-footer-expanded .sv-footer-socials-v2 a {
+  background: #ffffff10 !important;
+  border: 1px solid #ffffff55;
+  box-shadow: none;
+}
+.sv-footer.sv-footer-expanded .sv-footer-socials-v2 a:hover {
+  background: var(--brand-gold) !important;
+  border-color: var(--brand-gold);
+  color: var(--brand-charcoal) !important;
+}
+.sv-footer-expanded :is(a, button):focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 5px;
+}

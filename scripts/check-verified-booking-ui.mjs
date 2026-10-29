@@ -20,6 +20,7 @@ try {
     let sendFailure = false;
     let bookingFailure = false;
     let emptySlots = false;
+    let richSlots = false;
     const writes = [];
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
@@ -44,6 +45,7 @@ try {
           { start: `${month}-15T10:00:00Z`, end: `${month}-15T10:30:00Z`, choice: "signed-test-choice" },
           { start: `${month}-15T10:00:00Z`, end: `${month}-15T10:30:00Z`, choice: "same-time-other-staff" },
           { start: `${month}-16T14:00:00Z`, end: `${month}-16T14:30:00Z`, choice: "signed-other-day" },
+          ...(richSlots ? [8, 9, 12, 13, 14, 15, 17].map((hour) => ({ start: `${month}-15T${String(hour).padStart(2, "0")}:00:00Z`, end: `${month}-15T${String(hour).padStart(2, "0")}:30:00Z`, choice: `signed-hour-${hour}` })) : []),
         ] };
       }
       else if (action === "book") {
@@ -116,10 +118,27 @@ try {
     await selectSlot();
     console.log(`${width}px: verified pet and slot selected`);
     await noOverflow();
-    if (process.env.UI_SCREENSHOT) await page.screenshot({ path: `${process.env.UI_SCREENSHOT}-${width}.png`, fullPage: true });
+    richSlots = true;
+    await (await enabled("Check available times")).click();
+    await page.getByRole("button", { name: /^Next available/ }).click();
+    await page.getByRole("button", { name: /^Afternoon/ }).click();
+    await page.locator('input[value="signed-hour-14"]').check();
+    await page.getByRole("status").filter({ hasText: "Your selected time" }).waitFor();
+    await page.getByRole("button", { name: /^Morning/ }).click();
+    assert.equal(await page.locator("form").evaluate((form) => form.checkValidity()), true, "Changing the time filter does not invalidate a selected slot in another group");
+    await page.locator('input[value="signed-test-choice"]').check();
+    await page.getByRole("button", { name: /^Evening/ }).click();
+    assert.equal(await page.getByRole("radio").count(), 1);
+    await page.getByRole("button", { name: /^Morning/ }).click();
+    await noOverflow();
+    if (process.env.UI_SCREENSHOT) {
+      await page.screenshot({ path: `${process.env.UI_SCREENSHOT}-${width}.png`, fullPage: true });
+      await page.locator('[class*="datePicker"]').screenshot({ path: `${process.env.UI_SCREENSHOT}-picker-${width}.png`, style: ".sv-header, [class*=chat-widget] { visibility: hidden !important; }" });
+    }
     await (await enabled("Send appointment request")).click();
     await page.getByRole("heading", { name: "Request sent", exact: true }).waitFor();
     assert.deepEqual(writes, [{ action: "book", petId: "pet-1", choice: "signed-test-choice", notes: "" }]);
+    richSlots = false;
     await (await enabled("Sign out")).click();
 
     missing = true;

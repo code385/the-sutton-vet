@@ -31,6 +31,7 @@ export function VerifiedClientBooking({ clinicPhone }: { clinicPhone: string }) 
   const [retryAfter, setRetryAfter] = useState(0);
   const [locked, setLocked] = useState(false);
   const [slotsChecked, setSlotsChecked] = useState(false);
+  const [checkingSlots, setCheckingSlots] = useState(false);
 
   function clearAvailability() {
     setSlots([]); setChoice(""); setSelectedDate(""); setSlotsChecked(false);
@@ -161,14 +162,17 @@ export function VerifiedClientBooking({ clinicPhone }: { clinicPhone: string }) 
             <label><span id="booking-type-label">Appointment type</span><select aria-labelledby="booking-type-label" required value={visitTypeId} disabled={busy || locked} onChange={(event) => { setVisitTypeId(event.target.value); clearAvailability(); }}><option value="">Choose appointment type</option>{types.map((type) => <option key={type.id} value={type.id}>{type.name} ({type.duration} minutes)</option>)}</select></label>
             {!types.length && <><p>No online appointment types are available. Please call the practice or reload your details.</p><button type="button" disabled={busy} onClick={() => run(loadPets)}>Reload details</button></>}
             <AppointmentCalendar month={month} slots={slots} selectedDate={selectedDate} choice={choice}
-              checked={slotsChecked} disabled={busy || locked} canCheck={Boolean(visitTypeId && petId)}
+              checked={slotsChecked} checking={checkingSlots} disabled={busy || locked} canCheck={Boolean(visitTypeId && petId)}
               onMonthChange={(value) => { setMonth(value); clearAvailability(); }}
               onDateChange={(value) => { setSelectedDate(value); setChoice(""); }}
               onChoiceChange={setChoice}
               onCheck={() => run(async () => {
                 clearAvailability();
-                const result = await api(`?action=slots&visitTypeId=${encodeURIComponent(visitTypeId)}&month=${encodeURIComponent(month)}`);
-                setSlots(result.slots || []); setSlotsChecked(true);
+                  setCheckingSlots(true);
+                  try {
+                    const result = await api(`?action=slots&visitTypeId=${encodeURIComponent(visitTypeId)}&month=${encodeURIComponent(month)}`);
+                    setSlots(result.slots || []); setSlotsChecked(true);
+                  } finally { setCheckingSlots(false); }
               })} />
             <label>Reason for your visit (optional)<textarea value={notes} maxLength={1000} rows={3} disabled={busy || locked} onChange={(event) => setNotes(event.target.value)} /></label>
             <p>This sends a request to the practice. Your appointment is not confirmed until the team confirms it.</p>

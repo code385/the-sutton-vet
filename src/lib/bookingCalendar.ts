@@ -1,5 +1,26 @@
 export type BookingSlot = { start: string; end: string; choice: string };
 
+export function londonTime(value: string): { time: string; zone: string; hour: number } {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZoneName: "shortOffset",
+  }).formatToParts(new Date(value));
+  const part = (type: string) => parts.find((item) => item.type === type)?.value || "";
+  return { time: `${part("hour")}:${part("minute")}`, zone: part("timeZoneName") === "GMT+1" ? "BST" : "GMT", hour: Number(part("hour")) };
+}
+
+export function groupSlotsByPeriod(slots: BookingSlot[]) {
+  const groups = [
+    { label: "Morning", slots: [] as BookingSlot[] },
+    { label: "Afternoon", slots: [] as BookingSlot[] },
+    { label: "Evening", slots: [] as BookingSlot[] },
+  ];
+  for (const slot of slots) {
+    const { hour } = londonTime(slot.start);
+    groups[hour < 12 ? 0 : hour < 17 ? 1 : 2].slots.push(slot);
+  }
+  return groups.filter((group) => group.slots.length);
+}
+
 export function londonDateKey(value: Date | string): string {
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit",
