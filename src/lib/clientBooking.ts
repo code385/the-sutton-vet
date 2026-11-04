@@ -51,9 +51,9 @@ export async function getVerifiedPets(session: Session): Promise<{ state: "ready
   }).map((pet) => ({ id: getLupaRecordId(pet)!, name: typeof pet.name === "string" ? pet.name : "Your pet", species: typeof pet.species === "string" ? pet.species : "" })) };
 }
 
-export async function getPublicVisitTypes(): Promise<VisitType[]> {
+export async function getPublicVisitTypes(fresh = false): Promise<VisitType[]> {
   const key = bookingKey(`types:${lupaConfig.companyId}:${lupaConfig.storeId}`);
-  const cached = await bookingStore<string | null>(["GET", key]);
+  const cached = fresh ? null : await bookingStore<string | null>(["GET", key]);
   if (cached) return JSON.parse(cached) as VisitType[];
   const items = await listAll("/v1/appointment-types");
   const types = items.filter((item) => item.isPublic === true && item.isArchived === false && typeof item.id === "string" && uuid.test(item.id) && typeof item.duration === "number" && item.duration >= 5 && item.duration <= 480)
@@ -111,7 +111,12 @@ export async function bookForVerifiedClient(session: Session, input: RecordData)
   const { pets } = await getVerifiedPets(session);
   const pet = pets.find((item) => item.id === input.petId);
   if (!pet) throw new BookingAccessError(403, "This pet is not available for your verified account. Please call the practice.");
-  if (!(await getPublicVisitTypes()).some((item) => item.id === choice.visitTypeId)) throw new BookingAccessError(400, "This appointment type is no longer available.");
+  const type = (await getPublicVisitTypes(true)).find((item) => item.id === choice.visitTypeId);
+  if (!type) throw new BookingAccessError(400, "This appointment type is no longer available.");
+  // A clinic may change its opening-period consultation length after a slot was selected.
+  if (typeof choice.end !== "string" || Date.parse(choice.end) - Date.parse(choice.start) !== type.duration * 60000) {
+    throw new BookingAccessError(400, "The appointment duration has changed. Please check available times again and choose a new time.");
+  }
   // Same owner/pet/time has a stable upstream key, even across fresh OTP sessions.
   const attempt = bookingDigest(JSON.stringify([session.email, pet.id, choice.visitTypeId, choice.start, choice.end, choice.employeeId, choice.roomId]));
   const key = bookingKey(`appointment:${attempt}`);

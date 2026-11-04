@@ -113,16 +113,16 @@ function makeFixture() {
       ], hasMore: f.petsHasMore, nextCursor: f.petsHasMore ? "repeated-cursor" : undefined });
     }
     if (url.pathname.endsWith("/appointment-types")) return Response.json({ data: [
-      { id: typeId, name: "Consultation", duration: 30, isPublic: true, isArchived: false, onlineBookingOrder: 2 },
+      { id: typeId, name: "Consultation", duration: f.duration || 30, isPublic: true, isArchived: false, onlineBookingOrder: 2 },
       { id: otherId, name: "Hidden", duration: 30, isPublic: false, isArchived: false },
       { id: employeeId, name: "Archived", duration: 30, isPublic: true, isArchived: true },
     ] });
     if (url.pathname.endsWith("/get-available-slots")) {
       assert.equal(url.searchParams.get("visitTypeId"), typeId);
-      assert.equal(url.searchParams.get("duration"), "30");
+      assert.equal(url.searchParams.get("duration"), String(f.duration || 30));
       assert.equal(url.searchParams.get("storeId"), "test-store");
       const start = new Date(f.now + 86400000).toISOString();
-      const end = new Date(f.now + 88200000).toISOString();
+      const end = new Date(f.now + 86400000 + (f.duration || 30) * 60000).toISOString();
       return Response.json({ data: { slots: [{ start, end, employeeId }, { start, end, employeeId }] } });
     }
     assert.ok(url.pathname.endsWith("/appointments"));
@@ -225,6 +225,24 @@ test("only public active types are cached and slots are signed against the verif
   assert.throws(() => fixture.auth.readBookingChoice(token, "other-session"), { status: 400 });
   fixture.now += 600001;
   assert.throws(() => fixture.auth.readBookingChoice(token, session.token), { status: 400 });
+});
+
+test("40-minute consultations use the Lupa duration for availability and the final request", async () => {
+  fixture.duration = 40;
+  const session = await fixture.verify();
+  assert.equal((await fixture.booking.getPublicVisitTypes())[0].duration, 40);
+  const [slot] = await fixture.booking.getVerifiedSlots(session, typeId, new Date(fixture.now).toISOString().slice(0, 7));
+  assert.equal(Date.parse(slot.end) - Date.parse(slot.start), 40 * 60000);
+  await fixture.booking.bookForVerifiedClient(session, { petId, choice: slot.choice, notes: "Initial consultation" });
+  assert.equal(Date.parse(fixture.writes[0].end) - Date.parse(fixture.writes[0].start), 40 * 60000);
+});
+
+test("a changed Lupa duration rejects stale shorter slots even while type cache is warm", async () => {
+  const session = await fixture.verify();
+  const [slot] = await fixture.booking.getVerifiedSlots(session, typeId, new Date(fixture.now).toISOString().slice(0, 7));
+  fixture.duration = 40;
+  await assert.rejects(fixture.booking.bookForVerifiedClient(session, { petId, choice: slot.choice, notes: "" }), /duration has changed/);
+  assert.equal(fixture.writes.length, 0);
 });
 
 test("booking rejects foreign pets, deduplicates repeated writes, and never creates clients", async () => {

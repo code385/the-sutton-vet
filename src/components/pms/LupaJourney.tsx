@@ -1,17 +1,15 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { BreedCombobox } from "./BreedCombobox";
+import { londonToday } from "@/lib/registrationPet";
+import styles from "./RegistrationFields.module.css";
+import { RegistrationForm } from "./RegistrationForm";
 
 type RecordItem = { id?: string; name?: string; title?: string; duration?: number; start?: string; end?: string; startsAt?: string; endsAt?: string; employeeId?: string };
 type Props = { mode: "book" | "register"; clinicPhone: string; clientPortalUrl?: string };
 
 const titleOptions = ["Mr", "Mrs", "Miss", "Ms", "Mx", "Dr", "Prof"];
-const breedOptions: Record<string, string[]> = {
-  Dog: ["Unknown", "Crossbreed / mixed breed", "Labrador Retriever", "Golden Retriever", "German Shepherd", "French Bulldog", "Bulldog", "Cocker Spaniel", "Cockapoo", "Cavapoo", "Poodle", "Border Collie", "Dachshund", "Chihuahua", "Shih Tzu", "Staffordshire Bull Terrier", "Jack Russell Terrier", "Greyhound", "Whippet"],
-  Cat: ["Unknown", "Crossbreed / mixed breed", "Domestic Shorthair", "Domestic Longhair", "British Shorthair", "Ragdoll", "Maine Coon", "Bengal", "Siamese", "Persian", "Sphynx"],
-  Rabbit: ["Unknown", "Crossbreed / mixed breed", "Mini Lop", "Holland Lop", "Lionhead", "Netherland Dwarf", "Rex", "Dutch", "English Lop"],
-  Other: ["Unknown", "Other"],
-};
 
 const normaliseItems = (value: unknown): RecordItem[] => {
   if (Array.isArray(value)) return value as RecordItem[];
@@ -22,7 +20,11 @@ const normaliseItems = (value: unknown): RecordItem[] => {
   return [];
 };
 
-export function LupaJourney({ mode, clinicPhone, clientPortalUrl = "" }: Props) {
+export function LupaJourney(props: Props) {
+  return props.mode === "register" ? <RegistrationForm clinicPhone={props.clinicPhone} /> : <LegacyBookingJourney {...props} />;
+}
+
+function LegacyBookingJourney({ mode, clinicPhone, clientPortalUrl = "" }: Props) {
   const [types, setTypes] = useState<RecordItem[]>([]);
   const [slots, setSlots] = useState<RecordItem[]>([]);
   const [visitTypeId, setVisitTypeId] = useState("");
@@ -33,6 +35,10 @@ export function LupaJourney({ mode, clinicPhone, clientPortalUrl = "" }: Props) 
   const [selectedMonth, setSelectedMonth] = useState(() => new Date().toISOString().slice(0, 7));
   const [species, setSpecies] = useState("");
   const [breed, setBreed] = useState("");
+  const [sex, setSex] = useState("");
+  const [ageMode, setAgeMode] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [neuteredDate, setNeuteredDate] = useState("");
   const isBooking = mode === "book";
   const monthOptions = useMemo(() => Array.from({ length: 6 }, (_, index) => {
     const value = new Date();
@@ -103,6 +109,10 @@ export function LupaJourney({ mode, clinicPhone, clientPortalUrl = "" }: Props) 
         form.reset();
         setSpecies("");
         setBreed("");
+        setSex("");
+        setAgeMode("");
+        setDateOfBirth("");
+        setNeuteredDate("");
         setSubmissionLocked(true);
       } else if (payload.retryable === false) {
         setSubmissionLocked(true);
@@ -139,7 +149,32 @@ export function LupaJourney({ mode, clinicPhone, clientPortalUrl = "" }: Props) 
           <button className="button button-muted" type="button" onClick={loadSlots} disabled={!visitTypeId || loading}>Check available times</button>
           {slots.length > 0 && <fieldset className="lupa-slots"><legend>Available times</legend>{slots.slice(0, 24).map((slot, index) => { const value = slot.start || slot.startsAt || String(index); return <label key={`${value}-${slot.employeeId || index}`} className="lupa-slot"><input type="radio" name="slot" checked={selectedSlot === slot} onChange={() => setSelectedSlot(slot)} /><span>{new Date(value).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}</span></label>; })}</fieldset>}
         </>}
-        <div className="lupa-form-grid"><label>Title<select name="title" defaultValue="" required><option value="" disabled>Choose a title</option>{titleOptions.map((title) => <option key={title} value={title}>{title}</option>)}</select></label><label>First name<input name="firstName" autoComplete="given-name" required /></label><label>Last name<input name="lastName" autoComplete="family-name" required /></label><label>Email<input type="email" name="email" autoComplete="email" required /></label><label>Phone (include country code)<input type="tel" name="phone" autoComplete="tel" placeholder="+44..." required /></label><label>Pet's name<input name="petName" required /></label><label>Species<select name="species" value={species} onChange={(event) => { setSpecies(event.target.value); setBreed(""); }} required><option value="" disabled>Choose species</option><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Other</option></select></label><label>Breed<select name="breed" value={breed} onChange={(event) => setBreed(event.target.value)} required disabled={!species}><option value="" disabled>{species ? "Choose breed" : "Choose species first"}</option>{species ? breedOptions[species].map((option) => <option key={option} value={option}>{option}</option>) : null}</select></label><label>Sex<select name="sex" defaultValue="" required><option value="" disabled>Choose sex</option><option>Unknown</option><option>Female</option><option>Male</option></select></label></div>
+        <div className="lupa-form-grid">
+          <label>Title<select name="title" defaultValue="" required><option value="" disabled>Choose a title</option>{titleOptions.map((title) => <option key={title} value={title}>{title}</option>)}</select></label>
+          <label>First name<input name="firstName" autoComplete="given-name" required maxLength={80} /></label>
+          <label>Last name<input name="lastName" autoComplete="family-name" required maxLength={80} /></label>
+          <label>Email<input type="email" name="email" autoComplete="email" required maxLength={160} /></label>
+          <label>Phone (include country code)<input type="tel" name="phone" autoComplete="tel" placeholder="+44..." required maxLength={40} /></label>
+          <label>Pet's name<input name="petName" required maxLength={80} /></label>
+          <label>Species<select name="species" value={species} onChange={(event) => { setSpecies(event.target.value); setBreed(""); }} required><option value="" disabled>Choose species</option><option>Dog</option><option>Cat</option><option>Rabbit</option><option>Other</option></select></label>
+          <BreedCombobox key={species} species={species} value={breed} onChange={setBreed} />
+          <label>Sex<select name="sex" value={sex} onChange={event => { setSex(event.target.value); setNeuteredDate(""); }} required>
+            <option value="" disabled>Choose sex</option><option>Unknown</option><option value="Female">{isBooking ? "Female" : "Female (not neutered)"}</option><option value="Male">{isBooking ? "Male" : "Male (not neutered)"}</option>
+            {!isBooking && <><option>Female neutered</option><option>Male neutered</option></>}
+          </select></label>
+          {!isBooking && <>
+            <label>Age / date of birth<select name="ageMode" value={ageMode} onChange={event => { setAgeMode(event.target.value); setDateOfBirth(""); }} required>
+              <option value="" disabled>Choose an option</option><option value="known">I know the date of birth</option><option value="approximate">I know an approximate date</option><option value="unknown">Age unknown</option>
+            </select><small className={styles.hint}>A date of birth keeps your pet's age up to date.</small></label>
+            {(ageMode === "known" || ageMode === "approximate") && <label>{ageMode === "approximate" ? "Approximate date of birth" : "Date of birth"}
+              <input type="date" name="dateOfBirth" min="1900-01-01" max={londonToday()} value={dateOfBirth} onChange={event => setDateOfBirth(event.target.value)} required />
+            </label>}
+            {sex.endsWith(" neutered") && <label>Neutering date (if known)
+              <input type="date" name="neuteredDate" min={dateOfBirth || "1900-01-01"} max={londonToday()} value={neuteredDate} onChange={event => setNeuteredDate(event.target.value)} />
+              <small className={styles.hint}>Leave blank if you do not know the date.</small>
+            </label>}
+          </>}
+        </div>
         {isBooking && <label>What would you like help with?<textarea name="notes" rows={4} /></label>}
         {!isBooking && <label className="lupa-consent"><input type="checkbox" name="contactConsent" value="true" /> I am happy for The Sutton Vet to contact me by email or SMS about my registration.</label>}
         <button className="button button-primary" type="submit" disabled={loading || submissionLocked || (isBooking && !selectedSlot)}>{loading ? "Please wait..." : isBooking ? "Send booking request" : "Send registration"}</button>
