@@ -43,22 +43,20 @@ export function FooterLogos() {
   if (availableLogos.length === 0) return null;
 
   return (
-    <div className={`shell ${styles.wrapper}`}>
-      <ul className={styles.strip} aria-label="Professional organisation logos">
-        {availableLogos.map((logo) => (
-          <li className={styles.item} key={logo.name}>
-            <Image
-              className={`${styles.image} ${logo.compact ? styles.compact : ""} ${logo.padded ? styles.padded : ""}`}
-              src={logo.src}
-              alt={logo.alt}
-              width={logo.width}
-              height={logo.height}
-              sizes={logo.compact ? "96px" : "(max-width: 640px) 240px, 280px"}
-              onError={() => setUnavailable((previous) => previous.includes(logo.name) ? previous : [...previous, logo.name])}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={styles.logos} aria-label="Professional organisation logos">
+      {availableLogos.map((logo) => (
+        <li className={styles.item} key={logo.name} data-organisation={logo.name}>
+          <Image
+            className={`${styles.image} ${logo.compact ? styles.compact : ""} ${logo.padded ? styles.padded : ""}`}
+            src={logo.src}
+            alt={logo.alt}
+            width={logo.width}
+            height={logo.height}
+            sizes={logo.compact ? "96px" : "(max-width: 640px) 240px, (max-width: 1180px) 260px, 220px"}
+            onError={() => setUnavailable((previous) => previous.includes(logo.name) ? previous : [...previous, logo.name])}
+          />
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -267,7 +267,7 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
     practiceName: document?.practiceName || siteConfig.name,
     shortName: document?.shortName || siteConfig.shortName,
     tagline: document?.tagline || siteConfig.tagline,
-    footerTagline: document?.footerTagline || "Independent veterinary care in Sutton.",
+    footerTagline: document?.footerTagline || siteConfig.tagline,
     topbarNote: document?.topbarNote || siteConfig.topbarNote,
     phone: canonicalContactDetails.phone,
     emergencyPhone: canonicalContactDetails.phone,

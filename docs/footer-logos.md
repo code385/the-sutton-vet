@@ -15,11 +15,14 @@ and symbols intact. Around 600px wide is sufficient for the two horizontal logos
 around 240px square is sufficient for AO VET. Larger originals are also supported.
 
 `src/components/layout/FooterLogos.tsx` defines the paths, accessible labels and
-relative logo sizes. `FooterLogos.module.css` controls the responsive strip. The
-strip is inserted in `SiteFooter.tsx`, above the legal links and copyright.
+relative logo sizes. `FooterLogos.module.css` controls the footer grid and badges.
+On desktop, the separate badges sit under Company (RCVS), Get Care (VECCS) and
+Resources (AO VET), beside the practice brand/contact information. Each has its
+own white background to keep the original artwork readable on the purple footer.
 Logos keep their original colours and are contained, never stretched or cropped.
-They are side by side on desktop/tablet and stacked on phones. Missing images are
-hidden individually; when all are unavailable, the strip is hidden too.
+On tablet the badges follow the footer columns, and on phones they stack with
+space between them. Missing images are hidden individually; when all are
+unavailable, the logo group is hidden too.
 
 No accreditation, partnership or membership claim is added. Confirm the practice
 has permission to display the supplied marks before publishing them.

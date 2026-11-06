@@ -1,33 +1,54 @@
-.wrapper {
-  padding-block: 0.25rem 2rem;
+.layout.layout {
+  --footer-column-gap: 2.4rem;
+  column-gap: var(--footer-column-gap);
+  row-gap: 1.75rem;
 }
 
-.strip {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1.25rem 0.5rem;
+.logos {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-self: end;
+  align-items: center;
+  gap: var(--footer-column-gap);
+  width: 100%;
+  margin: 0;
+  padding: 0;
   list-style: none;
-  background: #fff;
-  border: 1px solid var(--brand-gold, #af822f);
-  border-radius: 16px;
-  box-shadow: 0 8px 24px #0000000a;
 }
 
 .item {
   display: flex;
-  flex: 1 1 0;
   align-items: center;
   justify-content: center;
   min-width: 0;
   min-height: 116px;
-  padding: 0.5rem clamp(1rem, 2.5vw, 2rem);
+  padding: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--brand-gold, #af822f);
+  border-radius: 14px;
 }
 
-.item + .item {
-  border-left: 1px solid var(--brand-line, #dfd5e6);
+/* Keep each badge under its own desktop column, beside the brand/contact block. */
+@media (min-width: 1181px) {
+  .layout > :global(.sv-footer-brand-column) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .layout > :global(.sv-footer-column):nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .logos {
+    grid-column: 3 / -1;
+    grid-row: 2;
+  }
+
+  .item[data-organisation="RCVS"] { grid-column: 1; }
+  .item[data-organisation="VECCS"] { grid-column: 2; }
+  .item[data-organisation="AO VET"] { grid-column: 3; }
 }
 
 .image {
@@ -50,24 +71,16 @@
 }
 
 @media (max-width: 640px) {
-  .wrapper {
-    padding-block: 0 1.5rem;
-  }
-
-  .strip {
-    flex-direction: column;
-    padding: 0.5rem 1.25rem;
-    border-radius: 14px;
+  .logos {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
   }
 
   .item {
-    flex-basis: auto;
+    justify-self: center;
+    width: 100%;
+    max-width: 260px;
     padding: 1rem 0.5rem;
-  }
-
-  .item + .item {
-    border-left: 0;
-    border-top: 1px solid var(--brand-line, #dfd5e6);
   }
 
   .image {

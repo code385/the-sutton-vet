@@ -95,7 +95,7 @@ export default async function ContactPage() {
         <Reveal variant="left">
           <div className="contact-page-v2-community-copy">
             <p className="eyebrow">{contactPage?.communityEyebrow || "Community"}</p>
-            <h2>{contactPage?.communityTitle || "Passionate about animals and our community."}</h2>
+            <h2>{contactPage?.communityTitle || siteSettings.tagline}</h2>
             <p>{contactPage?.communityText || "We are more than a veterinary surgery: a local practice supporting pet education, animal welfare, and neighbourhood connection."}</p>
           </div>
         </Reveal>

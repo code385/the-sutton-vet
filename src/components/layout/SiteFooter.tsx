@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CookieSettingsButton } from "@/components/layout/CookieSettingsButton";
 import { FooterLogos } from "@/components/layout/FooterLogos";
+import footerStyles from "./FooterLogos.module.css";
 import type { ResolvedSiteSettings } from "@/sanity/lib/siteSettings";
 import { resolveFooterLinks } from "@/lib/footerLinks";
 
@@ -101,7 +102,7 @@ export function SiteFooter({ siteSettings }: SiteFooterProps) {
   const legalLinks = resolveFooterLinks(siteSettings.legalLinks);
   return (
     <footer className="sv-footer sv-footer-expanded">
-      <div className="shell sv-footer-top-v2">
+      <div className={`shell sv-footer-top-v2 ${footerStyles.layout}`}>
         <div className="sv-footer-brand-column">
           <Link className="sv-footer-brand" href="/" aria-label="The Sutton Vet home">
             <Image src="/Sutton_vet_logo_aw.png" alt="The Sutton Vet logo" width={1269} height={698} />
@@ -155,9 +156,9 @@ export function SiteFooter({ siteSettings }: SiteFooterProps) {
             </Link>
           ))}
         </div>
-      </div>
 
-      <FooterLogos />
+        <FooterLogos />
+      </div>
 
       <div className="shell sv-footer-bottom-v2">
         <div className="sv-footer-legal-links-v2">

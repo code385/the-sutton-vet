@@ -61,7 +61,7 @@ export default async function AboutPage() {
         <Reveal variant="left">
           <div className="about-page-hero-copy">
             <p className="eyebrow">{aboutPage?.heroEyebrow || "About The Sutton Vet"}</p>
-            <h1>{aboutPage?.heroTitle || "Independent, family-owned, and rooted in Sutton."}</h1>
+            <h1>{aboutPage?.heroTitle || "Independent, family-owned, and grown in Sutton."}</h1>
             <p>{aboutPage?.heroDescription || "A small independent practice offering gentle, advanced veterinary care at fair prices."}</p>
             <div className="about-page-hero-actions">
               <a className="button button-primary" href={siteSettings.ctas.register}>

@@ -13,7 +13,8 @@ const bundle = await build({
       import {createRoot} from 'react-dom/client';
       import {SiteFooter} from './src/components/layout/SiteFooter';
       const siteSettings = {
-        practiceName: 'The Sutton Vet', tagline: 'Independent veterinary care in Sutton.',
+        practiceName: 'The Sutton Vet', tagline: 'Passionate about Animals and Our Local Community',
+        footerTagline: 'Passionate about Animals and Our Local Community',
         phone: '0203 603 0298', email: 'info@thesuttonvet.co.uk', address: 'Sutton, London',
         ctas: {call: 'tel:02036030298', register: '/register'},
         socialLinks: [{label: 'Instagram', href: 'https://example.com/instagram'}],
@@ -77,16 +78,27 @@ try {
   const strip = page.getByRole("list", { name: "Professional organisation logos" });
   await page.getByAltText("AO VET", { exact: true }).waitFor();
   await strip.locator("img").evaluateAll(images => Promise.all(images.map(image => image.decode())));
-  for (const width of [320, 375, 640, 768, 1024, 1440]) {
+  assert.equal(await page.locator(".sv-footer-intro").textContent(), "Passionate about Animals and Our Local Community");
+  for (const width of [320, 375, 640, 768, 1024, 1180, 1181, 1440, 1920]) {
     await page.setViewportSize({ width, height: 1000 });
     await strip.scrollIntoViewIfNeeded();
     const items = await strip.locator("li").all();
     assert.equal(items.length, 3);
     const boxes = await Promise.all(items.map(item => item.boundingBox()));
     assert(boxes.every(box => box.x >= 0 && box.x + box.width <= width + 1), `Logo overflow at ${width}px`);
-    assert.equal(await strip.evaluate(element => getComputedStyle(element).backgroundColor), "rgb(255, 255, 255)");
+    assert.equal(await strip.evaluate(element => getComputedStyle(element).backgroundColor), "rgba(0, 0, 0, 0)", "No shared white strip");
+    for (const item of items) assert.equal(await item.evaluate(element => getComputedStyle(element).backgroundColor), "rgb(255, 255, 255)", "Each logo has its own readable background");
     if (width > 640) assert(boxes.every(box => Math.abs(box.y - boxes[0].y) < 1), "Desktop logos share a row");
     else assert(boxes[1].y >= boxes[0].y + boxes[0].height, "Mobile logos stack");
+    if (width > 1180) {
+      for (const [index, heading] of ["Company", "Get Care", "Resources"].entries()) {
+        const column = await page.getByRole("heading", { name: heading, exact: true }).locator("..").boundingBox();
+        assert(Math.abs(boxes[index].x - column.x) < 1, `${heading} logo aligns with its column at ${width}px`);
+        assert(boxes[index].y >= column.y + column.height, "Logos sit below the navigation links");
+      }
+    }
+    const legal = await page.locator(".sv-footer-bottom-v2").boundingBox();
+    assert(boxes.every(box => box.y + box.height <= legal.y + 1), "Logos remain above legal links");
     for (const logo of await strip.locator("img").all()) {
       assert.equal(await logo.evaluate(image => getComputedStyle(image).objectFit), "contain");
       assert(await logo.getAttribute("alt"), "Every mark has an accessible name");
@@ -99,13 +111,16 @@ try {
   await mount();
   await page.waitForFunction(() => document.querySelectorAll('ul[aria-label="Professional organisation logos"] li').length === 2);
   assert.equal(await page.getByAltText("AO VET", { exact: true }).count(), 1, "Missing file does not hide other logos");
+  const ao = await strip.locator('[data-organisation="AO VET"]').boundingBox();
+  const resources = await page.getByRole("heading", { name: "Resources", exact: true }).locator("..").boundingBox();
+  assert(Math.abs(ao.x - resources.x) < 1, "Missing middle logo does not move AO VET out of its desktop column");
   unavailable.add("/images/footer/rcvs.png");
   unavailable.add("/images/footer/ao-vet.png");
   await mount();
   await page.waitForFunction(() => !document.querySelector('ul[aria-label="Professional organisation logos"]'));
   assert.equal(await page.getByRole("link", { name: "Privacy", exact: true }).count(), 1, "Legal links remain when artwork is missing");
   assert.deepEqual(errors, []);
-  console.log("PASS footer at six widths, image containment and labels, partial/all missing artwork, preserved legal links");
+  console.log("PASS footer at nine widths, separate column-aligned badges, motto, image containment, partial/all missing artwork, preserved legal links");
 } finally {
   await browser.close();
 }

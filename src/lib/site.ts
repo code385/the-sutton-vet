@@ -9,7 +9,7 @@ const pmsHealthPlanUrl = process.env.NEXT_PUBLIC_LUPA_HEALTHPLAN_URL || process.
 export const siteConfig = {
   name: "The Sutton Vet",
   shortName: "Sutton Vet",
-  tagline: "PASSIONATE ABOUT ANIMALS AND OUR COMMUNITY",
+  tagline: "Passionate about Animals and Our Local Community",
   phone: "0203 603 0298",
   emergencyPhone: "0203 603 0298",
   email: "info@thesuttonvet.co.uk",
