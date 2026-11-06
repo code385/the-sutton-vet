@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CookieSettingsButton } from "@/components/layout/CookieSettingsButton";
+import { FooterLogos } from "@/components/layout/FooterLogos";
 import type { ResolvedSiteSettings } from "@/sanity/lib/siteSettings";
 import { resolveFooterLinks } from "@/lib/footerLinks";
 
@@ -155,6 +156,8 @@ export function SiteFooter({ siteSettings }: SiteFooterProps) {
           ))}
         </div>
       </div>
+
+      <FooterLogos />
 
       <div className="shell sv-footer-bottom-v2">
         <div className="sv-footer-legal-links-v2">

@@ -1,0 +1,86 @@
+.wrapper {
+  padding-block: 0.25rem 2rem;
+}
+
+.strip {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.25rem 0.5rem;
+  list-style: none;
+  background: #fff;
+  border: 1px solid var(--brand-gold, #af822f);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px #0000000a;
+}
+
+.item {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 116px;
+  padding: 0.5rem clamp(1rem, 2.5vw, 2rem);
+}
+
+.item + .item {
+  border-left: 1px solid var(--brand-line, #dfd5e6);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: 96px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.compact {
+  max-width: 96px;
+}
+
+/* Account for the original RCVS canvas padding without cropping the artwork. */
+.padded {
+  height: 144px;
+  margin-block: -24px;
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding-block: 0 1.5rem;
+  }
+
+  .strip {
+    flex-direction: column;
+    padding: 0.5rem 1.25rem;
+    border-radius: 14px;
+  }
+
+  .item {
+    flex-basis: auto;
+    padding: 1rem 0.5rem;
+  }
+
+  .item + .item {
+    border-left: 0;
+    border-top: 1px solid var(--brand-line, #dfd5e6);
+  }
+
+  .image {
+    max-width: 240px;
+    height: 80px;
+  }
+
+  .compact {
+    max-width: 88px;
+    height: 88px;
+  }
+
+  .padded {
+    height: 128px;
+  }
+}
