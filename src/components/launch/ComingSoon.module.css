@@ -26,7 +26,7 @@
 .photo { object-fit: cover; }
 .caption { position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem; padding: 1rem 1.2rem; border: 1px solid #fff9; border-radius: 1rem; background: #fffffff0; }
 .caption p { margin: .35rem 0 0; color: var(--brand-purple); font-weight: 700; font-size: 1.2rem; }
-.footer { background: var(--brand-purple); color: #fff; padding-block: 2.5rem 1.5rem; border-top: 3px solid var(--brand-gold); }
+.footer.footer { background: var(--brand-purple) !important; color: #fff; padding-block: 2.5rem 1.5rem; border-top: 3px solid var(--brand-gold); }
 .footer > div { background: transparent !important; }
 .footer :is(p, a, button, strong) { color: #f5eff9 !important; }
 .footerTop { display: flex; justify-content: space-between; gap: 2rem; }

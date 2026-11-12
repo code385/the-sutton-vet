@@ -50,8 +50,10 @@ try {
   if (!process.env.REAL_TIKTOK) await page.route("https://www.tiktok.com/**", route => route.fulfill({contentType:"text/html",body:'<!doctype html><title>TikTok provider fixture</title><p>Provider frame</p><script>parent.postMessage(JSON.stringify({height:390}),"*")</script>'}));
   async function mount(path) {
     await page.goto("https://launch.test"+path);
-    for (const file of ["theme.css","globals.css","reference-theme.css"]) await page.addStyleTag({content:readFileSync("src/app/"+file,"utf8")});
+    // Production can load global CSS after component modules. Exercise that
+    // ordering so legacy !important overrides cannot hide contrast regressions.
     await page.addStyleTag({content:bundle.outputFiles.find(file => file.path.endsWith(".css")).text});
+    for (const file of ["theme.css","globals.css","reference-theme.css"]) await page.addStyleTag({content:readFileSync("src/app/"+file,"utf8")});
     await page.addScriptTag({content:bundle.outputFiles.find(file => file.path.endsWith(".js")).text});
   }
   await mount("/");
@@ -66,6 +68,7 @@ try {
   for (const width of [320,375,640,768,800,1024,1440,1920]) {
     await page.setViewportSize({width,height:1000});
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth+1),`Overflow at ${width}`);
+    assert.equal(await page.getByRole('contentinfo').evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(75, 23, 97)',`Footer contrast at ${width}`);
     const logo = await page.getByRole("link",{name:"The Sutton Vet home"}).boundingBox();
     assert(logo.x>=12,`Logo inset at ${width}`);
     const register = await page.getByRole("banner").getByRole("link",{name:"Register Now"}).boundingBox();
