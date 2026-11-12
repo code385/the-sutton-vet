@@ -1,5 +1,18 @@
 ﻿import { defineArrayMember, defineField, defineType } from "sanity";
 
+function validateWebsiteDestination(value: unknown) {
+  if (value === undefined || value === "") return true;
+  const message = "Use an internal path starting with / or a full http:// or https:// URL, without spaces.";
+  if (typeof value !== "string" || /[\s\\]/.test(value)) return message;
+  if (value.startsWith("/") && !value.startsWith("//")) return true;
+  try {
+    const url = new URL(value);
+    return ["http:", "https:"].includes(url.protocol) && Boolean(url.hostname) ? true : message;
+  } catch {
+    return message;
+  }
+}
+
 export const siteSettings = defineType({
   name: "siteSettings",
   title: "Site Settings",
@@ -69,9 +82,9 @@ export const siteSettings = defineType({
     }),
     defineField({ name: "whatsappNumber", title: "WhatsApp Number", type: "string" }),
     defineField({ name: "whatsappPrefillMessage", title: "WhatsApp Prefill Message", type: "text", rows: 2 }),
-    defineField({ name: "lupaBookingUrl", title: "PMS Booking URL", type: "url" }),
-    defineField({ name: "lupaRegistrationUrl", title: "PMS Registration URL", type: "url" }),
-    defineField({ name: "healthPlanUrl", title: "Health Plan Signup URL", type: "url", description: "Use the approved provider signup URL, not this website's /health-plan page. Leave blank until enrolment is available; visitors can contact the practice to register interest." }),
+    defineField({ name: "lupaBookingUrl", title: "PMS Booking URL", type: "url", description: "An internal website path or a full HTTP(S) URL. Existing internal booking paths are supported.", validation: (rule) => rule.uri({ allowRelative: true, scheme: ["http", "https"] }).custom(validateWebsiteDestination) }),
+    defineField({ name: "lupaRegistrationUrl", title: "PMS Registration URL", type: "url", description: "An internal website path or a full HTTP(S) URL. Existing internal registration paths are supported.", validation: (rule) => rule.uri({ allowRelative: true, scheme: ["http", "https"] }).custom(validateWebsiteDestination) }),
+    defineField({ name: "healthPlanUrl", title: "Health Plan Signup URL", type: "url", description: "Use the approved provider signup URL when enrolment is available, or leave blank. Existing internal /health-plan links remain valid for backwards compatibility but do not enable enrolment.", validation: (rule) => rule.uri({ allowRelative: true, scheme: ["http", "https"] }).custom(validateWebsiteDestination) }),
     defineField({ name: "googleBusinessProfileUrl", title: "Google Business Profile URL", type: "url" }),
     defineField({ name: "googleMapEmbedUrl", title: "Google Map Embed URL", type: "url" }),
     defineField({ name: "hasMapUrl", title: "Public Map URL", type: "url" }),
