@@ -22,7 +22,7 @@ const bundle = await build({
     };
     createRoot(document.getElementById('root')).render(location.pathname==='/feed'
       ? <main className="page-shell"><TikTokFeed settings={resolveTikTokSettings()}/></main>
-      : <><LaunchHeader siteSettings={siteSettings}/><main className={'page-shell '+launchMainClassName}><div className="shell"><ComingSoon siteSettings={siteSettings}/></div></main><LaunchFooter siteSettings={siteSettings}/></>);
+      : <><LaunchHeader siteSettings={siteSettings}/><main className={'page-shell '+launchMainClassName}><div className="shell"><ComingSoon siteSettings={siteSettings}/><a href="/book" data-test-booking-success>Legacy registration success booking link</a></div></main><LaunchFooter siteSettings={siteSettings}/></>);
   ` },
   plugins: [{name:"next-fixtures",setup(plugin) {
     plugin.onResolve({filter:/^next\/(image|link)$/}, args => ({path:args.path,namespace:"fixture"}));
@@ -59,6 +59,7 @@ try {
   assert.equal(await page.getByRole("navigation").count(),0);
   assert.equal(await page.getByRole("link",{name:/Book Online/i}).count(),0);
   assert.equal(await page.getByRole("link",{name:/Register Now/}).count(),2);
+  assert.equal(await page.locator('[data-test-booking-success]').isVisible(),false,"Coming soon also hides the registration success booking link");
   assert.equal(await page.getByRole("link",{name:"Privacy Policy"}).getAttribute("href"),"/privacy-policy");
   assert.match(await page.getByRole("contentinfo").innerText(),/trading name of Vet ER LTD/);
   assert.doesNotMatch(await page.getByRole("contentinfo").innerText(),/VAT|to be confirmed/);

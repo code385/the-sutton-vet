@@ -5,6 +5,11 @@
 .register { background: var(--brand-gold); color: var(--brand-charcoal); padding: .9rem 1.5rem; }
 .main.main { padding-block: 1rem 2.5rem; }
 .main.main > div { padding-block: 0; }
+/* Also hide booking entry points in registration success and other direct pages.
+   This is presentation-only; the booking URL/API are deliberately unchanged. */
+.main a[href="/book"],
+.main a[href^="/book?"],
+.main a[href^="/book#"] { display: none !important; }
 .landing { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; padding-block: clamp(2.5rem, 6vw, 5.5rem); position: relative; }
 .landing::before { content: ""; position: absolute; inset: -2rem 0; background: radial-gradient(ellipse at 20% 45%, #f5eddd95, transparent 65%); pointer-events: none; z-index: -1; }
 .copy { min-width: 0; animation: arrive .65s ease-out both; }
