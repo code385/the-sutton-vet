@@ -170,6 +170,7 @@ export function SiteFooter({ siteSettings }: SiteFooterProps) {
           <CookieSettingsButton />
         </div>
         <p className="sv-footer-copyright-v2">(c) {new Date().getFullYear()} {siteSettings.practiceName}. All rights reserved.</p>
+        {siteSettings.companyLines?.length ? <div aria-label="Registered company details">{siteSettings.companyLines.map((line) => <p key={line}>{line}</p>)}</div> : null}
       </div>
     </footer>
   );

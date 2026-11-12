@@ -6,6 +6,7 @@ import { ChatWidget } from "@/components/layout/ChatWidget";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { LaunchHeader, LaunchFooter, launchMainClassName } from "@/components/launch/ComingSoon";
 import type { ResolvedSiteSettings } from "@/sanity/lib/siteSettings";
 
 type SiteChromeProps = {
@@ -32,6 +33,10 @@ export function SiteChrome({ children, siteSettings, emergencyKeywords }: SiteCh
 
   if (pathname.startsWith("/studio")) {
     return <>{children}</>;
+  }
+
+  if (siteSettings.launchSettings?.mode === "comingSoon") {
+    return <><LaunchHeader siteSettings={siteSettings} /><main className={`page-shell ${launchMainClassName}`}><div className="shell">{children}</div></main><LaunchFooter siteSettings={siteSettings} /><CookieConsent /></>;
   }
 
   return (

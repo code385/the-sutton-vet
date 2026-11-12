@@ -5,6 +5,39 @@ export const siteSettings = defineType({
   title: "Site Settings",
   type: "document",
   fields: [
+    defineField({
+      name: "launchSettings", title: "Website Launch / Coming Soon", type: "object",
+      description: "Publish to switch the homepage and navigation immediately. Coming Soon hides menus and Book Online, but does not disable direct booking URLs or the booking API.",
+      fields: [
+        defineField({ name: "mode", title: "Website Mode", type: "string", initialValue: "comingSoon", options: { list: [{ title: "Coming Soon - registration only navigation", value: "comingSoon" }, { title: "Full Website", value: "full" }], layout: "radio" }, validation: (rule) => rule.required() }),
+        defineField({ name: "openingLabel", title: "Opening Announcement", type: "string", initialValue: "Coming Soon in February 2027" }),
+        defineField({ name: "title", title: "Landing Page Heading", type: "string" }),
+        defineField({ name: "description", title: "Landing Page Description", type: "text", rows: 3 }),
+        defineField({ name: "image", title: "Landing Page Photo", type: "image", options: { hotspot: true } }),
+        defineField({ name: "imageAlt", title: "Landing Photo Description", type: "string" }),
+      ],
+    }),
+    defineField({
+      name: "companyDetails", title: "Registered Company Details", type: "object",
+      description: "Published in the footer in both modes. Enter only details confirmed by the company; do not use the clinic address as the registered office unless it is correct. Have your adviser confirm the required disclosures.",
+      fields: [
+        defineField({ name: "registeredName", title: "Registered Company Name", type: "string" }),
+        defineField({ name: "companyNumber", title: "Company Registration Number", type: "string" }),
+        defineField({ name: "registeredOffice", title: "Registered Office Address", type: "text", rows: 3 }),
+        defineField({ name: "jurisdiction", title: "Registration Jurisdiction", type: "string", description: "For example, England and Wales. Use the jurisdiction on the company's registration." }),
+        defineField({ name: "vatNumber", title: "VAT Registration Number (if applicable)", type: "string" }),
+      ],
+    }),
+    defineField({
+      name: "tiktokFeed", title: "Homepage TikTok Feed", type: "object",
+      description: "Official creator-profile embed near the bottom of the full homepage. Loaded only after external-media consent. Not shown on the temporary coming-soon landing page.",
+      fields: [
+        defineField({ name: "enabled", title: "Show TikTok Feed", type: "boolean", initialValue: true }),
+        defineField({ name: "username", title: "TikTok Username", type: "string", initialValue: "the.sutton.vet", description: "Username only, not a URL. The account must be public and eligible for embedding.", validation: (rule) => rule.regex(/^@?[a-zA-Z0-9._]{2,24}$/, { name: "TikTok username" }) }),
+        defineField({ name: "title", title: "Section Heading", type: "string" }),
+        defineField({ name: "description", title: "Section Description", type: "text", rows: 3 }),
+      ],
+    }),
     defineField({ name: "practiceName", title: "Practice Name", type: "string" }),
     defineField({ name: "shortName", title: "Short Name", type: "string" }),
     defineField({ name: "tagline", title: "Tagline", type: "text", rows: 3 }),

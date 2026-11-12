@@ -1,0 +1,50 @@
+.header { position: relative; background: #fff; border-bottom: 1px solid var(--brand-line); }
+.headerInner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; }
+.logo { width: clamp(130px, 17vw, 185px); flex-shrink: 0; }
+.logo img { width: 100%; height: auto; display: block; }
+.register { background: var(--brand-gold); color: var(--brand-charcoal); padding: .9rem 1.5rem; }
+.main.main { padding-block: 1rem 2.5rem; }
+.main.main > div { padding-block: 0; }
+.landing { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; padding-block: clamp(2.5rem, 6vw, 5.5rem); position: relative; }
+.landing::before { content: ""; position: absolute; inset: -2rem 0; background: radial-gradient(ellipse at 20% 45%, #f5eddd95, transparent 65%); pointer-events: none; z-index: -1; }
+.copy { min-width: 0; animation: arrive .65s ease-out both; }
+.announcement { display: inline-flex; align-items: center; gap: .65rem; border: 1px solid #dac69f; border-radius: 100px; padding: .6rem .95rem; color: var(--brand-purple); background: var(--brand-gold-soft); font-size: .85rem; font-weight: 700; }
+.announcement span { width: 7px; height: 7px; border-radius: 50%; background: var(--brand-gold); flex-shrink: 0; }
+.copy h1 { font-size: clamp(2.5rem, 4.7vw, 4.7rem); letter-spacing: -.055em; line-height: 1.08; margin: 1.35rem 0; color: var(--brand-purple); text-wrap: balance; }
+.motto { font-size: 1.05rem; font-weight: 700; color: var(--brand-purple); line-height: 1.6; }
+.description { color: var(--muted); line-height: 1.8; max-width: 48ch; margin: 1rem 0 1.65rem; }
+.copy > a { gap: 1.25rem; min-height: 52px; }
+.note { font-size: .8rem; max-width: 44ch; line-height: 1.65; color: var(--muted); margin-top: 1rem; }
+.location { margin-top: 1.75rem; border-top: 1px solid var(--brand-line); padding-top: 1.5rem; }
+.location p { font-size: .95rem; margin: .5rem 0 0; }
+.visual { position: relative; min-width: 0; height: clamp(420px, 46vw, 590px); border-radius: 40% 40% 1.5rem 1.5rem; overflow: hidden; background: var(--brand-gold-soft); box-shadow: 15px 15px 0 #f5eddd; animation: arrive .8s .1s ease-out both; }
+.photo { object-fit: cover; }
+.caption { position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem; padding: 1rem 1.2rem; border: 1px solid #fff9; border-radius: 1rem; background: #fffffff0; }
+.caption p { margin: .35rem 0 0; color: var(--brand-purple); font-weight: 700; font-size: 1.2rem; }
+.footer { background: var(--brand-purple); color: #fff; padding-block: 2.5rem 1.5rem; border-top: 3px solid var(--brand-gold); }
+.footer > div { background: transparent !important; }
+.footer :is(p, a, button, strong) { color: #f5eff9 !important; }
+.footerTop { display: flex; justify-content: space-between; gap: 2rem; }
+.footerTop strong { color: #fff; font-size: 1.15rem; }
+.footerTop p { margin-top: .5rem; max-width: 36ch; font-size: .9rem; }
+.contacts { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; overflow-wrap: anywhere; }
+.company { border-top: 1px solid #ffffff30; margin-top: 1.5rem; padding-top: 1rem; font-size: .8rem; }
+.company:empty { display: none; }
+.company p { margin: .3rem 0; }
+.legal { display: flex; flex-wrap: wrap; gap: .7rem 1.4rem; margin-top: 1.5rem; font-size: .85rem; }
+.legal button { border: 0; padding: 0; background: none; font: inherit; cursor: pointer; }
+.footer a:hover, .legal button:hover { text-decoration: underline; text-underline-offset: 4px; }
+.copyright { font-size: .75rem; margin-top: 1.5rem; opacity: .8; }
+@keyframes arrive { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 800px) {
+  .landing { grid-template-columns: 1fr; gap: 2rem; }
+  .visual { height: 380px; max-width: 520px; width: calc(100% - 12px); justify-self: center; }
+  .footerTop { flex-direction: column; gap: 1.5rem; }
+}
+@media (max-width: 400px) {
+  .headerInner { gap: .75rem; }
+  .register { padding: .8rem 1rem; font-size: .85rem; min-width: 0; }
+  .announcement { font-size: .75rem; padding: .5rem .7rem; }
+  .visual { height: 320px; }
+}
+@media (prefers-reduced-motion: reduce) { .copy, .visual { animation: none; } }

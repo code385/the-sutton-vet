@@ -174,11 +174,11 @@ export type FaqItemDocument = {
   displayOrder?: number;
 };
 
-const contactPageQuery = groq`*[_type == "contactPage"][0]{..., quickLinks[], openCtas[], socialCards[]}`;
-const aboutPageQuery = groq`*[_type == "aboutPage"][0]`;
+const contactPageQuery = groq`*[_type == "contactPage"][0]{..., "heroImageUrl": coalesce(heroImage.asset->url, heroImageUrl), quickLinks[], openCtas[], socialCards[]}`;
+const aboutPageQuery = groq`*[_type == "aboutPage"][0]{..., "heroImageUrl": coalesce(heroImage.asset->url, heroImageUrl)}`;
 const faqPageQuery = groq`*[_type == "faqPage"][0]`;
 const firstVisitPageQuery = groq`*[_type == "firstVisitPage"][0]`;
-const teamPageQuery = groq`*[_type == "teamPage"][0]`;
+const teamPageQuery = groq`*[_type == "teamPage"][0]{..., "heroImageUrl": coalesce(heroImage.asset->url, heroImageUrl)}`;
 const blogPageQuery = groq`*[_type == "blogPage"][0]`;
 const faqItemsQuery = groq`*[_type == "faq"] | order(displayOrder asc, _createdAt asc){ _id, question, answer, category, displayOrder }`;
 const legalPageByTypeQuery = groq`

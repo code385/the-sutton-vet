@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { HomeReviews } from "@/components/reviews/HomeReviews";
+import type { Metadata } from "next";
+import { ComingSoon } from "@/components/launch/ComingSoon";
+import { TikTokFeed } from "@/components/home/TikTokFeed";
 import { getClientReviews } from "@/sanity/lib/reviews";
 
 import { Reveal } from "@/components/shared/Reveal";
@@ -46,9 +49,18 @@ const whyChoosePoints = [
   },
 ];
 
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = resolveSiteSettings(await getSiteSettingsDocument());
+  return settings.launchSettings.mode === "comingSoon"
+    ? { title: `${settings.launchSettings.openingLabel} | ${settings.practiceName}`, description: settings.launchSettings.description }
+    : { title: `${settings.practiceName} | Independent veterinary care in Sutton`, description: "Independent veterinary care in Sutton. Explore our services, register your pets and request an appointment." };
+}
+
 export default async function Home() {
-  const [siteSettingsDocument, homePage, cmsServices, reviews] = await Promise.all([getSiteSettingsDocument(), getHomePageDocument(), getServiceDocuments(), getClientReviews()]);
+  const siteSettingsDocument = await getSiteSettingsDocument();
   const siteSettings = resolveSiteSettings(siteSettingsDocument);
+  if (siteSettings.launchSettings.mode === "comingSoon") return <ComingSoon siteSettings={siteSettings} />;
+  const [homePage, cmsServices, reviews] = await Promise.all([getHomePageDocument(), getServiceDocuments(), getClientReviews()]);
   const selectedCmsServices = homeCardIds.map((id) => cmsServices.find((service) => service._id === id)).filter((service): service is NonNullable<typeof service> => Boolean(service));
   const homeCards = selectedCmsServices.length ? selectedCmsServices : fallbackHomeCards;
   const introParagraphs = homePage?.introParagraphs?.length ? homePage.introParagraphs : [
@@ -223,6 +235,7 @@ export default async function Home() {
         </Reveal>
       </section>
       <HomeReviews reviews={reviews} />
+      {siteSettings.tiktokFeed.enabled ? <TikTokFeed settings={siteSettings.tiktokFeed} /> : null}
     </>
   );
 }

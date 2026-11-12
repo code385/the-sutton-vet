@@ -1,6 +1,8 @@
 ﻿import { groq } from "next-sanity";
 
 import { siteConfig } from "@/lib/site";
+import { cache } from "react";
+import { resolveCompanyLines, resolveLaunchSettings, resolveTikTokSettings, type CompanyDetails, type LaunchSettings, type TikTokSettings } from "@/lib/launch";
 
 import { safeSanityFetch } from "./client";
 
@@ -45,6 +47,9 @@ type ChatSettings = {
 };
 
 export type SiteSettingsDocument = {
+  launchSettings?: LaunchSettings;
+  companyDetails?: CompanyDetails;
+  tiktokFeed?: TikTokSettings;
   practiceName?: string;
   shortName?: string;
   tagline?: string;
@@ -79,6 +84,9 @@ export type SiteSettingsDocument = {
 };
 
 export type ResolvedSiteSettings = {
+  launchSettings: ReturnType<typeof resolveLaunchSettings>;
+  companyLines: string[];
+  tiktokFeed: ReturnType<typeof resolveTikTokSettings>;
   practiceName: string;
   shortName: string;
   tagline: string;
@@ -139,6 +147,9 @@ export type ResolvedSiteSettings = {
 
 const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0]{
+    "launchSettings": launchSettings{..., "imageUrl": image.asset->url},
+    companyDetails,
+    tiktokFeed,
     practiceName,
     shortName,
     tagline,
@@ -169,11 +180,11 @@ const siteSettingsQuery = groq`
   }
 `;
 
-export async function getSiteSettingsDocument() {
+export const getSiteSettingsDocument = cache(async function getSiteSettingsDocument() {
   return safeSanityFetch<SiteSettingsDocument | null>(siteSettingsQuery, undefined, null, {
     cache: "no-store", perspective: "published",
   });
-}
+});
 
 function cleanPhoneNumber(value: string) {
   return value.replace(/[^\d+]/g, "");
@@ -264,14 +275,17 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
   const fallbackChat = fallbackChatSettings();
 
   return {
+    launchSettings: resolveLaunchSettings(document?.launchSettings),
+    companyLines: resolveCompanyLines(document?.companyDetails, document?.practiceName || siteConfig.name),
+    tiktokFeed: resolveTikTokSettings(document?.tiktokFeed),
     practiceName: document?.practiceName || siteConfig.name,
     shortName: document?.shortName || siteConfig.shortName,
     tagline: document?.tagline || siteConfig.tagline,
     footerTagline: document?.footerTagline || siteConfig.tagline,
     topbarNote: document?.topbarNote || siteConfig.topbarNote,
-    phone: canonicalContactDetails.phone,
-    emergencyPhone: canonicalContactDetails.phone,
-    email: canonicalContactDetails.email,
+    phone: document?.phone?.trim() || canonicalContactDetails.phone,
+    emergencyPhone: document?.emergencyPhone?.trim() || document?.phone?.trim() || canonicalContactDetails.phone,
+    email: document?.email?.trim() || canonicalContactDetails.email,
     address: document?.address || siteConfig.address,
     openingHours:
       document?.openingHours?.filter((item) => item?.day && item?.hours).length
@@ -357,8 +371,8 @@ export function resolveSiteSettings(document?: SiteSettingsDocument | null): Res
       registerLabel: document?.headerCtas?.registerLabel || "Register Now",
     },
     ctas: {
-      call: buildTelHref(canonicalContactDetails.phone),
-      emergency: buildTelHref(canonicalContactDetails.phone),
+      call: buildTelHref(document?.phone?.trim() || canonicalContactDetails.phone),
+      emergency: buildTelHref(document?.emergencyPhone?.trim() || document?.phone?.trim() || canonicalContactDetails.phone),
       book: siteConfig.ctas.book,
       register: resolvePmsUrl(document?.lupaRegistrationUrl, siteConfig.ctas.register),
       healthPlan: resolvePmsUrl(document?.healthPlanUrl, siteConfig.ctas.healthPlan),
